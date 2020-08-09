@@ -9,7 +9,7 @@ namespace JocysCom.ClassLibrary.Win32
 	/// c:\Program Files\Microsoft SDKs\Windows\v7.1\Include\cfg.h
 	/// </summary>
 	[Flags]
-	public enum DeviceNodeStatus : uint
+	public enum DeviceNodeStatus: uint
 	{
 		/// <summary>Was enumerated by ROOT <summary>
 		DN_ROOT_ENUMERATED = 0x00000001,
@@ -21,13 +21,13 @@ namespace JocysCom.ClassLibrary.Win32
 		DN_STARTED = 0x00000008,
 		/// <summary>Manually installed </summary>
 		DN_MANUAL = 0x00000010,
-		/// <summary>May need re-enumeration </summary>
+		/// <summary>May need reenumeration </summary>
 		DN_NEED_TO_ENUM = 0x00000020,
 		/// <summary>Has received a config </summary>
 		DN_NOT_FIRST_TIME = 0x00000040,
 		/// <summary>Enum generates hardware ID </summary>
 		DN_HARDWARE_ENUM = 0x00000080,
-		/// <summary>Lied about can reconfigure once </summary>
+		/// <summary>Lied about can reconfig once </summary>
 		DN_LIAR = 0x00000100,
 		/// <summary>Not CM_Create_DevInst lately </summary>
 		DN_HAS_MARK = 0x00000200,
@@ -73,7 +73,7 @@ namespace JocysCom.ClassLibrary.Win32
 		DN_SILENT_INSTALL = 0x20000000,
 		/// <summary>S: No show in device manager </summary>
 		DN_NO_SHOW_IN_DM = 0x40000000,
-		/// <summary>S: Had a problem during pre-assignment of boot log conf </summary>
+		/// <summary>S: Had a problem during preassignment of boot log conf </summary>
 		DN_BOOT_LOG_PROB = 0x80000000,
 	}
 }

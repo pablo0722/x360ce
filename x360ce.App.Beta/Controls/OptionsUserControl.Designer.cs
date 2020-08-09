@@ -643,6 +643,16 @@
 			this.RemotePortLabel.TabIndex = 32;
 			this.RemotePortLabel.Text = "UDP Server Port";
 			// 
+			// LocalPortLabel
+			// 
+			this.RemotePortLabel.AutoSize = true;
+			this.RemotePortLabel.BackColor = System.Drawing.SystemColors.Control;
+			this.RemotePortLabel.Location = new System.Drawing.Point (6, 158);
+			this.RemotePortLabel.Name = "LocalPortLabel";
+			this.RemotePortLabel.Size = new System.Drawing.Size (86, 13);
+			this.RemotePortLabel.TabIndex = 32;
+			this.RemotePortLabel.Text = "UDP Server Port";
+			// 
 			// RemotePasswordLabel
 			// 
 			this.RemotePasswordLabel.AutoSize = true;

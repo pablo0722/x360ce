@@ -11,9 +11,6 @@ using System.Linq;
 using x360ce.Engine.Data;
 using x360ce.Engine;
 using System.Text.RegularExpressions;
-using JocysCom.ClassLibrary.Runtime;
-using JocysCom.ClassLibrary.Web.Services;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App.Controls
 {
@@ -22,7 +19,7 @@ namespace x360ce.App.Controls
 		public ControllerSettingsUserControl()
 		{
 			InitializeComponent();
-			MapToAutoMenuItem.Tag = MapTo.None;
+			MapToAutoMenuItem.Tag = MapTo.Auto;
 			MapToController1MenuItem.Tag = MapTo.Controller1;
 			MapToController2MenuItem.Tag = MapTo.Controller2;
 			MapToController3MenuItem.Tag = MapTo.Controller3;
@@ -256,7 +253,7 @@ namespace x360ce.App.Controls
 			UpdateActionButtons();
 		}
 
-		UserSetting CurrentSetting;
+		Setting CurrentSetting;
 
 		bool refreshed = false;
 
@@ -277,7 +274,7 @@ namespace x360ce.App.Controls
 			MyDevicesDataGridView.Refresh();
 		}
 
-		bool ContainsSetting(UserSetting setting)
+		bool ContainsSetting(Setting setting)
 		{
 
 			for (int i = 0; i < SettingManager.Settings.Items.Count; i++)
@@ -293,9 +290,9 @@ namespace x360ce.App.Controls
 
 		#region Web Services
 
-		UserSetting GetCurrentSetting()
+		Setting GetCurrentSetting()
 		{
-			var s = new UserSetting();
+			var s = new Setting();
 			if (ControllerComboBox.SelectedIndex > -1)
 			{
 				if (_devices[ControllerComboBox.SelectedIndex] != null)
@@ -318,7 +315,7 @@ namespace x360ce.App.Controls
 			return s;
 		}
 
-		void ws_SaveSettingCompleted(object sender, SoapHttpClientEventArgs e)
+		void ws_SaveSettingCompleted(object sender, ResultEventArgs e)
 		{
 			if (e.Error != null)
 			{
@@ -338,7 +335,7 @@ namespace x360ce.App.Controls
 			RefreshGrid(false);
 		}
 
-		void ws_DeleteSettingCompleted(object sender, SoapHttpClientEventArgs e)
+		void ws_DeleteSettingCompleted(object sender, ResultEventArgs e)
 		{
 			if (e.Error != null)
 			{
@@ -415,7 +412,7 @@ namespace x360ce.App.Controls
 			ws.LoadSettingAsync(new Guid[] { padSettingChecksum });
 		}
 
-		void ws_LoadSettingCompleted(object sender, SoapHttpClientEventArgs e)
+		void ws_LoadSettingCompleted(object sender, ResultEventArgs e)
 		{
 			var result = (SearchResult)e.Result;
 			if (result.PadSettings.Length == 0)
@@ -440,17 +437,17 @@ namespace x360ce.App.Controls
 			}
 		}
 
-		void ws_SearchSettingsCompleted(object sender, SoapHttpClientEventArgs e)
+		void ws_SearchSettingsCompleted(object sender, ResultEventArgs e)
 		{
 			var ws = (WebServiceClient)sender;
 			ws.SearchSettingsCompleted -= ws_SearchSettingsCompleted;
-            // Make sure method is executed on the same thread as this control.
-            ControlsHelper.BeginInvoke(() =>
-            {
-                refreshed = true;
+			// Make sure method is executed on the same thread as this control.
+			BeginInvoke((MethodInvoker)delegate ()
+			{
+				refreshed = true;
 				if (e.Error != null || e.Result == null)
 				{
-					UpdateList(new List<UserSetting>(), SettingManager.Settings.Items);
+					UpdateList(new List<Setting>(), SettingManager.Settings.Items);
 					UpdateList(new List<Summary>(), SettingManager.Summaries.Items);
 					if ((bool)e.UserState)
 					{
@@ -486,25 +483,24 @@ namespace x360ce.App.Controls
 
 		#region Settings Grid
 
-		UserSetting SettingSelection;
+		Setting SettingSelection;
 
 		Color currentColor = System.Drawing.Color.FromArgb(255, 191, 210, 249);
 
 		void SettingsDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			var grid = (DataGridView)sender;
-			var setting = ((UserSetting)grid.Rows[e.RowIndex].DataBoundItem);
-			var column = grid.Columns[e.ColumnIndex];
+			var setting = ((Setting)grid.Rows[e.RowIndex].DataBoundItem);
 			var isCurrent = setting.InstanceGuid == CurrentSetting.InstanceGuid && setting.FileName == CurrentSetting.FileName && setting.FileProductName == CurrentSetting.FileProductName;
-			if (column == MySidColumn)
+			if (e.ColumnIndex == grid.Columns[MySidColumn.Name].Index)
 			{
 				UpdateCellStyle(grid, e, SettingSelection == null ? null : (Guid?)SettingSelection.PadSettingChecksum);
 			}
-			else if (column == MapToColumn)
+			else if (e.ColumnIndex == grid.Columns[MapToColumn.Name].Index)
 			{
-				e.Value = Attributes.GetDescription((MapTo)setting.MapTo);
+				e.Value = JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription((MapTo)setting.MapTo);
 			}
-			else if (column == MyIconColumn)
+			else if (e.ColumnIndex == grid.Columns[MyIconColumn.Name].Index)
 			{
 				e.Value = isCurrent ? MySettingsSaveButton.Image : Properties.Resources.empty_16x16;
 			}
@@ -519,7 +515,7 @@ namespace x360ce.App.Controls
 		{
 			var grid = (DataGridView)sender;
 			var rows = grid.SelectedRows;
-            SettingSelection = rows.Count == 0 ? null : (UserSetting)rows[0].DataBoundItem;
+            SettingSelection = rows.Count == 0 ? null : (Setting)rows[0].DataBoundItem;
 			CommentSelectedTextBox.Text = rows.Count == 0 ? "" : SettingSelection.Comment;
 			UpdateActionButtons();
 			grid.Refresh();
@@ -534,8 +530,7 @@ namespace x360ce.App.Controls
 		void SummariesDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			var grid = (DataGridView)sender;
-			var column = grid.Columns[e.ColumnIndex];
-			if (column == SidColumn)
+			if (e.ColumnIndex == grid.Columns[SidColumn.Name].Index)
 			{
 				UpdateCellStyle(grid, e, SummariesSelection == null ? null : (Guid?)SummariesSelection.PadSettingChecksum);
 			}
@@ -635,7 +630,7 @@ namespace x360ce.App.Controls
 		private void MySettingsSaveButton_Click(object sender, EventArgs e)
 		{
 			mainForm.LoadingCircle = true;
-			var s = new UserSetting();
+			var s = new Setting();
 			var di = _devices[ControllerComboBox.SelectedIndex];
 			s.Comment = CommentTextBox.Text;
 			s.InstanceGuid = di.InstanceGuid;
@@ -671,7 +666,7 @@ namespace x360ce.App.Controls
 			if (result == DialogResult.Yes)
 			{
 				mainForm.LoadingCircle = true;
-				var setting = (UserSetting)MyDevicesDataGridView.SelectedRows[0].DataBoundItem;
+				var setting = (Setting)MyDevicesDataGridView.SelectedRows[0].DataBoundItem;
 				var ws = new WebServiceClient();
 				ws.Url = MainForm.Current.OptionsPanel.InternetDatabaseUrlComboBox.Text;
 				ws.DeleteSettingCompleted += ws_DeleteSettingCompleted;
@@ -686,7 +681,7 @@ namespace x360ce.App.Controls
 			var name = ((KeyValuePair)ControllerComboBox.SelectedItem).Key;
 			if (MyDevicesDataGridView.SelectedRows.Count == 0) return;
 			var title = "Load My Setting?";
-			var setting = (UserSetting)MyDevicesDataGridView.SelectedRows[0].DataBoundItem;
+			var setting = (Setting)MyDevicesDataGridView.SelectedRows[0].DataBoundItem;
 			var message = "Do you want to load My Setting:";
 			message += "\r\n\r\n    " + setting.ProductName;
 			if (!string.IsNullOrEmpty(setting.FileName)) message += " | " + setting.FileName;
@@ -796,14 +791,14 @@ namespace x360ce.App.Controls
 			});
 		}
 
-		void wsPresets_SearchSettingsCompleted(object sender, SoapHttpClientEventArgs e)
+		void wsPresets_SearchSettingsCompleted(object sender, ResultEventArgs e)
 		{
 			var ws = (WebServiceClient)sender;
 			ws.SearchSettingsCompleted -= wsPresets_SearchSettingsCompleted;
-            // Make sure method is executed on the same thread as this control.
-            ControlsHelper.BeginInvoke(() =>
-            {
-                refreshed = true;
+			// Make sure method is executed on the same thread as this control.
+			BeginInvoke((MethodInvoker)delegate ()
+			{
+				refreshed = true;
 				if (e.Error != null || e.Result == null)
 				{
 					var showResult = (bool)e.UserState;
@@ -833,7 +828,7 @@ namespace x360ce.App.Controls
 		private void MapToMenuItem_Click(object sender, EventArgs e)
 		{
 			var v = (MapTo)((ToolStripMenuItem)sender).Tag;
-			var items = MyDevicesDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(x=>(UserSetting)x.DataBoundItem).ToArray();
+			var items = MyDevicesDataGridView.SelectedRows.Cast<DataGridViewRow>().Select(x=>(Setting)x.DataBoundItem).ToArray();
 			foreach (var item in items)
 			{
 				item.MapTo = (int)v;

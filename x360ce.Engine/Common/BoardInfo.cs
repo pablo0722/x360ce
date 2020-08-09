@@ -2,6 +2,9 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+	using System.Management;
 	using System.Runtime.InteropServices;
 	using Microsoft.Win32.SafeHandles;
 	using System.ComponentModel;
@@ -10,8 +13,9 @@
 	{
 
 		static string _DiskId;
-		static readonly object HashedDiskIdLock = new object();
-		static readonly object DiskIdLock = new object();
+		static Guid? _HashedDiskId;
+		static object HashedDiskIdLock = new object();
+		static object DiskIdLock = new object();
 
 		/// <summary>
 		/// Get manufacturer-allocated number used to identify the physical element.
@@ -40,15 +44,19 @@
 		/// <summary>
 		/// This anonymous guid will be used as link betwen disk and game settings on online database.
 		/// </summary>
-		public static Guid GetHashedDiskId(string diskId)
+		public static Guid GetHashedDiskId()
 		{
-			if (string.IsNullOrEmpty(diskId))
-				return Guid.Empty;
-			var serialBytes = System.Text.Encoding.ASCII.GetBytes(diskId);
-			var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-			byte[] retVal = md5.ComputeHash(serialBytes);
-			md5.Dispose();
-			return new Guid(retVal);
+			lock (HashedDiskIdLock)
+			{
+				if (_HashedDiskId.HasValue) return _HashedDiskId.Value;
+				var diskId = GetDiskId();
+				if (string.IsNullOrEmpty(diskId)) return Guid.Empty;
+				var serialBytes = System.Text.Encoding.ASCII.GetBytes(diskId);
+				var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+				byte[] retVal = md5.ComputeHash(serialBytes);
+				_HashedDiskId = new Guid(retVal);
+			}
+			return _HashedDiskId.Value;
 		}
 
 		[DllImport("kernel32.dll", SetLastError = true)]

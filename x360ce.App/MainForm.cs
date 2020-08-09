@@ -10,11 +10,10 @@ using System.Security.AccessControl;
 using System.Windows.Forms;
 using x360ce.App.Controls;
 using x360ce.Engine;
+using x360ce.Engine.Win32;
 using x360ce.App.Properties;
 using System.ComponentModel;
 using JocysCom.ClassLibrary.IO;
-using JocysCom.ClassLibrary.Win32;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App
 {
@@ -22,7 +21,6 @@ namespace x360ce.App
 	{
 		public MainForm()
 		{
-            ControlsHelper.InitInvokeContext();
 			InitializeComponent();
 		}
 
@@ -118,7 +116,7 @@ namespace x360ce.App
 			return distinctItems;
 		}
 
-		IList<Engine.Data.UserGame> Games_FilterList(IList<Engine.Data.UserGame> items)
+		IList<Engine.Data.Game> Games_FilterList(IList<Engine.Data.Game> items)
 		{
 			// Make sure default settings have unique by file name.
 			var distinctItems = items
@@ -132,8 +130,7 @@ namespace x360ce.App
 			if (appItem == null)
 			{
 				// Add x360ce.exe
-				var scanner = new XInputMaskScanner();
-				var item = scanner.FromDisk(appFile.Name);
+				var item = x360ce.Engine.Data.Game.FromDisk(appFile.Name);
 				var program = SettingManager.Programs.Items.FirstOrDefault(x => x.FileName.ToLower() == appFile.Name.ToLower());
 				item.LoadDefault(program);
 				distinctItems.Add(item);
@@ -155,7 +152,17 @@ namespace x360ce.App
 			}
 		}
 
-		internal bool IsDesignMode { get { return JocysCom.ClassLibrary.Controls.ControlsHelper.IsDesignMode(this); } }
+		internal bool IsDesignMode
+		{
+			get
+			{
+				if (DesignMode) return true;
+				if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return true;
+				var pa = this.ParentForm;
+				if (pa != null && pa.GetType().FullName.Contains("VisualStudio")) return true;
+				return false;
+			}
+		}
 
 		void detector_DeviceChanged(object sender, DeviceDetectorEventArgs e)
 		{
@@ -274,7 +281,7 @@ namespace x360ce.App
 			var prefix = Path.GetFileNameWithoutExtension(SettingManager.IniFileName);
 			var ext = Path.GetExtension(SettingManager.IniFileName);
 			string resourceName = string.Format("{0}.{1}{2}", prefix, name, ext);
-			var resource = EngineHelper.GetResourceStream("Presets." + resourceName);
+			var resource = EngineHelper.GetResource("Presets." + resourceName);
 			// If internal preset was found.
 			if (resource != null)
 			{
@@ -435,6 +442,8 @@ namespace x360ce.App
 
 		#endregion
 
+		public static object XInputLock = new object();
+
 		void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Program.IsClosing = true;
@@ -442,29 +451,26 @@ namespace x360ce.App
 			// Disable force feedback effect before closing app.
 			try
 			{
-				lock (Controller.XInputLock)
+				lock (XInputLock)
 				{
 					for (int i = 0; i < 4; i++)
 					{
-						//if (ControlPads[i].LeftMotorTestTrackBar.Value > 0 || ControlPads[i].RightMotorTestTrackBar.Value > 0)
-						//{
-						var gamePad = GamePads[i];
-						if (Controller.IsLoaded && gamePad.IsConnected)
+						if (ControlPads[i].LeftMotorTestTrackBar.Value > 0 || ControlPads[i].RightMotorTestTrackBar.Value > 0)
 						{
-							// Disable force feedback.
-							ControlPads[i].TestEnabled = false;
-							gamePad.SetVibration(new Vibration());
+							var gamePad = GamePads[i];
+							if (XInput.IsLoaded && gamePad.IsConnected)
+							{
+								gamePad.SetVibration(new Vibration());
+							}
 						}
-						//}
 
 					}
-					//BeginInvoke((Action)delegate()
+					//BeginInvoke((MethodInvoker)delegate()
 					//{
 					//	XInput.FreeLibrary();    
 					//});
 				}
-				// Logical delay without blocking the current thread.
-				System.Threading.Tasks.Task.Delay(100).Wait();
+				System.Threading.Thread.Sleep(100);
 			}
 			catch (Exception) { }
 			var tmp = new FileInfo(SettingManager.TmpFileName);
@@ -482,7 +488,7 @@ namespace x360ce.App
 				}
 				if (changed)
 				{
-					var form = new JocysCom.ClassLibrary.Controls.MessageBoxForm();
+					var form = new MessageBoxForm();
 					form.StartPosition = FormStartPosition.CenterParent;
 					var result = form.ShowForm(
 					"Do you want to save changes you made to configuration?",
@@ -651,7 +657,7 @@ namespace x360ce.App
 						var classGuid = j.Properties.ClassGuid;
 						var interfacePath = j.Properties.InterfacePath;
 						// Must find better way to find Device than by Vendor ID and Product ID.
-						var devs = DeviceDetector.GetDevices(classGuid, DIGCF.DIGCF_ALLCLASSES, null, j.Properties.VendorId, j.Properties.ProductId, 0);
+						var devs = DeviceDetector.GetDevices(classGuid, JocysCom.ClassLibrary.Win32.DIGCF.DIGCF_ALLCLASSES, null, j.Properties.VendorId, j.Properties.ProductId, 0);
 						diInfos[i] = devs.FirstOrDefault();
 					}
 				}
@@ -830,17 +836,13 @@ namespace x360ce.App
 					var xiOn = false;
 					State currentPad = emptyState;
 					var currentPadControl = ControlPads[i];
-					lock (Controller.XInputLock)
+					lock (XInputLock)
 					{
 						var gamePad = GamePads[i];
-						if (Controller.IsLoaded)
+						if (XInput.IsLoaded && gamePad.IsConnected)
 						{
-							State state;
-							if (gamePad.GetState(out state))
-							{
-								currentPad = state;
-								xiOn = true;
-							}
+							currentPad = gamePad.GetState();
+							xiOn = true;
 						}
 					}
 					currentPadControl.UpdateFromXInput(currentPad, xiOn);
@@ -872,21 +874,21 @@ namespace x360ce.App
 				var dllVersion = EngineHelper.GetDllVersion(dllInfo.FullName, out byMicrosoft);
 				StatusDllLabel.Text = dllInfo.Name + " " + dllVersion.ToString() + (byMicrosoft ? " (Microsoft)" : "");
 				// If fast reload of settings is supported then...
-				lock (Controller.XInputLock)
+				lock (XInputLock)
 				{
-					if (Controller.IsResetSupported)
+					if (XInput.IsResetSupported)
 					{
-						Controller.Reset();
+						XInput.Reset();
 					}
 					// Slow: Reload whole x360ce.dll.
 					Exception error;
 					//forceRecountDevices = true;
-					Controller.ReLoadLibrary(dllInfo.FullName, out error);
-					if (!Controller.IsLoaded)
+					XInput.ReLoadLibrary(dllInfo.Name, out error);
+					if (!XInput.IsLoaded)
 					{
-						var caption = string.Format("Failed to load '{0}'", dllInfo.FullName);
+						var caption = string.Format("Failed to load '{0}'", dllInfo.Name);
 						var text = string.Format("{0}", error == null ? "Unknown error" : error.Message);
-						var form = new JocysCom.ClassLibrary.Controls.MessageBoxForm();
+						var form = new MessageBoxForm();
 						form.StartPosition = FormStartPosition.CenterParent;
 						form.ShowForm(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
@@ -922,7 +924,7 @@ namespace x360ce.App
 			{
 				// Move this here so interface will load one second faster.
 				HelpInit = true;
-				var stream = EngineHelper.GetResourceStream("Documents.Help.htm");
+				var stream = EngineHelper.GetResource("Documents.Help.htm");
 				var sr = new StreamReader(stream);
 				NameValueCollection list = new NameValueCollection();
 				list.Add("font-name-default", "'Microsoft Sans Serif'");
@@ -941,6 +943,14 @@ namespace x360ce.App
 				}
 			}
 			UpdateHelpHeader();
+		}
+
+		public void XInputEnable(bool enable)
+		{
+			lock (XInputLock)
+			{
+				XInput.XInputEnable(enable);
+			}
 		}
 
 		#region Help Header
@@ -1012,7 +1022,7 @@ namespace x360ce.App
 		{
 			if (destinationFileName == null) destinationFileName = resourceName;
 			DialogResult answer;
-			var form = new JocysCom.ClassLibrary.Controls.MessageBoxForm();
+			var form = new MessageBoxForm();
 			form.StartPosition = FormStartPosition.CenterParent;
 			var oldDesc = EngineHelper.GetProcessorArchitectureDescription(oldArchitecture);
 			var newDesc = EngineHelper.GetProcessorArchitectureDescription(newArchitecture);
@@ -1032,7 +1042,7 @@ namespace x360ce.App
 		{
 			if (destinationFileName == null) destinationFileName = resourceName;
 			DialogResult answer;
-			var form = new Controls.MessageBoxForm();
+			var form = new MessageBoxForm();
 			form.StartPosition = FormStartPosition.CenterParent;
 			var fileName = new FileInfo(destinationFileName).FullName;
 			if (newVersion == null)
@@ -1167,16 +1177,7 @@ namespace x360ce.App
 		{
 			if (disposing && (components != null))
 			{
-				if (_Mutex != null)
-				{
-					_Mutex.Dispose();
-					_Mutex = null;
-				}
-				if (detector != null)
-				{
-					detector.Dispose();
-					detector = null;
-				}
+				if (_Mutex != null) _Mutex.Dispose();
 				Manager.Dispose();
 				Manager = null;
 				components.Dispose();

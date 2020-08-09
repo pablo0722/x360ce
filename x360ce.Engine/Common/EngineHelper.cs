@@ -10,8 +10,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using System.Runtime.Serialization;
-using JocysCom.ClassLibrary.Runtime;
 
 namespace x360ce.Engine
 {
@@ -19,124 +17,34 @@ namespace x360ce.Engine
 	{
 		#region Manipulate XInput DLL
 
-		public static string AppDataPath
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(_AppDataPath))
-				{
-					// Apply default path.
-					_AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\X360CE";
-					var fi = new FileInfo(".\\x360ce\\x360ce.Options.xml");
-					// If local configuration was found then use it.
-					if (fi.Exists)
-					{
-						_AppDataPath = fi.Directory.FullName;
-					}
-					else
-					{
-						var args = Environment.GetCommandLineArgs();
-						// Requires System.Configuration.Installl reference.
-						var ic = new System.Configuration.Install.InstallContext(null, args);
-						if (ic.Parameters.ContainsKey("Profile"))
-						{
-							var name = ic.Parameters["Profile"].Trim(' ', '"', '\'');
-							if (string.IsNullOrEmpty(name))
-							{
-								// Name is invalid.
-							}
-							else
-							{
-								var path = Environment.ExpandEnvironmentVariables(name);
-								// Get invalid path and file name chars.
-								var ipc = Path.GetInvalidPathChars();
-								var ifc = Path.GetInvalidFileNameChars();
-								// If path is valid file name then...
-								if (!name.ToCharArray().Any(x => ifc.Contains(x)))
-								{
-									// Use Profiles sub-folder.
-									_AppDataPath += "\\Profiles\\" + name;
-								}
-								// If name is valid path then...
-								else if (!name.ToCharArray().Any(x => ipc.Contains(x)))
-								{
-									var di = new DirectoryInfo(path);
-									path = di.FullName;
-									var winFolder = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-									// If path is not inside windows folder then...
-									if (!path.StartsWith(winFolder, StringComparison.OrdinalIgnoreCase))
-									{
-										_AppDataPath = path;
-									}
-								}
-							}
-						}
-					}
-				}
-				return _AppDataPath;
-			}
-			set
-			{
-				_AppDataPath = value;
-			}
-		}
-		static string _AppDataPath;
-
 		/// <summary>
 		/// Get information about XInput located on the disk.
 		/// </summary>
 		/// <returns></returns>
-		public static FileInfo GetDefaultDll(bool useMicrosoft = false)
+		public static FileInfo GetDefaultDll()
 		{
+			// Get XInput values.
+			var values = Enum.GetValues(typeof(XInputMask)).Cast<XInputMask>().Where(x => x != XInputMask.None);
+			// Get unique file names.
+			var fileNames = values.Select(x => JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription(x)).Distinct();
+			// Get information about XInput files located on the disk.
+			var infos = fileNames.Select(x => new FileInfo(x)).Where(x => x.Exists).ToArray();
 			FileInfo defaultDll = null;
-			if (!useMicrosoft)
+			Version defaultVer = null;
+			foreach (var info in infos)
 			{
-				// Get XInput values.
-				var values = Enum.GetValues(typeof(XInputMask)).Cast<XInputMask>().Where(x => x != XInputMask.None);
-				// Get unique file names.
-				var fileNames = values.Select(x => Attributes.GetDescription(x)).Distinct();
-				// Get information about XInput files located on the disk.
-				var infos = fileNames.Select(x => new FileInfo(x)).Where(x => x.Exists).ToArray();
-				Version defaultVer = null;
-				foreach (var info in infos)
-				{
-					var vi = FileVersionInfo.GetVersionInfo(info.FullName);
-					var ver = new Version(vi.FileMajorPart, vi.FileMinorPart, vi.FileBuildPart, vi.FilePrivatePart);
-					// if first time in the loop of file with newer version was found then...
-					if (defaultDll == null || ver > defaultVer)
-					{
-						// Pick file.
-						defaultDll = info;
-						defaultVer = ver;
-					}
-				}
-			}
-			// If custom XInput DLL was not found then...
-			if (defaultDll == null)
-			{
-				var info = GetMsXInputLocation();
 				var vi = FileVersionInfo.GetVersionInfo(info.FullName);
 				var ver = new Version(vi.FileMajorPart, vi.FileMinorPart, vi.FileBuildPart, vi.FilePrivatePart);
-				defaultDll = info;
+				// if first time in the loop of file with newer version was found then...
+				if (defaultDll == null || ver > defaultVer)
+				{
+					// Pick file.
+					defaultDll = info;
+					defaultVer = ver;
+				}
 			}
 			// Return newest file.
 			return defaultDll;
-		}
-
-		/// <summary>
-		/// Get path to Microsoft's XInput library.
-		/// </summary>
-		/// <returns></returns>
-		public static FileInfo GetMsXInputLocation()
-		{
-			// If this is 32 bit process on 64-bit OS then
-			var sp = !Environment.Is64BitProcess && Environment.Is64BitOperatingSystem
-				? Environment.SpecialFolder.SystemX86
-				: Environment.SpecialFolder.System;
-			var sysFolder = System.Environment.GetFolderPath(sp);
-			var msx = System.IO.Path.Combine(sysFolder, "xinput1_3.dll");
-			var info = new FileInfo(msx);
-			return info;
 		}
 
 		public static Guid GetFileChecksum(string fileName)
@@ -156,7 +64,7 @@ namespace x360ce.Engine
 			var list = new List<FileInfo>();
 			foreach (var fullName in fullNames)
 			{
-				// Don't add x360ce Application.
+				// Don't add x360ce App.
 				if (fullName.EndsWith("\\x360ce.exe")) continue;
 				var program = x360ce.Engine.Data.Program.FromDisk(fullName);
 				if (program != null) programs.Add(program);
@@ -166,48 +74,29 @@ namespace x360ce.Engine
 
 		public static string GetXInputResoureceName(ProcessorArchitecture architecture = ProcessorArchitecture.None)
 		{
-			return GetResourcePath("xinput.dll");
-		}
-
-		/// <summary>
-		/// Get 32-bit or 64-bit resource depending on x360ce.exe platform.
-		/// </summary>
-		public static Stream GetResourceStream(string name)
-		{
-			var path = GetResourcePath(name);
-			if (path == null)
-				return null;
 			var assembly = Assembly.GetEntryAssembly();
-			var sr = assembly.GetManifestResourceStream(path);
-			return sr;
+			if (architecture == ProcessorArchitecture.None)
+			{
+				architecture = assembly.GetName().ProcessorArchitecture;
+			}
+			// There must be an easier way to check embedded non managed DLL version.
+			var paString = "";
+			if (architecture == ProcessorArchitecture.Amd64) paString = "_x64";
+			if (architecture == ProcessorArchitecture.X86) paString = "_x86";
+			var name = string.Format("xinput{0}.dll", paString);
+			var names = assembly.GetManifestResourceNames();
+			var resourceName = names.FirstOrDefault(x => x.EndsWith(name));
+			return resourceName;
 		}
 
-		public static byte[] GetResourceBytes(string name)
-		{
-			var sr = GetResourceStream(name);
-			if (sr == null)
-				return null;
-			byte[] bytes = new byte[sr.Length];
-			sr.Read(bytes, 0, bytes.Length);
-			sr.Dispose();
-			return bytes;
-		}
-
-		/// <summary>
-		/// Get 32-bit or 64-bit resource depending on x360ce.exe platform.
-		/// </summary>
-		public static string GetResourcePath(string name)
+		public static Stream GetResource(string name)
 		{
 			var assembly = Assembly.GetEntryAssembly();
-			var names = assembly.GetManifestResourceNames()
-				.Where(x => x.EndsWith(name));
-			var a = Environment.Is64BitProcess ? ".x64." : ".x86.";
-			// Try to get by architecture first.
-			var path = names.FirstOrDefault(x => x.Contains(a));
-			if (!string.IsNullOrEmpty(path))
-				return path;
-			// Return first found.
-			return names.FirstOrDefault();
+			foreach (var key in assembly.GetManifestResourceNames())
+			{
+				if (key.Contains(name)) return assembly.GetManifestResourceStream(key);
+			}
+			return null;
 		}
 
 		public static Dictionary<ProcessorArchitecture, Version> _embededVersions;
@@ -262,29 +151,22 @@ namespace x360ce.Engine
 			return new Version(0, 0, 0, 0);
 		}
 
-		public static bool? IsCustomLibrarry(string fileName)
-		{
-			var fi = new FileInfo(fileName);
-			if (!fi.Exists)
-				return null;
-			var vi = FileVersionInfo.GetVersionInfo(fi.FullName);
-			if (string.IsNullOrEmpty(vi.InternalName))
-				return false;
-			return string.Compare(vi.InternalName, "X360CE", true) == 0;
-		}
-
 		#endregion
 
-		public static void CopyProperties<T>(T source, T dest)
+		public static void OpenUrl(string url)
 		{
-			Type t = typeof(T);
-			var pis = t.GetProperties().Where(p => Attribute.IsDefined(p, typeof(DataMemberAttribute))).ToArray();
-			foreach (PropertyInfo pi in pis)
+			try
 			{
-				if (pi.CanWrite && pi.CanRead)
-				{
-					pi.SetValue(dest, pi.GetValue(source, null), null);
-				}
+				System.Diagnostics.Process.Start(url);
+			}
+			catch (System.ComponentModel.Win32Exception noBrowser)
+			{
+				if (noBrowser.ErrorCode == -2147467259)
+					MessageBox.Show(noBrowser.Message);
+			}
+			catch (System.Exception other)
+			{
+				MessageBox.Show(other.Message);
 			}
 		}
 
@@ -321,7 +203,7 @@ namespace x360ce.Engine
 				var isDirectory = attributes.HasFlag(FileAttributes.Directory);
 				if (isDirectory)
 				{
-					JocysCom.ClassLibrary.Controls.ControlsHelper.OpenPath(fixedPath);
+					OpenPath(fixedPath);
 				}
 				else
 				{
@@ -336,41 +218,24 @@ namespace x360ce.Engine
 
 		}
 
-		public static string[] GetFiles(string path, string searchPattern, bool allDirectories = false)
-		{
-			var dir = new DirectoryInfo(path);
-			var fis = new List<FileInfo>();
-			GetFiles(dir, ref fis, searchPattern, false);
-			return fis.Select(x => x.FullName).ToArray();
-		}
-
-		public static void GetFiles(DirectoryInfo di, ref List<FileInfo> fileList, string searchPattern, bool allDirectories)
+		/// <summary>
+		/// Open file with associated program.
+		/// </summary>
+		/// <param name="path">file to open.</param>
+		public static void OpenPath(string path, string arguments = null)
 		{
 			try
 			{
-				if (allDirectories)
-				{
-					foreach (DirectoryInfo subDi in di.GetDirectories())
-					{
-						GetFiles(subDi, ref fileList, searchPattern, allDirectories);
-					}
-				}
+				var fi = new FileInfo(path);
+				// Brings up the "Windows cannot open this file" dialog if association not found.
+				var psi = new ProcessStartInfo(path);
+				psi.UseShellExecute = true;
+				psi.WorkingDirectory = fi.Directory.FullName;
+				psi.ErrorDialog = true;
+				if (arguments != null) psi.Arguments = arguments;
+				Process.Start(psi);
 			}
-			catch { }
-			try
-			{
-				// Add only different files.
-				var files = di.GetFiles(searchPattern);
-				for (int i = 0; i < files.Length; i++)
-				{
-					var fullName = files[i].FullName;
-					if (!fileList.Any(x => x.FullName == fullName))
-					{
-						fileList.Add(files[i]);
-					}
-				}
-			}
-			catch { }
+			catch (Exception) { }
 		}
 
 		/// <summary>Enable double buffering to make redraw faster.</summary>
@@ -455,8 +320,34 @@ namespace x360ce.Engine
 
 		public static string GetProductFullName()
 		{
-			var ai = new JocysCom.ClassLibrary.Configuration.AssemblyInfo();
-			return ai.GetTitle(true, true, true, true, false, 4);
+			Version v = new Version(Application.ProductVersion);
+			var s = string.Format("{0} {1} {2}", Application.CompanyName, Application.ProductName, v.ToString(4));
+			// Version = major.minor.build.revision
+			switch (v.Build)
+			{
+				case 0: s += " Alpha"; break;  // Alpha Release (AR)
+				case 1: s += " Beta 1"; break; // Master Beta (MB)
+				case 2: s += " Beta 2"; break; // Feature Complete (FC)
+				case 3: s += " Beta 3"; break; // Technical Preview (TP)
+				case 4: s += " RC"; break;     // Release Candidate (RC)
+				case 5: s += " RTM"; break;    // Release to Manufacturing (RTM)
+				default: break;                // General Availability (GA) - Gold
+			}
+			DateTime buildDate = GetBuildDateTime(Application.ExecutablePath);
+			s += buildDate.ToString(" (yyyy-MM-dd)");
+			switch (Assembly.GetEntryAssembly().GetName().ProcessorArchitecture)
+			{
+				case ProcessorArchitecture.Amd64:
+				case ProcessorArchitecture.IA64:
+					s += " 64-bit";
+					break;
+				case ProcessorArchitecture.X86:
+					s += " 32-bit";
+					break;
+				default: // Default is MSIL: Any CPU, show nothing/
+					break;
+			}
+			return s;
 		}
 
 		public static string GetProcessorArchitectureDescription(ProcessorArchitecture architecture)
@@ -474,6 +365,32 @@ namespace x360ce.Engine
 					return "Unknown";
 
 			}
+		}
+
+		public static DateTime GetBuildDateTime(string filePath)
+		{
+			const int c_PeHeaderOffset = 60;
+			const int c_LinkerTimestampOffset = 8;
+			byte[] b = new byte[2048];
+			System.IO.Stream s = null;
+			try
+			{
+				s = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+				s.Read(b, 0, 2048);
+			}
+			finally
+			{
+				if (s != null)
+				{
+					s.Close();
+				}
+			}
+			int i = System.BitConverter.ToInt32(b, c_PeHeaderOffset);
+			int secondsSince1970 = System.BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
+			DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+			dt = dt.AddSeconds(secondsSince1970);
+			dt = dt.ToLocalTime();
+			return dt;
 		}
 
 		#endregion
@@ -572,15 +489,6 @@ namespace x360ce.Engine
 
 		#endregion
 
-		/// <summary>
-		/// Get first 8 numbers of GUID.
-		/// </summary>
-		/// <remarks>Instance GUID or Setting GUID (MD5 checksum) is always random.</remarks>
-		public static string GetID(Guid guid)
-		{
-			return guid.ToString("N").Substring(0, 8).ToUpper();
-		}
-
 		#region Get Key Name
 
 		/// <summary>
@@ -630,95 +538,5 @@ namespace x360ce.Engine
 
 		#endregion
 
-		public static Exception ExtractFile(string name, out FileInfo fi)
-		{
-			fi = null;
-			try
-			{
-				// Extract file from Embedded resource.
-				var chName = x360ce.Engine.EngineHelper.GetResourceChecksumFile(name);
-				var fileName = System.IO.Path.Combine(x360ce.Engine.EngineHelper.AppDataPath, "Temp", chName);
-				fi = new FileInfo(fileName);
-				if (!fi.Exists)
-				{
-					if (!fi.Directory.Exists)
-						fi.Directory.Create();
-					var sr = GetResourceStream(name);
-					if (sr == null)
-						return new Exception("Resource not found.");
-					FileStream sw = null;
-					sw = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-					var buffer = new byte[1024];
-					while (true)
-					{
-						var count = sr.Read(buffer, 0, buffer.Length);
-						if (count == 0)
-							break;
-						sw.Write(buffer, 0, count);
-					}
-					sr.Close();
-					sw.Close();
-				}
-			}
-			catch (Exception ex)
-			{
-				JocysCom.ClassLibrary.Runtime.LogHelper.Current.WriteException(ex);
-				return ex;
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Get file name inside the folder with CRC32 checksum prefix.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		public static string GetResourceChecksumFile(string name)
-		{
-			var bytes = GetResourceBytes(name);
-			if (bytes == null)
-				return null;
-			var hash = JocysCom.ClassLibrary.Security.CRC32Helper.GetHashAsString(bytes);
-			// Put file into sub folder because file name must match with LoadLibrary() argument. 
-			var newName = string.Format("{0}.{1:X8}\\{0}", name, hash);
-			return newName;
-		}
-
-		static Guid UpdateChecksum(IChecksum item, System.Security.Cryptography.MD5CryptoServiceProvider md5)
-		{
-			string s = JocysCom.ClassLibrary.Runtime.RuntimeHelper.GetDataMembersString(item);
-			var bytes = Encoding.Unicode.GetBytes(s);
-			var cs = new Guid(md5.ComputeHash(bytes));
-			if (item.Checksum != cs)
-				item.Checksum = cs;
-			return cs;
-		}
-
-		/// <summary>
-		/// Update checksums of objects and return total checksum.
-		/// </summary>
-		/// <remarks>Last GUID will be summary checksum.</remarks>
-		public static List<Guid> UpdateChecksums<T>(T[] list) where T : IChecksum
-		{
-			var result = new List<Guid>();
-			var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-			for (int i = 0; i < list.Length; i++)
-			{
-				var checksum = UpdateChecksum(list[i], md5);
-				result.Add(checksum);
-			}
-			if (list.Length > 0)
-			{   // Order to make sure that it won't influence total checksum.
-				result = result.OrderBy(x => x).ToList();
-				int size = 16;
-				var total = new byte[list.Length * size];
-				for (int i = 0; i < list.Length; i++)
-				{
-					Array.Copy(list[i].Checksum.ToByteArray(), 0, total, i * size, size);
-				}
-				result.Add(new Guid(md5.ComputeHash(total)));
-			}
-			return result;
-		}
 	}
 }

@@ -84,18 +84,18 @@ namespace x360ce.Engine.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserSetting> UserSettings
+        public ObjectSet<Setting> Settings
         {
             get
             {
-                if ((_UserSettings == null))
+                if ((_Settings == null))
                 {
-                    _UserSettings = base.CreateObjectSet<UserSetting>("UserSettings");
+                    _Settings = base.CreateObjectSet<Setting>("Settings");
                 }
-                return _UserSettings;
+                return _Settings;
             }
         }
-        private ObjectSet<UserSetting> _UserSettings;
+        private ObjectSet<Setting> _Settings;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -148,70 +148,6 @@ namespace x360ce.Engine.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserInstance> UserInstances
-        {
-            get
-            {
-                if ((_UserInstances == null))
-                {
-                    _UserInstances = base.CreateObjectSet<UserInstance>("UserInstances");
-                }
-                return _UserInstances;
-            }
-        }
-        private ObjectSet<UserInstance> _UserInstances;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserComputer> UserComputers
-        {
-            get
-            {
-                if ((_UserComputers == null))
-                {
-                    _UserComputers = base.CreateObjectSet<UserComputer>("UserComputers");
-                }
-                return _UserComputers;
-            }
-        }
-        private ObjectSet<UserComputer> _UserComputers;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserDevice> UserDevices
-        {
-            get
-            {
-                if ((_UserDevices == null))
-                {
-                    _UserDevices = base.CreateObjectSet<UserDevice>("UserDevices");
-                }
-                return _UserDevices;
-            }
-        }
-        private ObjectSet<UserDevice> _UserDevices;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserGame> UserGames
-        {
-            get
-            {
-                if ((_UserGames == null))
-                {
-                    _UserGames = base.CreateObjectSet<UserGame>("UserGames");
-                }
-                return _UserGames;
-            }
-        }
-        private ObjectSet<UserGame> _UserGames;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Program> Programs
         {
             get
@@ -228,34 +164,18 @@ namespace x360ce.Engine.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Layout> Layouts
+        public ObjectSet<Game> Games
         {
             get
             {
-                if ((_Layouts == null))
+                if ((_Games == null))
                 {
-                    _Layouts = base.CreateObjectSet<Layout>("Layouts");
+                    _Games = base.CreateObjectSet<Game>("Games");
                 }
-                return _Layouts;
+                return _Games;
             }
         }
-        private ObjectSet<Layout> _Layouts;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserProfile> UserProfiles
-        {
-            get
-            {
-                if ((_UserProfiles == null))
-                {
-                    _UserProfiles = base.CreateObjectSet<UserProfile>("UserProfiles");
-                }
-                return _UserProfiles;
-            }
-        }
-        private ObjectSet<UserProfile> _UserProfiles;
+        private ObjectSet<Game> _Games;
 
         #endregion
 
@@ -270,11 +190,11 @@ namespace x360ce.Engine.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserSettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Settings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToUserSettings(UserSetting userSetting)
+        public void AddToSettings(Setting setting)
         {
-            base.AddObject("UserSettings", userSetting);
+            base.AddObject("Settings", setting);
         }
     
         /// <summary>
@@ -302,38 +222,6 @@ namespace x360ce.Engine.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserInstances EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserInstances(UserInstance userInstance)
-        {
-            base.AddObject("UserInstances", userInstance);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserComputers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserComputers(UserComputer userComputer)
-        {
-            base.AddObject("UserComputers", userComputer);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserDevices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserDevices(UserDevice userDevice)
-        {
-            base.AddObject("UserDevices", userDevice);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserGames EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserGames(UserGame userGame)
-        {
-            base.AddObject("UserGames", userGame);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Programs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPrograms(Program program)
@@ -342,19 +230,11 @@ namespace x360ce.Engine.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Layouts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Games EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToLayouts(Layout layout)
+        public void AddToGames(Game game)
         {
-            base.AddObject("Layouts", layout);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserProfiles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserProfiles(UserProfile userProfile)
-        {
-            base.AddObject("UserProfiles", userProfile);
+            base.AddObject("Games", game);
         }
 
         #endregion
@@ -368,863 +248,574 @@ namespace x360ce.Engine.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="Layout")]
+    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="Game")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Layout : EntityObject
+    public partial class Game : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Layout object.
+        /// Create a new Game object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="name">Initial value of the Name property.</param>
-        /// <param name="buttonA">Initial value of the ButtonA property.</param>
-        /// <param name="buttonB">Initial value of the ButtonB property.</param>
-        /// <param name="buttonBack">Initial value of the ButtonBack property.</param>
-        /// <param name="buttonGuide">Initial value of the ButtonGuide property.</param>
-        /// <param name="buttonStart">Initial value of the ButtonStart property.</param>
-        /// <param name="buttonX">Initial value of the ButtonX property.</param>
-        /// <param name="buttonY">Initial value of the ButtonY property.</param>
-        /// <param name="dPad">Initial value of the DPad property.</param>
-        /// <param name="dPadDown">Initial value of the DPadDown property.</param>
-        /// <param name="dPadLeft">Initial value of the DPadLeft property.</param>
-        /// <param name="dPadRight">Initial value of the DPadRight property.</param>
-        /// <param name="dPadUp">Initial value of the DPadUp property.</param>
-        /// <param name="leftShoulder">Initial value of the LeftShoulder property.</param>
-        /// <param name="leftThumbAxisX">Initial value of the LeftThumbAxisX property.</param>
-        /// <param name="leftThumbAxisY">Initial value of the LeftThumbAxisY property.</param>
-        /// <param name="leftThumbButton">Initial value of the LeftThumbButton property.</param>
-        /// <param name="leftThumbDown">Initial value of the LeftThumbDown property.</param>
-        /// <param name="leftThumbLeft">Initial value of the LeftThumbLeft property.</param>
-        /// <param name="leftThumbRight">Initial value of the LeftThumbRight property.</param>
-        /// <param name="leftThumbUp">Initial value of the LeftThumbUp property.</param>
-        /// <param name="leftTrigger">Initial value of the LeftTrigger property.</param>
-        /// <param name="rightShoulder">Initial value of the RightShoulder property.</param>
-        /// <param name="rightThumbAxisX">Initial value of the RightThumbAxisX property.</param>
-        /// <param name="rightThumbAxisY">Initial value of the RightThumbAxisY property.</param>
-        /// <param name="rightThumbButton">Initial value of the RightThumbButton property.</param>
-        /// <param name="rightThumbDown">Initial value of the RightThumbDown property.</param>
-        /// <param name="rightThumbLeft">Initial value of the RightThumbLeft property.</param>
-        /// <param name="rightThumbRight">Initial value of the RightThumbRight property.</param>
-        /// <param name="rightThumbUp">Initial value of the RightThumbUp property.</param>
-        /// <param name="rightTrigger">Initial value of the RightTrigger property.</param>
-        public static Layout CreateLayout(global::System.Guid id, global::System.String name, global::System.String buttonA, global::System.String buttonB, global::System.String buttonBack, global::System.String buttonGuide, global::System.String buttonStart, global::System.String buttonX, global::System.String buttonY, global::System.String dPad, global::System.String dPadDown, global::System.String dPadLeft, global::System.String dPadRight, global::System.String dPadUp, global::System.String leftShoulder, global::System.String leftThumbAxisX, global::System.String leftThumbAxisY, global::System.String leftThumbButton, global::System.String leftThumbDown, global::System.String leftThumbLeft, global::System.String leftThumbRight, global::System.String leftThumbUp, global::System.String leftTrigger, global::System.String rightShoulder, global::System.String rightThumbAxisX, global::System.String rightThumbAxisY, global::System.String rightThumbButton, global::System.String rightThumbDown, global::System.String rightThumbLeft, global::System.String rightThumbRight, global::System.String rightThumbUp, global::System.String rightTrigger)
+        /// <param name="gameId">Initial value of the GameId property.</param>
+        /// <param name="diskDriveId">Initial value of the DiskDriveId property.</param>
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        /// <param name="fileProductName">Initial value of the FileProductName property.</param>
+        /// <param name="fileVersion">Initial value of the FileVersion property.</param>
+        /// <param name="fullPath">Initial value of the FullPath property.</param>
+        /// <param name="companyName">Initial value of the CompanyName property.</param>
+        /// <param name="hookMask">Initial value of the HookMask property.</param>
+        /// <param name="xInputMask">Initial value of the XInputMask property.</param>
+        /// <param name="comment">Initial value of the Comment property.</param>
+        /// <param name="isEnabled">Initial value of the IsEnabled property.</param>
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        /// <param name="processorArchitecture">Initial value of the ProcessorArchitecture property.</param>
+        /// <param name="dInputMask">Initial value of the DInputMask property.</param>
+        /// <param name="dInputFile">Initial value of the DInputFile property.</param>
+        /// <param name="fakeVID">Initial value of the FakeVID property.</param>
+        /// <param name="fakePID">Initial value of the FakePID property.</param>
+        /// <param name="timeout">Initial value of the Timeout property.</param>
+        /// <param name="weight">Initial value of the Weight property.</param>
+        public static Game CreateGame(global::System.Guid gameId, global::System.Guid diskDriveId, global::System.String fileName, global::System.String fileProductName, global::System.String fileVersion, global::System.String fullPath, global::System.String companyName, global::System.Int32 hookMask, global::System.Int32 xInputMask, global::System.String comment, global::System.Boolean isEnabled, global::System.DateTime dateCreated, global::System.Int32 processorArchitecture, global::System.Int32 dInputMask, global::System.String dInputFile, global::System.Int32 fakeVID, global::System.Int32 fakePID, global::System.Int32 timeout, global::System.Int32 weight)
         {
-            Layout layout = new Layout();
-            layout.Id = id;
-            layout.Name = name;
-            layout.ButtonA = buttonA;
-            layout.ButtonB = buttonB;
-            layout.ButtonBack = buttonBack;
-            layout.ButtonGuide = buttonGuide;
-            layout.ButtonStart = buttonStart;
-            layout.ButtonX = buttonX;
-            layout.ButtonY = buttonY;
-            layout.DPad = dPad;
-            layout.DPadDown = dPadDown;
-            layout.DPadLeft = dPadLeft;
-            layout.DPadRight = dPadRight;
-            layout.DPadUp = dPadUp;
-            layout.LeftShoulder = leftShoulder;
-            layout.LeftThumbAxisX = leftThumbAxisX;
-            layout.LeftThumbAxisY = leftThumbAxisY;
-            layout.LeftThumbButton = leftThumbButton;
-            layout.LeftThumbDown = leftThumbDown;
-            layout.LeftThumbLeft = leftThumbLeft;
-            layout.LeftThumbRight = leftThumbRight;
-            layout.LeftThumbUp = leftThumbUp;
-            layout.LeftTrigger = leftTrigger;
-            layout.RightShoulder = rightShoulder;
-            layout.RightThumbAxisX = rightThumbAxisX;
-            layout.RightThumbAxisY = rightThumbAxisY;
-            layout.RightThumbButton = rightThumbButton;
-            layout.RightThumbDown = rightThumbDown;
-            layout.RightThumbLeft = rightThumbLeft;
-            layout.RightThumbRight = rightThumbRight;
-            layout.RightThumbUp = rightThumbUp;
-            layout.RightTrigger = rightTrigger;
-            return layout;
+            Game game = new Game();
+            game.GameId = gameId;
+            game.DiskDriveId = diskDriveId;
+            game.FileName = fileName;
+            game.FileProductName = fileProductName;
+            game.FileVersion = fileVersion;
+            game.FullPath = fullPath;
+            game.CompanyName = companyName;
+            game.HookMask = hookMask;
+            game.XInputMask = xInputMask;
+            game.Comment = comment;
+            game.IsEnabled = isEnabled;
+            game.DateCreated = dateCreated;
+            game.ProcessorArchitecture = processorArchitecture;
+            game.DInputMask = dInputMask;
+            game.DInputFile = dInputFile;
+            game.FakeVID = fakeVID;
+            game.FakePID = fakePID;
+            game.Timeout = timeout;
+            game.Weight = weight;
+            return game;
         }
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Guid Id
+        public global::System.Guid GameId
         {
             get
             {
-                return _Id;
+                return _GameId;
             }
             set
             {
-                if (_Id != value)
+                if (_GameId != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnGameIdChanging(value);
+                    ReportPropertyChanging("GameId");
+                    _GameId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("GameId");
+                    OnGameIdChanged();
                 }
             }
         }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
+        private global::System.Guid _GameId;
+        partial void OnGameIdChanging(global::System.Guid value);
+        partial void OnGameIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Name
+        public global::System.Guid DiskDriveId
         {
             get
             {
-                return _Name;
+                return _DiskDriveId;
             }
             set
             {
-                OnNameChanging(value);
-                ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false, "Name");
-                ReportPropertyChanged("Name");
-                OnNameChanged();
+                OnDiskDriveIdChanging(value);
+                ReportPropertyChanging("DiskDriveId");
+                _DiskDriveId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DiskDriveId");
+                OnDiskDriveIdChanged();
             }
         }
-        private global::System.String _Name;
-        partial void OnNameChanging(global::System.String value);
-        partial void OnNameChanged();
+        private global::System.Guid _DiskDriveId;
+        partial void OnDiskDriveIdChanging(global::System.Guid value);
+        partial void OnDiskDriveIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonA
+        public global::System.String FileName
         {
             get
             {
-                return _ButtonA;
+                return _FileName;
             }
             set
             {
-                OnButtonAChanging(value);
-                ReportPropertyChanging("ButtonA");
-                _ButtonA = StructuralObject.SetValidValue(value, false, "ButtonA");
-                ReportPropertyChanged("ButtonA");
-                OnButtonAChanged();
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
             }
         }
-        private global::System.String _ButtonA;
-        partial void OnButtonAChanging(global::System.String value);
-        partial void OnButtonAChanged();
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonB
+        public global::System.String FileProductName
         {
             get
             {
-                return _ButtonB;
+                return _FileProductName;
             }
             set
             {
-                OnButtonBChanging(value);
-                ReportPropertyChanging("ButtonB");
-                _ButtonB = StructuralObject.SetValidValue(value, false, "ButtonB");
-                ReportPropertyChanged("ButtonB");
-                OnButtonBChanged();
+                OnFileProductNameChanging(value);
+                ReportPropertyChanging("FileProductName");
+                _FileProductName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileProductName");
+                OnFileProductNameChanged();
             }
         }
-        private global::System.String _ButtonB;
-        partial void OnButtonBChanging(global::System.String value);
-        partial void OnButtonBChanged();
+        private global::System.String _FileProductName;
+        partial void OnFileProductNameChanging(global::System.String value);
+        partial void OnFileProductNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonBack
+        public global::System.String FileVersion
         {
             get
             {
-                return _ButtonBack;
+                return _FileVersion;
             }
             set
             {
-                OnButtonBackChanging(value);
-                ReportPropertyChanging("ButtonBack");
-                _ButtonBack = StructuralObject.SetValidValue(value, false, "ButtonBack");
-                ReportPropertyChanged("ButtonBack");
-                OnButtonBackChanged();
+                OnFileVersionChanging(value);
+                ReportPropertyChanging("FileVersion");
+                _FileVersion = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileVersion");
+                OnFileVersionChanged();
             }
         }
-        private global::System.String _ButtonBack;
-        partial void OnButtonBackChanging(global::System.String value);
-        partial void OnButtonBackChanged();
+        private global::System.String _FileVersion;
+        partial void OnFileVersionChanging(global::System.String value);
+        partial void OnFileVersionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonGuide
+        public global::System.String FullPath
         {
             get
             {
-                return _ButtonGuide;
+                return _FullPath;
             }
             set
             {
-                OnButtonGuideChanging(value);
-                ReportPropertyChanging("ButtonGuide");
-                _ButtonGuide = StructuralObject.SetValidValue(value, false, "ButtonGuide");
-                ReportPropertyChanged("ButtonGuide");
-                OnButtonGuideChanged();
+                OnFullPathChanging(value);
+                ReportPropertyChanging("FullPath");
+                _FullPath = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FullPath");
+                OnFullPathChanged();
             }
         }
-        private global::System.String _ButtonGuide;
-        partial void OnButtonGuideChanging(global::System.String value);
-        partial void OnButtonGuideChanged();
+        private global::System.String _FullPath;
+        partial void OnFullPathChanging(global::System.String value);
+        partial void OnFullPathChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonStart
+        public global::System.String CompanyName
         {
             get
             {
-                return _ButtonStart;
+                return _CompanyName;
             }
             set
             {
-                OnButtonStartChanging(value);
-                ReportPropertyChanging("ButtonStart");
-                _ButtonStart = StructuralObject.SetValidValue(value, false, "ButtonStart");
-                ReportPropertyChanged("ButtonStart");
-                OnButtonStartChanged();
+                OnCompanyNameChanging(value);
+                ReportPropertyChanging("CompanyName");
+                _CompanyName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CompanyName");
+                OnCompanyNameChanged();
             }
         }
-        private global::System.String _ButtonStart;
-        partial void OnButtonStartChanging(global::System.String value);
-        partial void OnButtonStartChanged();
+        private global::System.String _CompanyName;
+        partial void OnCompanyNameChanging(global::System.String value);
+        partial void OnCompanyNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonX
+        public global::System.Int32 HookMask
         {
             get
             {
-                return _ButtonX;
+                return _HookMask;
             }
             set
             {
-                OnButtonXChanging(value);
-                ReportPropertyChanging("ButtonX");
-                _ButtonX = StructuralObject.SetValidValue(value, false, "ButtonX");
-                ReportPropertyChanged("ButtonX");
-                OnButtonXChanged();
+                OnHookMaskChanging(value);
+                ReportPropertyChanging("HookMask");
+                _HookMask = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("HookMask");
+                OnHookMaskChanged();
             }
         }
-        private global::System.String _ButtonX;
-        partial void OnButtonXChanging(global::System.String value);
-        partial void OnButtonXChanged();
+        private global::System.Int32 _HookMask;
+        partial void OnHookMaskChanging(global::System.Int32 value);
+        partial void OnHookMaskChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ButtonY
+        public global::System.Int32 XInputMask
         {
             get
             {
-                return _ButtonY;
+                return _XInputMask;
             }
             set
             {
-                OnButtonYChanging(value);
-                ReportPropertyChanging("ButtonY");
-                _ButtonY = StructuralObject.SetValidValue(value, false, "ButtonY");
-                ReportPropertyChanged("ButtonY");
-                OnButtonYChanged();
+                OnXInputMaskChanging(value);
+                ReportPropertyChanging("XInputMask");
+                _XInputMask = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("XInputMask");
+                OnXInputMaskChanged();
             }
         }
-        private global::System.String _ButtonY;
-        partial void OnButtonYChanging(global::System.String value);
-        partial void OnButtonYChanged();
+        private global::System.Int32 _XInputMask;
+        partial void OnXInputMaskChanging(global::System.Int32 value);
+        partial void OnXInputMaskChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String DPad
+        public global::System.String Comment
         {
             get
             {
-                return _DPad;
+                return _Comment;
             }
             set
             {
-                OnDPadChanging(value);
-                ReportPropertyChanging("DPad");
-                _DPad = StructuralObject.SetValidValue(value, false, "DPad");
-                ReportPropertyChanged("DPad");
-                OnDPadChanged();
+                OnCommentChanging(value);
+                ReportPropertyChanging("Comment");
+                _Comment = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Comment");
+                OnCommentChanged();
             }
         }
-        private global::System.String _DPad;
-        partial void OnDPadChanging(global::System.String value);
-        partial void OnDPadChanged();
+        private global::System.String _Comment;
+        partial void OnCommentChanging(global::System.String value);
+        partial void OnCommentChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String DPadDown
+        public global::System.Boolean IsEnabled
         {
             get
             {
-                return _DPadDown;
+                return _IsEnabled;
             }
             set
             {
-                OnDPadDownChanging(value);
-                ReportPropertyChanging("DPadDown");
-                _DPadDown = StructuralObject.SetValidValue(value, false, "DPadDown");
-                ReportPropertyChanged("DPadDown");
-                OnDPadDownChanged();
+                OnIsEnabledChanging(value);
+                ReportPropertyChanging("IsEnabled");
+                _IsEnabled = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsEnabled");
+                OnIsEnabledChanged();
             }
         }
-        private global::System.String _DPadDown;
-        partial void OnDPadDownChanging(global::System.String value);
-        partial void OnDPadDownChanged();
+        private global::System.Boolean _IsEnabled;
+        partial void OnIsEnabledChanging(global::System.Boolean value);
+        partial void OnIsEnabledChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String DPadLeft
+        public global::System.DateTime DateCreated
         {
             get
             {
-                return _DPadLeft;
+                return _DateCreated;
             }
             set
             {
-                OnDPadLeftChanging(value);
-                ReportPropertyChanging("DPadLeft");
-                _DPadLeft = StructuralObject.SetValidValue(value, false, "DPadLeft");
-                ReportPropertyChanged("DPadLeft");
-                OnDPadLeftChanged();
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
             }
         }
-        private global::System.String _DPadLeft;
-        partial void OnDPadLeftChanging(global::System.String value);
-        partial void OnDPadLeftChanged();
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DateUpdated
+        {
+            get
+            {
+                return _DateUpdated;
+            }
+            set
+            {
+                OnDateUpdatedChanging(value);
+                ReportPropertyChanging("DateUpdated");
+                _DateUpdated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateUpdated");
+                OnDateUpdatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DateUpdated;
+        partial void OnDateUpdatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateUpdatedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String DPadRight
+        public global::System.Int32 ProcessorArchitecture
         {
             get
             {
-                return _DPadRight;
+                return _ProcessorArchitecture;
             }
             set
             {
-                OnDPadRightChanging(value);
-                ReportPropertyChanging("DPadRight");
-                _DPadRight = StructuralObject.SetValidValue(value, false, "DPadRight");
-                ReportPropertyChanged("DPadRight");
-                OnDPadRightChanged();
+                OnProcessorArchitectureChanging(value);
+                ReportPropertyChanging("ProcessorArchitecture");
+                _ProcessorArchitecture = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcessorArchitecture");
+                OnProcessorArchitectureChanged();
             }
         }
-        private global::System.String _DPadRight;
-        partial void OnDPadRightChanging(global::System.String value);
-        partial void OnDPadRightChanged();
+        private global::System.Int32 _ProcessorArchitecture;
+        partial void OnProcessorArchitectureChanging(global::System.Int32 value);
+        partial void OnProcessorArchitectureChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String DPadUp
+        public global::System.Int32 DInputMask
         {
             get
             {
-                return _DPadUp;
+                return _DInputMask;
             }
             set
             {
-                OnDPadUpChanging(value);
-                ReportPropertyChanging("DPadUp");
-                _DPadUp = StructuralObject.SetValidValue(value, false, "DPadUp");
-                ReportPropertyChanged("DPadUp");
-                OnDPadUpChanged();
+                OnDInputMaskChanging(value);
+                ReportPropertyChanging("DInputMask");
+                _DInputMask = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DInputMask");
+                OnDInputMaskChanged();
             }
         }
-        private global::System.String _DPadUp;
-        partial void OnDPadUpChanging(global::System.String value);
-        partial void OnDPadUpChanged();
+        private global::System.Int32 _DInputMask;
+        partial void OnDInputMaskChanging(global::System.Int32 value);
+        partial void OnDInputMaskChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String LeftShoulder
+        public global::System.String DInputFile
         {
             get
             {
-                return _LeftShoulder;
+                return _DInputFile;
             }
             set
             {
-                OnLeftShoulderChanging(value);
-                ReportPropertyChanging("LeftShoulder");
-                _LeftShoulder = StructuralObject.SetValidValue(value, false, "LeftShoulder");
-                ReportPropertyChanged("LeftShoulder");
-                OnLeftShoulderChanged();
+                OnDInputFileChanging(value);
+                ReportPropertyChanging("DInputFile");
+                _DInputFile = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DInputFile");
+                OnDInputFileChanged();
             }
         }
-        private global::System.String _LeftShoulder;
-        partial void OnLeftShoulderChanging(global::System.String value);
-        partial void OnLeftShoulderChanged();
+        private global::System.String _DInputFile;
+        partial void OnDInputFileChanging(global::System.String value);
+        partial void OnDInputFileChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String LeftThumbAxisX
+        public global::System.Int32 FakeVID
         {
             get
             {
-                return _LeftThumbAxisX;
+                return _FakeVID;
             }
             set
             {
-                OnLeftThumbAxisXChanging(value);
-                ReportPropertyChanging("LeftThumbAxisX");
-                _LeftThumbAxisX = StructuralObject.SetValidValue(value, false, "LeftThumbAxisX");
-                ReportPropertyChanged("LeftThumbAxisX");
-                OnLeftThumbAxisXChanged();
+                OnFakeVIDChanging(value);
+                ReportPropertyChanging("FakeVID");
+                _FakeVID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FakeVID");
+                OnFakeVIDChanged();
             }
         }
-        private global::System.String _LeftThumbAxisX;
-        partial void OnLeftThumbAxisXChanging(global::System.String value);
-        partial void OnLeftThumbAxisXChanged();
+        private global::System.Int32 _FakeVID;
+        partial void OnFakeVIDChanging(global::System.Int32 value);
+        partial void OnFakeVIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String LeftThumbAxisY
+        public global::System.Int32 FakePID
         {
             get
             {
-                return _LeftThumbAxisY;
+                return _FakePID;
             }
             set
             {
-                OnLeftThumbAxisYChanging(value);
-                ReportPropertyChanging("LeftThumbAxisY");
-                _LeftThumbAxisY = StructuralObject.SetValidValue(value, false, "LeftThumbAxisY");
-                ReportPropertyChanged("LeftThumbAxisY");
-                OnLeftThumbAxisYChanged();
+                OnFakePIDChanging(value);
+                ReportPropertyChanging("FakePID");
+                _FakePID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FakePID");
+                OnFakePIDChanged();
             }
         }
-        private global::System.String _LeftThumbAxisY;
-        partial void OnLeftThumbAxisYChanging(global::System.String value);
-        partial void OnLeftThumbAxisYChanged();
+        private global::System.Int32 _FakePID;
+        partial void OnFakePIDChanging(global::System.Int32 value);
+        partial void OnFakePIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String LeftThumbButton
+        public global::System.Int32 Timeout
         {
             get
             {
-                return _LeftThumbButton;
+                return _Timeout;
             }
             set
             {
-                OnLeftThumbButtonChanging(value);
-                ReportPropertyChanging("LeftThumbButton");
-                _LeftThumbButton = StructuralObject.SetValidValue(value, false, "LeftThumbButton");
-                ReportPropertyChanged("LeftThumbButton");
-                OnLeftThumbButtonChanged();
+                OnTimeoutChanging(value);
+                ReportPropertyChanging("Timeout");
+                _Timeout = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Timeout");
+                OnTimeoutChanged();
             }
         }
-        private global::System.String _LeftThumbButton;
-        partial void OnLeftThumbButtonChanging(global::System.String value);
-        partial void OnLeftThumbButtonChanged();
+        private global::System.Int32 _Timeout;
+        partial void OnTimeoutChanging(global::System.Int32 value);
+        partial void OnTimeoutChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> SettingChecksum
+        {
+            get
+            {
+                return _SettingChecksum;
+            }
+            set
+            {
+                OnSettingChecksumChanging(value);
+                ReportPropertyChanging("SettingChecksum");
+                _SettingChecksum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SettingChecksum");
+                OnSettingChecksumChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _SettingChecksum;
+        partial void OnSettingChecksumChanging(Nullable<global::System.Guid> value);
+        partial void OnSettingChecksumChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String LeftThumbDown
+        public global::System.Int32 Weight
         {
             get
             {
-                return _LeftThumbDown;
+                return _Weight;
             }
             set
             {
-                OnLeftThumbDownChanging(value);
-                ReportPropertyChanging("LeftThumbDown");
-                _LeftThumbDown = StructuralObject.SetValidValue(value, false, "LeftThumbDown");
-                ReportPropertyChanged("LeftThumbDown");
-                OnLeftThumbDownChanged();
+                OnWeightChanging(value);
+                ReportPropertyChanging("Weight");
+                _Weight = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Weight");
+                OnWeightChanged();
             }
         }
-        private global::System.String _LeftThumbDown;
-        partial void OnLeftThumbDownChanging(global::System.String value);
-        partial void OnLeftThumbDownChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LeftThumbLeft
-        {
-            get
-            {
-                return _LeftThumbLeft;
-            }
-            set
-            {
-                OnLeftThumbLeftChanging(value);
-                ReportPropertyChanging("LeftThumbLeft");
-                _LeftThumbLeft = StructuralObject.SetValidValue(value, false, "LeftThumbLeft");
-                ReportPropertyChanged("LeftThumbLeft");
-                OnLeftThumbLeftChanged();
-            }
-        }
-        private global::System.String _LeftThumbLeft;
-        partial void OnLeftThumbLeftChanging(global::System.String value);
-        partial void OnLeftThumbLeftChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LeftThumbRight
-        {
-            get
-            {
-                return _LeftThumbRight;
-            }
-            set
-            {
-                OnLeftThumbRightChanging(value);
-                ReportPropertyChanging("LeftThumbRight");
-                _LeftThumbRight = StructuralObject.SetValidValue(value, false, "LeftThumbRight");
-                ReportPropertyChanged("LeftThumbRight");
-                OnLeftThumbRightChanged();
-            }
-        }
-        private global::System.String _LeftThumbRight;
-        partial void OnLeftThumbRightChanging(global::System.String value);
-        partial void OnLeftThumbRightChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LeftThumbUp
-        {
-            get
-            {
-                return _LeftThumbUp;
-            }
-            set
-            {
-                OnLeftThumbUpChanging(value);
-                ReportPropertyChanging("LeftThumbUp");
-                _LeftThumbUp = StructuralObject.SetValidValue(value, false, "LeftThumbUp");
-                ReportPropertyChanged("LeftThumbUp");
-                OnLeftThumbUpChanged();
-            }
-        }
-        private global::System.String _LeftThumbUp;
-        partial void OnLeftThumbUpChanging(global::System.String value);
-        partial void OnLeftThumbUpChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LeftTrigger
-        {
-            get
-            {
-                return _LeftTrigger;
-            }
-            set
-            {
-                OnLeftTriggerChanging(value);
-                ReportPropertyChanging("LeftTrigger");
-                _LeftTrigger = StructuralObject.SetValidValue(value, false, "LeftTrigger");
-                ReportPropertyChanged("LeftTrigger");
-                OnLeftTriggerChanged();
-            }
-        }
-        private global::System.String _LeftTrigger;
-        partial void OnLeftTriggerChanging(global::System.String value);
-        partial void OnLeftTriggerChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightShoulder
-        {
-            get
-            {
-                return _RightShoulder;
-            }
-            set
-            {
-                OnRightShoulderChanging(value);
-                ReportPropertyChanging("RightShoulder");
-                _RightShoulder = StructuralObject.SetValidValue(value, false, "RightShoulder");
-                ReportPropertyChanged("RightShoulder");
-                OnRightShoulderChanged();
-            }
-        }
-        private global::System.String _RightShoulder;
-        partial void OnRightShoulderChanging(global::System.String value);
-        partial void OnRightShoulderChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbAxisX
-        {
-            get
-            {
-                return _RightThumbAxisX;
-            }
-            set
-            {
-                OnRightThumbAxisXChanging(value);
-                ReportPropertyChanging("RightThumbAxisX");
-                _RightThumbAxisX = StructuralObject.SetValidValue(value, false, "RightThumbAxisX");
-                ReportPropertyChanged("RightThumbAxisX");
-                OnRightThumbAxisXChanged();
-            }
-        }
-        private global::System.String _RightThumbAxisX;
-        partial void OnRightThumbAxisXChanging(global::System.String value);
-        partial void OnRightThumbAxisXChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbAxisY
-        {
-            get
-            {
-                return _RightThumbAxisY;
-            }
-            set
-            {
-                OnRightThumbAxisYChanging(value);
-                ReportPropertyChanging("RightThumbAxisY");
-                _RightThumbAxisY = StructuralObject.SetValidValue(value, false, "RightThumbAxisY");
-                ReportPropertyChanged("RightThumbAxisY");
-                OnRightThumbAxisYChanged();
-            }
-        }
-        private global::System.String _RightThumbAxisY;
-        partial void OnRightThumbAxisYChanging(global::System.String value);
-        partial void OnRightThumbAxisYChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbButton
-        {
-            get
-            {
-                return _RightThumbButton;
-            }
-            set
-            {
-                OnRightThumbButtonChanging(value);
-                ReportPropertyChanging("RightThumbButton");
-                _RightThumbButton = StructuralObject.SetValidValue(value, false, "RightThumbButton");
-                ReportPropertyChanged("RightThumbButton");
-                OnRightThumbButtonChanged();
-            }
-        }
-        private global::System.String _RightThumbButton;
-        partial void OnRightThumbButtonChanging(global::System.String value);
-        partial void OnRightThumbButtonChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbDown
-        {
-            get
-            {
-                return _RightThumbDown;
-            }
-            set
-            {
-                OnRightThumbDownChanging(value);
-                ReportPropertyChanging("RightThumbDown");
-                _RightThumbDown = StructuralObject.SetValidValue(value, false, "RightThumbDown");
-                ReportPropertyChanged("RightThumbDown");
-                OnRightThumbDownChanged();
-            }
-        }
-        private global::System.String _RightThumbDown;
-        partial void OnRightThumbDownChanging(global::System.String value);
-        partial void OnRightThumbDownChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbLeft
-        {
-            get
-            {
-                return _RightThumbLeft;
-            }
-            set
-            {
-                OnRightThumbLeftChanging(value);
-                ReportPropertyChanging("RightThumbLeft");
-                _RightThumbLeft = StructuralObject.SetValidValue(value, false, "RightThumbLeft");
-                ReportPropertyChanged("RightThumbLeft");
-                OnRightThumbLeftChanged();
-            }
-        }
-        private global::System.String _RightThumbLeft;
-        partial void OnRightThumbLeftChanging(global::System.String value);
-        partial void OnRightThumbLeftChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbRight
-        {
-            get
-            {
-                return _RightThumbRight;
-            }
-            set
-            {
-                OnRightThumbRightChanging(value);
-                ReportPropertyChanging("RightThumbRight");
-                _RightThumbRight = StructuralObject.SetValidValue(value, false, "RightThumbRight");
-                ReportPropertyChanged("RightThumbRight");
-                OnRightThumbRightChanged();
-            }
-        }
-        private global::System.String _RightThumbRight;
-        partial void OnRightThumbRightChanging(global::System.String value);
-        partial void OnRightThumbRightChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightThumbUp
-        {
-            get
-            {
-                return _RightThumbUp;
-            }
-            set
-            {
-                OnRightThumbUpChanging(value);
-                ReportPropertyChanging("RightThumbUp");
-                _RightThumbUp = StructuralObject.SetValidValue(value, false, "RightThumbUp");
-                ReportPropertyChanged("RightThumbUp");
-                OnRightThumbUpChanged();
-            }
-        }
-        private global::System.String _RightThumbUp;
-        partial void OnRightThumbUpChanging(global::System.String value);
-        partial void OnRightThumbUpChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightTrigger
-        {
-            get
-            {
-                return _RightTrigger;
-            }
-            set
-            {
-                OnRightTriggerChanging(value);
-                ReportPropertyChanging("RightTrigger");
-                _RightTrigger = StructuralObject.SetValidValue(value, false, "RightTrigger");
-                ReportPropertyChanged("RightTrigger");
-                OnRightTriggerChanged();
-            }
-        }
-        private global::System.String _RightTrigger;
-        partial void OnRightTriggerChanging(global::System.String value);
-        partial void OnRightTriggerChanged();
+        private global::System.Int32 _Weight;
+        partial void OnWeightChanging(global::System.Int32 value);
+        partial void OnWeightChanged();
 
         #endregion
 
+    
     }
     
     /// <summary>
@@ -1246,6 +837,7 @@ namespace x360ce.Engine.Data
         /// <param name="axisToDPadOffset">Initial value of the AxisToDPadOffset property.</param>
         /// <param name="buttonA">Initial value of the ButtonA property.</param>
         /// <param name="buttonB">Initial value of the ButtonB property.</param>
+        /// <param name="buttonBig">Initial value of the ButtonBig property.</param>
         /// <param name="buttonBack">Initial value of the ButtonBack property.</param>
         /// <param name="buttonGuide">Initial value of the ButtonGuide property.</param>
         /// <param name="buttonStart">Initial value of the ButtonStart property.</param>
@@ -1314,11 +906,7 @@ namespace x360ce.Engine.Data
         /// <param name="dPadLeftDeadZone">Initial value of the DPadLeftDeadZone property.</param>
         /// <param name="dPadRightDeadZone">Initial value of the DPadRightDeadZone property.</param>
         /// <param name="dPadUpDeadZone">Initial value of the DPadUpDeadZone property.</param>
-        /// <param name="leftTriggerAntiDeadZone">Initial value of the LeftTriggerAntiDeadZone property.</param>
-        /// <param name="leftTriggerLinear">Initial value of the LeftTriggerLinear property.</param>
-        /// <param name="rightTriggerAntiDeadZone">Initial value of the RightTriggerAntiDeadZone property.</param>
-        /// <param name="rightTriggerLinear">Initial value of the RightTriggerLinear property.</param>
-        public static PadSetting CreatePadSetting(global::System.Guid padSettingChecksum, global::System.String axisToDPadDeadZone, global::System.String axisToDPadEnabled, global::System.String axisToDPadOffset, global::System.String buttonA, global::System.String buttonB, global::System.String buttonBack, global::System.String buttonGuide, global::System.String buttonStart, global::System.String buttonX, global::System.String buttonY, global::System.String dPad, global::System.String dPadDown, global::System.String dPadLeft, global::System.String dPadRight, global::System.String dPadUp, global::System.String forceEnable, global::System.String forceOverall, global::System.String forceSwapMotor, global::System.String forceType, global::System.String gamePadType, global::System.String leftMotorPeriod, global::System.String leftShoulder, global::System.String leftThumbAntiDeadZoneX, global::System.String leftThumbAntiDeadZoneY, global::System.String leftThumbAxisX, global::System.String leftThumbAxisY, global::System.String leftThumbButton, global::System.String leftThumbDeadZoneX, global::System.String leftThumbDeadZoneY, global::System.String leftThumbDown, global::System.String leftThumbLeft, global::System.String leftThumbRight, global::System.String leftThumbUp, global::System.String leftTrigger, global::System.String leftTriggerDeadZone, global::System.String passThrough, global::System.String rightMotorPeriod, global::System.String rightShoulder, global::System.String rightThumbAntiDeadZoneX, global::System.String rightThumbAntiDeadZoneY, global::System.String rightThumbAxisX, global::System.String rightThumbAxisY, global::System.String rightThumbButton, global::System.String rightThumbDeadZoneX, global::System.String rightThumbDeadZoneY, global::System.String rightThumbDown, global::System.String rightThumbLeft, global::System.String rightThumbRight, global::System.String rightThumbUp, global::System.String rightTrigger, global::System.String rightTriggerDeadZone, global::System.String leftThumbLinearX, global::System.String leftThumbLinearY, global::System.String rightThumbLinearX, global::System.String rightThumbLinearY, global::System.String leftMotorStrength, global::System.String rightMotorStrength, global::System.String leftMotorDirection, global::System.String rightMotorDirection, global::System.String buttonADeadZone, global::System.String buttonBDeadZone, global::System.String buttonBackDeadZone, global::System.String buttonStartDeadZone, global::System.String buttonXDeadZone, global::System.String buttonYDeadZone, global::System.String leftThumbButtonDeadZone, global::System.String rightThumbButtonDeadZone, global::System.String leftShoulderDeadZone, global::System.String rightShoulderDeadZone, global::System.String dPadDownDeadZone, global::System.String dPadLeftDeadZone, global::System.String dPadRightDeadZone, global::System.String dPadUpDeadZone, global::System.String leftTriggerAntiDeadZone, global::System.String leftTriggerLinear, global::System.String rightTriggerAntiDeadZone, global::System.String rightTriggerLinear)
+        public static PadSetting CreatePadSetting(global::System.Guid padSettingChecksum, global::System.String axisToDPadDeadZone, global::System.String axisToDPadEnabled, global::System.String axisToDPadOffset, global::System.String buttonA, global::System.String buttonB, global::System.String buttonBig, global::System.String buttonBack, global::System.String buttonGuide, global::System.String buttonStart, global::System.String buttonX, global::System.String buttonY, global::System.String dPad, global::System.String dPadDown, global::System.String dPadLeft, global::System.String dPadRight, global::System.String dPadUp, global::System.String forceEnable, global::System.String forceOverall, global::System.String forceSwapMotor, global::System.String forceType, global::System.String gamePadType, global::System.String leftMotorPeriod, global::System.String leftShoulder, global::System.String leftThumbAntiDeadZoneX, global::System.String leftThumbAntiDeadZoneY, global::System.String leftThumbAxisX, global::System.String leftThumbAxisY, global::System.String leftThumbButton, global::System.String leftThumbDeadZoneX, global::System.String leftThumbDeadZoneY, global::System.String leftThumbDown, global::System.String leftThumbLeft, global::System.String leftThumbRight, global::System.String leftThumbUp, global::System.String leftTrigger, global::System.String leftTriggerDeadZone, global::System.String passThrough, global::System.String rightMotorPeriod, global::System.String rightShoulder, global::System.String rightThumbAntiDeadZoneX, global::System.String rightThumbAntiDeadZoneY, global::System.String rightThumbAxisX, global::System.String rightThumbAxisY, global::System.String rightThumbButton, global::System.String rightThumbDeadZoneX, global::System.String rightThumbDeadZoneY, global::System.String rightThumbDown, global::System.String rightThumbLeft, global::System.String rightThumbRight, global::System.String rightThumbUp, global::System.String rightTrigger, global::System.String rightTriggerDeadZone, global::System.String leftThumbLinearX, global::System.String leftThumbLinearY, global::System.String rightThumbLinearX, global::System.String rightThumbLinearY, global::System.String leftMotorStrength, global::System.String rightMotorStrength, global::System.String leftMotorDirection, global::System.String rightMotorDirection, global::System.String buttonADeadZone, global::System.String buttonBDeadZone, global::System.String buttonBackDeadZone, global::System.String buttonStartDeadZone, global::System.String buttonXDeadZone, global::System.String buttonYDeadZone, global::System.String leftThumbButtonDeadZone, global::System.String rightThumbButtonDeadZone, global::System.String leftShoulderDeadZone, global::System.String rightShoulderDeadZone, global::System.String dPadDownDeadZone, global::System.String dPadLeftDeadZone, global::System.String dPadRightDeadZone, global::System.String dPadUpDeadZone)
         {
             PadSetting padSetting = new PadSetting();
             padSetting.PadSettingChecksum = padSettingChecksum;
@@ -1327,6 +915,7 @@ namespace x360ce.Engine.Data
             padSetting.AxisToDPadOffset = axisToDPadOffset;
             padSetting.ButtonA = buttonA;
             padSetting.ButtonB = buttonB;
+            padSetting.ButtonBig = buttonBig;
             padSetting.ButtonBack = buttonBack;
             padSetting.ButtonGuide = buttonGuide;
             padSetting.ButtonStart = buttonStart;
@@ -1395,16 +984,12 @@ namespace x360ce.Engine.Data
             padSetting.DPadLeftDeadZone = dPadLeftDeadZone;
             padSetting.DPadRightDeadZone = dPadRightDeadZone;
             padSetting.DPadUpDeadZone = dPadUpDeadZone;
-            padSetting.LeftTriggerAntiDeadZone = leftTriggerAntiDeadZone;
-            padSetting.LeftTriggerLinear = leftTriggerLinear;
-            padSetting.RightTriggerAntiDeadZone = rightTriggerAntiDeadZone;
-            padSetting.RightTriggerLinear = rightTriggerLinear;
             return padSetting;
         }
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1423,7 +1008,7 @@ namespace x360ce.Engine.Data
                 {
                     OnPadSettingChecksumChanging(value);
                     ReportPropertyChanging("PadSettingChecksum");
-                    _PadSettingChecksum = StructuralObject.SetValidValue(value, "PadSettingChecksum");
+                    _PadSettingChecksum = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("PadSettingChecksum");
                     OnPadSettingChecksumChanged();
                 }
@@ -1448,7 +1033,7 @@ namespace x360ce.Engine.Data
             {
                 OnAxisToDPadDeadZoneChanging(value);
                 ReportPropertyChanging("AxisToDPadDeadZone");
-                _AxisToDPadDeadZone = StructuralObject.SetValidValue(value, false, "AxisToDPadDeadZone");
+                _AxisToDPadDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("AxisToDPadDeadZone");
                 OnAxisToDPadDeadZoneChanged();
             }
@@ -1472,7 +1057,7 @@ namespace x360ce.Engine.Data
             {
                 OnAxisToDPadEnabledChanging(value);
                 ReportPropertyChanging("AxisToDPadEnabled");
-                _AxisToDPadEnabled = StructuralObject.SetValidValue(value, false, "AxisToDPadEnabled");
+                _AxisToDPadEnabled = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("AxisToDPadEnabled");
                 OnAxisToDPadEnabledChanged();
             }
@@ -1496,7 +1081,7 @@ namespace x360ce.Engine.Data
             {
                 OnAxisToDPadOffsetChanging(value);
                 ReportPropertyChanging("AxisToDPadOffset");
-                _AxisToDPadOffset = StructuralObject.SetValidValue(value, false, "AxisToDPadOffset");
+                _AxisToDPadOffset = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("AxisToDPadOffset");
                 OnAxisToDPadOffsetChanged();
             }
@@ -1520,7 +1105,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonAChanging(value);
                 ReportPropertyChanging("ButtonA");
-                _ButtonA = StructuralObject.SetValidValue(value, false, "ButtonA");
+                _ButtonA = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonA");
                 OnButtonAChanged();
             }
@@ -1544,7 +1129,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonBChanging(value);
                 ReportPropertyChanging("ButtonB");
-                _ButtonB = StructuralObject.SetValidValue(value, false, "ButtonB");
+                _ButtonB = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonB");
                 OnButtonBChanged();
             }
@@ -1552,6 +1137,30 @@ namespace x360ce.Engine.Data
         private global::System.String _ButtonB;
         partial void OnButtonBChanging(global::System.String value);
         partial void OnButtonBChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ButtonBig
+        {
+            get
+            {
+                return _ButtonBig;
+            }
+            set
+            {
+                OnButtonBigChanging(value);
+                ReportPropertyChanging("ButtonBig");
+                _ButtonBig = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ButtonBig");
+                OnButtonBigChanged();
+            }
+        }
+        private global::System.String _ButtonBig;
+        partial void OnButtonBigChanging(global::System.String value);
+        partial void OnButtonBigChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1568,7 +1177,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonBackChanging(value);
                 ReportPropertyChanging("ButtonBack");
-                _ButtonBack = StructuralObject.SetValidValue(value, false, "ButtonBack");
+                _ButtonBack = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonBack");
                 OnButtonBackChanged();
             }
@@ -1592,7 +1201,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonGuideChanging(value);
                 ReportPropertyChanging("ButtonGuide");
-                _ButtonGuide = StructuralObject.SetValidValue(value, false, "ButtonGuide");
+                _ButtonGuide = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonGuide");
                 OnButtonGuideChanged();
             }
@@ -1616,7 +1225,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonStartChanging(value);
                 ReportPropertyChanging("ButtonStart");
-                _ButtonStart = StructuralObject.SetValidValue(value, false, "ButtonStart");
+                _ButtonStart = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonStart");
                 OnButtonStartChanged();
             }
@@ -1640,7 +1249,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonXChanging(value);
                 ReportPropertyChanging("ButtonX");
-                _ButtonX = StructuralObject.SetValidValue(value, false, "ButtonX");
+                _ButtonX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonX");
                 OnButtonXChanged();
             }
@@ -1664,7 +1273,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonYChanging(value);
                 ReportPropertyChanging("ButtonY");
-                _ButtonY = StructuralObject.SetValidValue(value, false, "ButtonY");
+                _ButtonY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonY");
                 OnButtonYChanged();
             }
@@ -1688,7 +1297,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadChanging(value);
                 ReportPropertyChanging("DPad");
-                _DPad = StructuralObject.SetValidValue(value, false, "DPad");
+                _DPad = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPad");
                 OnDPadChanged();
             }
@@ -1712,7 +1321,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadDownChanging(value);
                 ReportPropertyChanging("DPadDown");
-                _DPadDown = StructuralObject.SetValidValue(value, false, "DPadDown");
+                _DPadDown = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadDown");
                 OnDPadDownChanged();
             }
@@ -1736,7 +1345,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadLeftChanging(value);
                 ReportPropertyChanging("DPadLeft");
-                _DPadLeft = StructuralObject.SetValidValue(value, false, "DPadLeft");
+                _DPadLeft = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadLeft");
                 OnDPadLeftChanged();
             }
@@ -1760,7 +1369,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadRightChanging(value);
                 ReportPropertyChanging("DPadRight");
-                _DPadRight = StructuralObject.SetValidValue(value, false, "DPadRight");
+                _DPadRight = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadRight");
                 OnDPadRightChanged();
             }
@@ -1784,7 +1393,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadUpChanging(value);
                 ReportPropertyChanging("DPadUp");
-                _DPadUp = StructuralObject.SetValidValue(value, false, "DPadUp");
+                _DPadUp = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadUp");
                 OnDPadUpChanged();
             }
@@ -1808,7 +1417,7 @@ namespace x360ce.Engine.Data
             {
                 OnForceEnableChanging(value);
                 ReportPropertyChanging("ForceEnable");
-                _ForceEnable = StructuralObject.SetValidValue(value, false, "ForceEnable");
+                _ForceEnable = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ForceEnable");
                 OnForceEnableChanged();
             }
@@ -1832,7 +1441,7 @@ namespace x360ce.Engine.Data
             {
                 OnForceOverallChanging(value);
                 ReportPropertyChanging("ForceOverall");
-                _ForceOverall = StructuralObject.SetValidValue(value, false, "ForceOverall");
+                _ForceOverall = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ForceOverall");
                 OnForceOverallChanged();
             }
@@ -1856,7 +1465,7 @@ namespace x360ce.Engine.Data
             {
                 OnForceSwapMotorChanging(value);
                 ReportPropertyChanging("ForceSwapMotor");
-                _ForceSwapMotor = StructuralObject.SetValidValue(value, false, "ForceSwapMotor");
+                _ForceSwapMotor = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ForceSwapMotor");
                 OnForceSwapMotorChanged();
             }
@@ -1880,7 +1489,7 @@ namespace x360ce.Engine.Data
             {
                 OnForceTypeChanging(value);
                 ReportPropertyChanging("ForceType");
-                _ForceType = StructuralObject.SetValidValue(value, false, "ForceType");
+                _ForceType = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ForceType");
                 OnForceTypeChanged();
             }
@@ -1904,7 +1513,7 @@ namespace x360ce.Engine.Data
             {
                 OnGamePadTypeChanging(value);
                 ReportPropertyChanging("GamePadType");
-                _GamePadType = StructuralObject.SetValidValue(value, false, "GamePadType");
+                _GamePadType = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("GamePadType");
                 OnGamePadTypeChanged();
             }
@@ -1928,7 +1537,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftMotorPeriodChanging(value);
                 ReportPropertyChanging("LeftMotorPeriod");
-                _LeftMotorPeriod = StructuralObject.SetValidValue(value, false, "LeftMotorPeriod");
+                _LeftMotorPeriod = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftMotorPeriod");
                 OnLeftMotorPeriodChanged();
             }
@@ -1952,7 +1561,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftShoulderChanging(value);
                 ReportPropertyChanging("LeftShoulder");
-                _LeftShoulder = StructuralObject.SetValidValue(value, false, "LeftShoulder");
+                _LeftShoulder = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftShoulder");
                 OnLeftShoulderChanged();
             }
@@ -1976,7 +1585,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbAntiDeadZoneXChanging(value);
                 ReportPropertyChanging("LeftThumbAntiDeadZoneX");
-                _LeftThumbAntiDeadZoneX = StructuralObject.SetValidValue(value, false, "LeftThumbAntiDeadZoneX");
+                _LeftThumbAntiDeadZoneX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbAntiDeadZoneX");
                 OnLeftThumbAntiDeadZoneXChanged();
             }
@@ -2000,7 +1609,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbAntiDeadZoneYChanging(value);
                 ReportPropertyChanging("LeftThumbAntiDeadZoneY");
-                _LeftThumbAntiDeadZoneY = StructuralObject.SetValidValue(value, false, "LeftThumbAntiDeadZoneY");
+                _LeftThumbAntiDeadZoneY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbAntiDeadZoneY");
                 OnLeftThumbAntiDeadZoneYChanged();
             }
@@ -2024,7 +1633,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbAxisXChanging(value);
                 ReportPropertyChanging("LeftThumbAxisX");
-                _LeftThumbAxisX = StructuralObject.SetValidValue(value, false, "LeftThumbAxisX");
+                _LeftThumbAxisX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbAxisX");
                 OnLeftThumbAxisXChanged();
             }
@@ -2048,7 +1657,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbAxisYChanging(value);
                 ReportPropertyChanging("LeftThumbAxisY");
-                _LeftThumbAxisY = StructuralObject.SetValidValue(value, false, "LeftThumbAxisY");
+                _LeftThumbAxisY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbAxisY");
                 OnLeftThumbAxisYChanged();
             }
@@ -2072,7 +1681,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbButtonChanging(value);
                 ReportPropertyChanging("LeftThumbButton");
-                _LeftThumbButton = StructuralObject.SetValidValue(value, false, "LeftThumbButton");
+                _LeftThumbButton = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbButton");
                 OnLeftThumbButtonChanged();
             }
@@ -2096,7 +1705,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbDeadZoneXChanging(value);
                 ReportPropertyChanging("LeftThumbDeadZoneX");
-                _LeftThumbDeadZoneX = StructuralObject.SetValidValue(value, false, "LeftThumbDeadZoneX");
+                _LeftThumbDeadZoneX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbDeadZoneX");
                 OnLeftThumbDeadZoneXChanged();
             }
@@ -2120,7 +1729,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbDeadZoneYChanging(value);
                 ReportPropertyChanging("LeftThumbDeadZoneY");
-                _LeftThumbDeadZoneY = StructuralObject.SetValidValue(value, false, "LeftThumbDeadZoneY");
+                _LeftThumbDeadZoneY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbDeadZoneY");
                 OnLeftThumbDeadZoneYChanged();
             }
@@ -2144,7 +1753,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbDownChanging(value);
                 ReportPropertyChanging("LeftThumbDown");
-                _LeftThumbDown = StructuralObject.SetValidValue(value, false, "LeftThumbDown");
+                _LeftThumbDown = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbDown");
                 OnLeftThumbDownChanged();
             }
@@ -2168,7 +1777,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbLeftChanging(value);
                 ReportPropertyChanging("LeftThumbLeft");
-                _LeftThumbLeft = StructuralObject.SetValidValue(value, false, "LeftThumbLeft");
+                _LeftThumbLeft = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbLeft");
                 OnLeftThumbLeftChanged();
             }
@@ -2192,7 +1801,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbRightChanging(value);
                 ReportPropertyChanging("LeftThumbRight");
-                _LeftThumbRight = StructuralObject.SetValidValue(value, false, "LeftThumbRight");
+                _LeftThumbRight = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbRight");
                 OnLeftThumbRightChanged();
             }
@@ -2216,7 +1825,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbUpChanging(value);
                 ReportPropertyChanging("LeftThumbUp");
-                _LeftThumbUp = StructuralObject.SetValidValue(value, false, "LeftThumbUp");
+                _LeftThumbUp = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbUp");
                 OnLeftThumbUpChanged();
             }
@@ -2240,7 +1849,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftTriggerChanging(value);
                 ReportPropertyChanging("LeftTrigger");
-                _LeftTrigger = StructuralObject.SetValidValue(value, false, "LeftTrigger");
+                _LeftTrigger = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftTrigger");
                 OnLeftTriggerChanged();
             }
@@ -2264,7 +1873,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftTriggerDeadZoneChanging(value);
                 ReportPropertyChanging("LeftTriggerDeadZone");
-                _LeftTriggerDeadZone = StructuralObject.SetValidValue(value, false, "LeftTriggerDeadZone");
+                _LeftTriggerDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftTriggerDeadZone");
                 OnLeftTriggerDeadZoneChanged();
             }
@@ -2288,7 +1897,7 @@ namespace x360ce.Engine.Data
             {
                 OnPassThroughChanging(value);
                 ReportPropertyChanging("PassThrough");
-                _PassThrough = StructuralObject.SetValidValue(value, false, "PassThrough");
+                _PassThrough = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("PassThrough");
                 OnPassThroughChanged();
             }
@@ -2312,7 +1921,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightMotorPeriodChanging(value);
                 ReportPropertyChanging("RightMotorPeriod");
-                _RightMotorPeriod = StructuralObject.SetValidValue(value, false, "RightMotorPeriod");
+                _RightMotorPeriod = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightMotorPeriod");
                 OnRightMotorPeriodChanged();
             }
@@ -2336,7 +1945,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightShoulderChanging(value);
                 ReportPropertyChanging("RightShoulder");
-                _RightShoulder = StructuralObject.SetValidValue(value, false, "RightShoulder");
+                _RightShoulder = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightShoulder");
                 OnRightShoulderChanged();
             }
@@ -2360,7 +1969,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbAntiDeadZoneXChanging(value);
                 ReportPropertyChanging("RightThumbAntiDeadZoneX");
-                _RightThumbAntiDeadZoneX = StructuralObject.SetValidValue(value, false, "RightThumbAntiDeadZoneX");
+                _RightThumbAntiDeadZoneX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbAntiDeadZoneX");
                 OnRightThumbAntiDeadZoneXChanged();
             }
@@ -2384,7 +1993,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbAntiDeadZoneYChanging(value);
                 ReportPropertyChanging("RightThumbAntiDeadZoneY");
-                _RightThumbAntiDeadZoneY = StructuralObject.SetValidValue(value, false, "RightThumbAntiDeadZoneY");
+                _RightThumbAntiDeadZoneY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbAntiDeadZoneY");
                 OnRightThumbAntiDeadZoneYChanged();
             }
@@ -2408,7 +2017,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbAxisXChanging(value);
                 ReportPropertyChanging("RightThumbAxisX");
-                _RightThumbAxisX = StructuralObject.SetValidValue(value, false, "RightThumbAxisX");
+                _RightThumbAxisX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbAxisX");
                 OnRightThumbAxisXChanged();
             }
@@ -2432,7 +2041,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbAxisYChanging(value);
                 ReportPropertyChanging("RightThumbAxisY");
-                _RightThumbAxisY = StructuralObject.SetValidValue(value, false, "RightThumbAxisY");
+                _RightThumbAxisY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbAxisY");
                 OnRightThumbAxisYChanged();
             }
@@ -2456,7 +2065,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbButtonChanging(value);
                 ReportPropertyChanging("RightThumbButton");
-                _RightThumbButton = StructuralObject.SetValidValue(value, false, "RightThumbButton");
+                _RightThumbButton = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbButton");
                 OnRightThumbButtonChanged();
             }
@@ -2480,7 +2089,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbDeadZoneXChanging(value);
                 ReportPropertyChanging("RightThumbDeadZoneX");
-                _RightThumbDeadZoneX = StructuralObject.SetValidValue(value, false, "RightThumbDeadZoneX");
+                _RightThumbDeadZoneX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbDeadZoneX");
                 OnRightThumbDeadZoneXChanged();
             }
@@ -2504,7 +2113,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbDeadZoneYChanging(value);
                 ReportPropertyChanging("RightThumbDeadZoneY");
-                _RightThumbDeadZoneY = StructuralObject.SetValidValue(value, false, "RightThumbDeadZoneY");
+                _RightThumbDeadZoneY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbDeadZoneY");
                 OnRightThumbDeadZoneYChanged();
             }
@@ -2528,7 +2137,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbDownChanging(value);
                 ReportPropertyChanging("RightThumbDown");
-                _RightThumbDown = StructuralObject.SetValidValue(value, false, "RightThumbDown");
+                _RightThumbDown = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbDown");
                 OnRightThumbDownChanged();
             }
@@ -2552,7 +2161,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbLeftChanging(value);
                 ReportPropertyChanging("RightThumbLeft");
-                _RightThumbLeft = StructuralObject.SetValidValue(value, false, "RightThumbLeft");
+                _RightThumbLeft = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbLeft");
                 OnRightThumbLeftChanged();
             }
@@ -2576,7 +2185,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbRightChanging(value);
                 ReportPropertyChanging("RightThumbRight");
-                _RightThumbRight = StructuralObject.SetValidValue(value, false, "RightThumbRight");
+                _RightThumbRight = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbRight");
                 OnRightThumbRightChanged();
             }
@@ -2600,7 +2209,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbUpChanging(value);
                 ReportPropertyChanging("RightThumbUp");
-                _RightThumbUp = StructuralObject.SetValidValue(value, false, "RightThumbUp");
+                _RightThumbUp = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbUp");
                 OnRightThumbUpChanged();
             }
@@ -2624,7 +2233,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightTriggerChanging(value);
                 ReportPropertyChanging("RightTrigger");
-                _RightTrigger = StructuralObject.SetValidValue(value, false, "RightTrigger");
+                _RightTrigger = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightTrigger");
                 OnRightTriggerChanged();
             }
@@ -2648,7 +2257,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightTriggerDeadZoneChanging(value);
                 ReportPropertyChanging("RightTriggerDeadZone");
-                _RightTriggerDeadZone = StructuralObject.SetValidValue(value, false, "RightTriggerDeadZone");
+                _RightTriggerDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightTriggerDeadZone");
                 OnRightTriggerDeadZoneChanged();
             }
@@ -2672,7 +2281,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbLinearXChanging(value);
                 ReportPropertyChanging("LeftThumbLinearX");
-                _LeftThumbLinearX = StructuralObject.SetValidValue(value, false, "LeftThumbLinearX");
+                _LeftThumbLinearX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbLinearX");
                 OnLeftThumbLinearXChanged();
             }
@@ -2696,7 +2305,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbLinearYChanging(value);
                 ReportPropertyChanging("LeftThumbLinearY");
-                _LeftThumbLinearY = StructuralObject.SetValidValue(value, false, "LeftThumbLinearY");
+                _LeftThumbLinearY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbLinearY");
                 OnLeftThumbLinearYChanged();
             }
@@ -2720,7 +2329,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbLinearXChanging(value);
                 ReportPropertyChanging("RightThumbLinearX");
-                _RightThumbLinearX = StructuralObject.SetValidValue(value, false, "RightThumbLinearX");
+                _RightThumbLinearX = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbLinearX");
                 OnRightThumbLinearXChanged();
             }
@@ -2744,7 +2353,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbLinearYChanging(value);
                 ReportPropertyChanging("RightThumbLinearY");
-                _RightThumbLinearY = StructuralObject.SetValidValue(value, false, "RightThumbLinearY");
+                _RightThumbLinearY = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbLinearY");
                 OnRightThumbLinearYChanged();
             }
@@ -2768,7 +2377,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftMotorStrengthChanging(value);
                 ReportPropertyChanging("LeftMotorStrength");
-                _LeftMotorStrength = StructuralObject.SetValidValue(value, false, "LeftMotorStrength");
+                _LeftMotorStrength = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftMotorStrength");
                 OnLeftMotorStrengthChanged();
             }
@@ -2792,7 +2401,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightMotorStrengthChanging(value);
                 ReportPropertyChanging("RightMotorStrength");
-                _RightMotorStrength = StructuralObject.SetValidValue(value, false, "RightMotorStrength");
+                _RightMotorStrength = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightMotorStrength");
                 OnRightMotorStrengthChanged();
             }
@@ -2816,7 +2425,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftMotorDirectionChanging(value);
                 ReportPropertyChanging("LeftMotorDirection");
-                _LeftMotorDirection = StructuralObject.SetValidValue(value, false, "LeftMotorDirection");
+                _LeftMotorDirection = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftMotorDirection");
                 OnLeftMotorDirectionChanged();
             }
@@ -2840,7 +2449,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightMotorDirectionChanging(value);
                 ReportPropertyChanging("RightMotorDirection");
-                _RightMotorDirection = StructuralObject.SetValidValue(value, false, "RightMotorDirection");
+                _RightMotorDirection = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightMotorDirection");
                 OnRightMotorDirectionChanged();
             }
@@ -2864,7 +2473,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonADeadZoneChanging(value);
                 ReportPropertyChanging("ButtonADeadZone");
-                _ButtonADeadZone = StructuralObject.SetValidValue(value, false, "ButtonADeadZone");
+                _ButtonADeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonADeadZone");
                 OnButtonADeadZoneChanged();
             }
@@ -2888,7 +2497,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonBDeadZoneChanging(value);
                 ReportPropertyChanging("ButtonBDeadZone");
-                _ButtonBDeadZone = StructuralObject.SetValidValue(value, false, "ButtonBDeadZone");
+                _ButtonBDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonBDeadZone");
                 OnButtonBDeadZoneChanged();
             }
@@ -2912,7 +2521,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonBackDeadZoneChanging(value);
                 ReportPropertyChanging("ButtonBackDeadZone");
-                _ButtonBackDeadZone = StructuralObject.SetValidValue(value, false, "ButtonBackDeadZone");
+                _ButtonBackDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonBackDeadZone");
                 OnButtonBackDeadZoneChanged();
             }
@@ -2936,7 +2545,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonStartDeadZoneChanging(value);
                 ReportPropertyChanging("ButtonStartDeadZone");
-                _ButtonStartDeadZone = StructuralObject.SetValidValue(value, false, "ButtonStartDeadZone");
+                _ButtonStartDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonStartDeadZone");
                 OnButtonStartDeadZoneChanged();
             }
@@ -2960,7 +2569,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonXDeadZoneChanging(value);
                 ReportPropertyChanging("ButtonXDeadZone");
-                _ButtonXDeadZone = StructuralObject.SetValidValue(value, false, "ButtonXDeadZone");
+                _ButtonXDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonXDeadZone");
                 OnButtonXDeadZoneChanged();
             }
@@ -2984,7 +2593,7 @@ namespace x360ce.Engine.Data
             {
                 OnButtonYDeadZoneChanging(value);
                 ReportPropertyChanging("ButtonYDeadZone");
-                _ButtonYDeadZone = StructuralObject.SetValidValue(value, false, "ButtonYDeadZone");
+                _ButtonYDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ButtonYDeadZone");
                 OnButtonYDeadZoneChanged();
             }
@@ -3008,7 +2617,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftThumbButtonDeadZoneChanging(value);
                 ReportPropertyChanging("LeftThumbButtonDeadZone");
-                _LeftThumbButtonDeadZone = StructuralObject.SetValidValue(value, false, "LeftThumbButtonDeadZone");
+                _LeftThumbButtonDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftThumbButtonDeadZone");
                 OnLeftThumbButtonDeadZoneChanged();
             }
@@ -3032,7 +2641,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightThumbButtonDeadZoneChanging(value);
                 ReportPropertyChanging("RightThumbButtonDeadZone");
-                _RightThumbButtonDeadZone = StructuralObject.SetValidValue(value, false, "RightThumbButtonDeadZone");
+                _RightThumbButtonDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightThumbButtonDeadZone");
                 OnRightThumbButtonDeadZoneChanged();
             }
@@ -3056,7 +2665,7 @@ namespace x360ce.Engine.Data
             {
                 OnLeftShoulderDeadZoneChanging(value);
                 ReportPropertyChanging("LeftShoulderDeadZone");
-                _LeftShoulderDeadZone = StructuralObject.SetValidValue(value, false, "LeftShoulderDeadZone");
+                _LeftShoulderDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LeftShoulderDeadZone");
                 OnLeftShoulderDeadZoneChanged();
             }
@@ -3080,7 +2689,7 @@ namespace x360ce.Engine.Data
             {
                 OnRightShoulderDeadZoneChanging(value);
                 ReportPropertyChanging("RightShoulderDeadZone");
-                _RightShoulderDeadZone = StructuralObject.SetValidValue(value, false, "RightShoulderDeadZone");
+                _RightShoulderDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RightShoulderDeadZone");
                 OnRightShoulderDeadZoneChanged();
             }
@@ -3104,7 +2713,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadDownDeadZoneChanging(value);
                 ReportPropertyChanging("DPadDownDeadZone");
-                _DPadDownDeadZone = StructuralObject.SetValidValue(value, false, "DPadDownDeadZone");
+                _DPadDownDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadDownDeadZone");
                 OnDPadDownDeadZoneChanged();
             }
@@ -3128,7 +2737,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadLeftDeadZoneChanging(value);
                 ReportPropertyChanging("DPadLeftDeadZone");
-                _DPadLeftDeadZone = StructuralObject.SetValidValue(value, false, "DPadLeftDeadZone");
+                _DPadLeftDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadLeftDeadZone");
                 OnDPadLeftDeadZoneChanged();
             }
@@ -3152,7 +2761,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadRightDeadZoneChanging(value);
                 ReportPropertyChanging("DPadRightDeadZone");
-                _DPadRightDeadZone = StructuralObject.SetValidValue(value, false, "DPadRightDeadZone");
+                _DPadRightDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadRightDeadZone");
                 OnDPadRightDeadZoneChanged();
             }
@@ -3176,7 +2785,7 @@ namespace x360ce.Engine.Data
             {
                 OnDPadUpDeadZoneChanging(value);
                 ReportPropertyChanging("DPadUpDeadZone");
-                _DPadUpDeadZone = StructuralObject.SetValidValue(value, false, "DPadUpDeadZone");
+                _DPadUpDeadZone = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DPadUpDeadZone");
                 OnDPadUpDeadZoneChanged();
             }
@@ -3184,105 +2793,10 @@ namespace x360ce.Engine.Data
         private global::System.String _DPadUpDeadZone;
         partial void OnDPadUpDeadZoneChanging(global::System.String value);
         partial void OnDPadUpDeadZoneChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LeftTriggerAntiDeadZone
-        {
-            get
-            {
-                return _LeftTriggerAntiDeadZone;
-            }
-            set
-            {
-                OnLeftTriggerAntiDeadZoneChanging(value);
-                ReportPropertyChanging("LeftTriggerAntiDeadZone");
-                _LeftTriggerAntiDeadZone = StructuralObject.SetValidValue(value, false, "LeftTriggerAntiDeadZone");
-                ReportPropertyChanged("LeftTriggerAntiDeadZone");
-                OnLeftTriggerAntiDeadZoneChanged();
-            }
-        }
-        private global::System.String _LeftTriggerAntiDeadZone;
-        partial void OnLeftTriggerAntiDeadZoneChanging(global::System.String value);
-        partial void OnLeftTriggerAntiDeadZoneChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String LeftTriggerLinear
-        {
-            get
-            {
-                return _LeftTriggerLinear;
-            }
-            set
-            {
-                OnLeftTriggerLinearChanging(value);
-                ReportPropertyChanging("LeftTriggerLinear");
-                _LeftTriggerLinear = StructuralObject.SetValidValue(value, false, "LeftTriggerLinear");
-                ReportPropertyChanged("LeftTriggerLinear");
-                OnLeftTriggerLinearChanged();
-            }
-        }
-        private global::System.String _LeftTriggerLinear;
-        partial void OnLeftTriggerLinearChanging(global::System.String value);
-        partial void OnLeftTriggerLinearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightTriggerAntiDeadZone
-        {
-            get
-            {
-                return _RightTriggerAntiDeadZone;
-            }
-            set
-            {
-                OnRightTriggerAntiDeadZoneChanging(value);
-                ReportPropertyChanging("RightTriggerAntiDeadZone");
-                _RightTriggerAntiDeadZone = StructuralObject.SetValidValue(value, false, "RightTriggerAntiDeadZone");
-                ReportPropertyChanged("RightTriggerAntiDeadZone");
-                OnRightTriggerAntiDeadZoneChanged();
-            }
-        }
-        private global::System.String _RightTriggerAntiDeadZone;
-        partial void OnRightTriggerAntiDeadZoneChanging(global::System.String value);
-        partial void OnRightTriggerAntiDeadZoneChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String RightTriggerLinear
-        {
-            get
-            {
-                return _RightTriggerLinear;
-            }
-            set
-            {
-                OnRightTriggerLinearChanging(value);
-                ReportPropertyChanging("RightTriggerLinear");
-                _RightTriggerLinear = StructuralObject.SetValidValue(value, false, "RightTriggerLinear");
-                ReportPropertyChanged("RightTriggerLinear");
-                OnRightTriggerLinearChanged();
-            }
-        }
-        private global::System.String _RightTriggerLinear;
-        partial void OnRightTriggerLinearChanging(global::System.String value);
-        partial void OnRightTriggerLinearChanged();
 
         #endregion
 
+    
     }
     
     /// <summary>
@@ -3316,7 +2830,7 @@ namespace x360ce.Engine.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3335,7 +2849,7 @@ namespace x360ce.Engine.Data
                 {
                     OnProductGuidChanging(value);
                     ReportPropertyChanging("ProductGuid");
-                    _ProductGuid = StructuralObject.SetValidValue(value, "ProductGuid");
+                    _ProductGuid = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("ProductGuid");
                     OnProductGuidChanged();
                 }
@@ -3360,7 +2874,7 @@ namespace x360ce.Engine.Data
             {
                 OnProductNameChanging(value);
                 ReportPropertyChanging("ProductName");
-                _ProductName = StructuralObject.SetValidValue(value, false, "ProductName");
+                _ProductName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ProductName");
                 OnProductNameChanged();
             }
@@ -3384,7 +2898,7 @@ namespace x360ce.Engine.Data
             {
                 OnInstanceCountChanging(value);
                 ReportPropertyChanging("InstanceCount");
-                _InstanceCount = StructuralObject.SetValidValue(value, "InstanceCount");
+                _InstanceCount = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("InstanceCount");
                 OnInstanceCountChanged();
             }
@@ -3408,7 +2922,7 @@ namespace x360ce.Engine.Data
             {
                 OnVendorIdChanging(value);
                 ReportPropertyChanging("VendorId");
-                _VendorId = StructuralObject.SetValidValue(value, "VendorId");
+                _VendorId = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("VendorId");
                 OnVendorIdChanged();
             }
@@ -3432,7 +2946,7 @@ namespace x360ce.Engine.Data
             {
                 OnProductIdChanging(value);
                 ReportPropertyChanging("ProductId");
-                _ProductId = StructuralObject.SetValidValue(value, "ProductId");
+                _ProductId = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("ProductId");
                 OnProductIdChanged();
             }
@@ -3443,6 +2957,7 @@ namespace x360ce.Engine.Data
 
         #endregion
 
+    
     }
     
     /// <summary>
@@ -3461,56 +2976,48 @@ namespace x360ce.Engine.Data
         /// <param name="programId">Initial value of the ProgramId property.</param>
         /// <param name="fileName">Initial value of the FileName property.</param>
         /// <param name="fileProductName">Initial value of the FileProductName property.</param>
-        /// <param name="fileVersion">Initial value of the FileVersion property.</param>
-        /// <param name="processorArchitecture">Initial value of the ProcessorArchitecture property.</param>
-        /// <param name="emulationType">Initial value of the EmulationType property.</param>
-        /// <param name="autoMapMask">Initial value of the AutoMapMask property.</param>
         /// <param name="hookMask">Initial value of the HookMask property.</param>
         /// <param name="xInputMask">Initial value of the XInputMask property.</param>
+        /// <param name="instanceCount">Initial value of the InstanceCount property.</param>
+        /// <param name="isEnabled">Initial value of the IsEnabled property.</param>
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        /// <param name="comment">Initial value of the Comment property.</param>
+        /// <param name="fileVersion">Initial value of the FileVersion property.</param>
+        /// <param name="processorArchitecture">Initial value of the ProcessorArchitecture property.</param>
         /// <param name="dInputMask">Initial value of the DInputMask property.</param>
         /// <param name="dInputFile">Initial value of the DInputFile property.</param>
         /// <param name="fakeVID">Initial value of the FakeVID property.</param>
         /// <param name="fakePID">Initial value of the FakePID property.</param>
         /// <param name="timeout">Initial value of the Timeout property.</param>
-        /// <param name="weight">Initial value of the Weight property.</param>
         /// <param name="settingChecksum">Initial value of the SettingChecksum property.</param>
-        /// <param name="comment">Initial value of the Comment property.</param>
-        /// <param name="isEnabled">Initial value of the IsEnabled property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        /// <param name="instanceCount">Initial value of the InstanceCount property.</param>
-        /// <param name="xInputPath">Initial value of the XInputPath property.</param>
-        public static Program CreateProgram(global::System.Guid programId, global::System.String fileName, global::System.String fileProductName, global::System.String fileVersion, global::System.Int32 processorArchitecture, global::System.Int32 emulationType, global::System.Int32 autoMapMask, global::System.Int32 hookMask, global::System.Int32 xInputMask, global::System.Int32 dInputMask, global::System.String dInputFile, global::System.Int32 fakeVID, global::System.Int32 fakePID, global::System.Int32 timeout, global::System.Int32 weight, global::System.Guid settingChecksum, global::System.String comment, global::System.Boolean isEnabled, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Int32 instanceCount, global::System.String xInputPath)
+        /// <param name="weight">Initial value of the Weight property.</param>
+        public static Program CreateProgram(global::System.Guid programId, global::System.String fileName, global::System.String fileProductName, global::System.Int32 hookMask, global::System.Int32 xInputMask, global::System.Int32 instanceCount, global::System.Boolean isEnabled, global::System.DateTime dateCreated, global::System.String comment, global::System.String fileVersion, global::System.Int32 processorArchitecture, global::System.Int32 dInputMask, global::System.String dInputFile, global::System.Int32 fakeVID, global::System.Int32 fakePID, global::System.Int32 timeout, global::System.Guid settingChecksum, global::System.Int32 weight)
         {
             Program program = new Program();
             program.ProgramId = programId;
             program.FileName = fileName;
             program.FileProductName = fileProductName;
-            program.FileVersion = fileVersion;
-            program.ProcessorArchitecture = processorArchitecture;
-            program.EmulationType = emulationType;
-            program.AutoMapMask = autoMapMask;
             program.HookMask = hookMask;
             program.XInputMask = xInputMask;
+            program.InstanceCount = instanceCount;
+            program.IsEnabled = isEnabled;
+            program.DateCreated = dateCreated;
+            program.Comment = comment;
+            program.FileVersion = fileVersion;
+            program.ProcessorArchitecture = processorArchitecture;
             program.DInputMask = dInputMask;
             program.DInputFile = dInputFile;
             program.FakeVID = fakeVID;
             program.FakePID = fakePID;
             program.Timeout = timeout;
-            program.Weight = weight;
             program.SettingChecksum = settingChecksum;
-            program.Comment = comment;
-            program.IsEnabled = isEnabled;
-            program.DateCreated = dateCreated;
-            program.DateUpdated = dateUpdated;
-            program.InstanceCount = instanceCount;
-            program.XInputPath = xInputPath;
+            program.Weight = weight;
             return program;
         }
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3529,7 +3036,7 @@ namespace x360ce.Engine.Data
                 {
                     OnProgramIdChanging(value);
                     ReportPropertyChanging("ProgramId");
-                    _ProgramId = StructuralObject.SetValidValue(value, "ProgramId");
+                    _ProgramId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("ProgramId");
                     OnProgramIdChanged();
                 }
@@ -3554,7 +3061,7 @@ namespace x360ce.Engine.Data
             {
                 OnFileNameChanging(value);
                 ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, false, "FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FileName");
                 OnFileNameChanged();
             }
@@ -3578,7 +3085,7 @@ namespace x360ce.Engine.Data
             {
                 OnFileProductNameChanging(value);
                 ReportPropertyChanging("FileProductName");
-                _FileProductName = StructuralObject.SetValidValue(value, false, "FileProductName");
+                _FileProductName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FileProductName");
                 OnFileProductNameChanged();
             }
@@ -3586,102 +3093,6 @@ namespace x360ce.Engine.Data
         private global::System.String _FileProductName;
         partial void OnFileProductNameChanging(global::System.String value);
         partial void OnFileProductNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FileVersion
-        {
-            get
-            {
-                return _FileVersion;
-            }
-            set
-            {
-                OnFileVersionChanging(value);
-                ReportPropertyChanging("FileVersion");
-                _FileVersion = StructuralObject.SetValidValue(value, false, "FileVersion");
-                ReportPropertyChanged("FileVersion");
-                OnFileVersionChanged();
-            }
-        }
-        private global::System.String _FileVersion;
-        partial void OnFileVersionChanging(global::System.String value);
-        partial void OnFileVersionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ProcessorArchitecture
-        {
-            get
-            {
-                return _ProcessorArchitecture;
-            }
-            set
-            {
-                OnProcessorArchitectureChanging(value);
-                ReportPropertyChanging("ProcessorArchitecture");
-                _ProcessorArchitecture = StructuralObject.SetValidValue(value, "ProcessorArchitecture");
-                ReportPropertyChanged("ProcessorArchitecture");
-                OnProcessorArchitectureChanged();
-            }
-        }
-        private global::System.Int32 _ProcessorArchitecture;
-        partial void OnProcessorArchitectureChanging(global::System.Int32 value);
-        partial void OnProcessorArchitectureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 EmulationType
-        {
-            get
-            {
-                return _EmulationType;
-            }
-            set
-            {
-                OnEmulationTypeChanging(value);
-                ReportPropertyChanging("EmulationType");
-                _EmulationType = StructuralObject.SetValidValue(value, "EmulationType");
-                ReportPropertyChanged("EmulationType");
-                OnEmulationTypeChanged();
-            }
-        }
-        private global::System.Int32 _EmulationType;
-        partial void OnEmulationTypeChanging(global::System.Int32 value);
-        partial void OnEmulationTypeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AutoMapMask
-        {
-            get
-            {
-                return _AutoMapMask;
-            }
-            set
-            {
-                OnAutoMapMaskChanging(value);
-                ReportPropertyChanging("AutoMapMask");
-                _AutoMapMask = StructuralObject.SetValidValue(value, "AutoMapMask");
-                ReportPropertyChanged("AutoMapMask");
-                OnAutoMapMaskChanged();
-            }
-        }
-        private global::System.Int32 _AutoMapMask;
-        partial void OnAutoMapMaskChanging(global::System.Int32 value);
-        partial void OnAutoMapMaskChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3698,7 +3109,7 @@ namespace x360ce.Engine.Data
             {
                 OnHookMaskChanging(value);
                 ReportPropertyChanging("HookMask");
-                _HookMask = StructuralObject.SetValidValue(value, "HookMask");
+                _HookMask = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("HookMask");
                 OnHookMaskChanged();
             }
@@ -3722,7 +3133,7 @@ namespace x360ce.Engine.Data
             {
                 OnXInputMaskChanging(value);
                 ReportPropertyChanging("XInputMask");
-                _XInputMask = StructuralObject.SetValidValue(value, "XInputMask");
+                _XInputMask = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("XInputMask");
                 OnXInputMaskChanged();
             }
@@ -3730,270 +3141,6 @@ namespace x360ce.Engine.Data
         private global::System.Int32 _XInputMask;
         partial void OnXInputMaskChanging(global::System.Int32 value);
         partial void OnXInputMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DInputMask
-        {
-            get
-            {
-                return _DInputMask;
-            }
-            set
-            {
-                OnDInputMaskChanging(value);
-                ReportPropertyChanging("DInputMask");
-                _DInputMask = StructuralObject.SetValidValue(value, "DInputMask");
-                ReportPropertyChanged("DInputMask");
-                OnDInputMaskChanged();
-            }
-        }
-        private global::System.Int32 _DInputMask;
-        partial void OnDInputMaskChanging(global::System.Int32 value);
-        partial void OnDInputMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DInputFile
-        {
-            get
-            {
-                return _DInputFile;
-            }
-            set
-            {
-                OnDInputFileChanging(value);
-                ReportPropertyChanging("DInputFile");
-                _DInputFile = StructuralObject.SetValidValue(value, false, "DInputFile");
-                ReportPropertyChanged("DInputFile");
-                OnDInputFileChanged();
-            }
-        }
-        private global::System.String _DInputFile;
-        partial void OnDInputFileChanging(global::System.String value);
-        partial void OnDInputFileChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 FakeVID
-        {
-            get
-            {
-                return _FakeVID;
-            }
-            set
-            {
-                OnFakeVIDChanging(value);
-                ReportPropertyChanging("FakeVID");
-                _FakeVID = StructuralObject.SetValidValue(value, "FakeVID");
-                ReportPropertyChanged("FakeVID");
-                OnFakeVIDChanged();
-            }
-        }
-        private global::System.Int32 _FakeVID;
-        partial void OnFakeVIDChanging(global::System.Int32 value);
-        partial void OnFakeVIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 FakePID
-        {
-            get
-            {
-                return _FakePID;
-            }
-            set
-            {
-                OnFakePIDChanging(value);
-                ReportPropertyChanging("FakePID");
-                _FakePID = StructuralObject.SetValidValue(value, "FakePID");
-                ReportPropertyChanged("FakePID");
-                OnFakePIDChanged();
-            }
-        }
-        private global::System.Int32 _FakePID;
-        partial void OnFakePIDChanging(global::System.Int32 value);
-        partial void OnFakePIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Timeout
-        {
-            get
-            {
-                return _Timeout;
-            }
-            set
-            {
-                OnTimeoutChanging(value);
-                ReportPropertyChanging("Timeout");
-                _Timeout = StructuralObject.SetValidValue(value, "Timeout");
-                ReportPropertyChanged("Timeout");
-                OnTimeoutChanged();
-            }
-        }
-        private global::System.Int32 _Timeout;
-        partial void OnTimeoutChanging(global::System.Int32 value);
-        partial void OnTimeoutChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Weight
-        {
-            get
-            {
-                return _Weight;
-            }
-            set
-            {
-                OnWeightChanging(value);
-                ReportPropertyChanging("Weight");
-                _Weight = StructuralObject.SetValidValue(value, "Weight");
-                ReportPropertyChanged("Weight");
-                OnWeightChanged();
-            }
-        }
-        private global::System.Int32 _Weight;
-        partial void OnWeightChanging(global::System.Int32 value);
-        partial void OnWeightChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid SettingChecksum
-        {
-            get
-            {
-                return _SettingChecksum;
-            }
-            set
-            {
-                OnSettingChecksumChanging(value);
-                ReportPropertyChanging("SettingChecksum");
-                _SettingChecksum = StructuralObject.SetValidValue(value, "SettingChecksum");
-                ReportPropertyChanged("SettingChecksum");
-                OnSettingChecksumChanged();
-            }
-        }
-        private global::System.Guid _SettingChecksum;
-        partial void OnSettingChecksumChanging(global::System.Guid value);
-        partial void OnSettingChecksumChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Comment
-        {
-            get
-            {
-                return _Comment;
-            }
-            set
-            {
-                OnCommentChanging(value);
-                ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, false, "Comment");
-                ReportPropertyChanged("Comment");
-                OnCommentChanged();
-            }
-        }
-        private global::System.String _Comment;
-        partial void OnCommentChanging(global::System.String value);
-        partial void OnCommentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsEnabled
-        {
-            get
-            {
-                return _IsEnabled;
-            }
-            set
-            {
-                OnIsEnabledChanging(value);
-                ReportPropertyChanging("IsEnabled");
-                _IsEnabled = StructuralObject.SetValidValue(value, "IsEnabled");
-                ReportPropertyChanged("IsEnabled");
-                OnIsEnabledChanged();
-            }
-        }
-        private global::System.Boolean _IsEnabled;
-        partial void OnIsEnabledChanging(global::System.Boolean value);
-        partial void OnIsEnabledChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4010,7 +3157,7 @@ namespace x360ce.Engine.Data
             {
                 OnInstanceCountChanging(value);
                 ReportPropertyChanging("InstanceCount");
-                _InstanceCount = StructuralObject.SetValidValue(value, "InstanceCount");
+                _InstanceCount = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("InstanceCount");
                 OnInstanceCountChanged();
             }
@@ -4018,1646 +3165,6 @@ namespace x360ce.Engine.Data
         private global::System.Int32 _InstanceCount;
         partial void OnInstanceCountChanging(global::System.Int32 value);
         partial void OnInstanceCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String XInputPath
-        {
-            get
-            {
-                return _XInputPath;
-            }
-            set
-            {
-                OnXInputPathChanging(value);
-                ReportPropertyChanging("XInputPath");
-                _XInputPath = StructuralObject.SetValidValue(value, false, "XInputPath");
-                ReportPropertyChanged("XInputPath");
-                OnXInputPathChanged();
-            }
-        }
-        private global::System.String _XInputPath;
-        partial void OnXInputPathChanging(global::System.String value);
-        partial void OnXInputPathChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="Summary")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Summary : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Summary object.
-        /// </summary>
-        /// <param name="summaryId">Initial value of the SummaryId property.</param>
-        /// <param name="users">Initial value of the Users property.</param>
-        /// <param name="padSettingChecksum">Initial value of the PadSettingChecksum property.</param>
-        /// <param name="productGuid">Initial value of the ProductGuid property.</param>
-        /// <param name="productName">Initial value of the ProductName property.</param>
-        /// <param name="fileName">Initial value of the FileName property.</param>
-        /// <param name="fileProductName">Initial value of the FileProductName property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        /// <param name="weight">Initial value of the Weight property.</param>
-        public static Summary CreateSummary(global::System.Guid summaryId, global::System.Int32 users, global::System.Guid padSettingChecksum, global::System.Guid productGuid, global::System.String productName, global::System.String fileName, global::System.String fileProductName, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Int32 weight)
-        {
-            Summary summary = new Summary();
-            summary.SummaryId = summaryId;
-            summary.Users = users;
-            summary.PadSettingChecksum = padSettingChecksum;
-            summary.ProductGuid = productGuid;
-            summary.ProductName = productName;
-            summary.FileName = fileName;
-            summary.FileProductName = fileProductName;
-            summary.DateCreated = dateCreated;
-            summary.DateUpdated = dateUpdated;
-            summary.Weight = weight;
-            return summary;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid SummaryId
-        {
-            get
-            {
-                return _SummaryId;
-            }
-            set
-            {
-                if (_SummaryId != value)
-                {
-                    OnSummaryIdChanging(value);
-                    ReportPropertyChanging("SummaryId");
-                    _SummaryId = StructuralObject.SetValidValue(value, "SummaryId");
-                    ReportPropertyChanged("SummaryId");
-                    OnSummaryIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _SummaryId;
-        partial void OnSummaryIdChanging(global::System.Guid value);
-        partial void OnSummaryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Users
-        {
-            get
-            {
-                return _Users;
-            }
-            set
-            {
-                OnUsersChanging(value);
-                ReportPropertyChanging("Users");
-                _Users = StructuralObject.SetValidValue(value, "Users");
-                ReportPropertyChanged("Users");
-                OnUsersChanged();
-            }
-        }
-        private global::System.Int32 _Users;
-        partial void OnUsersChanging(global::System.Int32 value);
-        partial void OnUsersChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid PadSettingChecksum
-        {
-            get
-            {
-                return _PadSettingChecksum;
-            }
-            set
-            {
-                OnPadSettingChecksumChanging(value);
-                ReportPropertyChanging("PadSettingChecksum");
-                _PadSettingChecksum = StructuralObject.SetValidValue(value, "PadSettingChecksum");
-                ReportPropertyChanged("PadSettingChecksum");
-                OnPadSettingChecksumChanged();
-            }
-        }
-        private global::System.Guid _PadSettingChecksum;
-        partial void OnPadSettingChecksumChanging(global::System.Guid value);
-        partial void OnPadSettingChecksumChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProductGuid
-        {
-            get
-            {
-                return _ProductGuid;
-            }
-            set
-            {
-                OnProductGuidChanging(value);
-                ReportPropertyChanging("ProductGuid");
-                _ProductGuid = StructuralObject.SetValidValue(value, "ProductGuid");
-                ReportPropertyChanged("ProductGuid");
-                OnProductGuidChanged();
-            }
-        }
-        private global::System.Guid _ProductGuid;
-        partial void OnProductGuidChanging(global::System.Guid value);
-        partial void OnProductGuidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String ProductName
-        {
-            get
-            {
-                return _ProductName;
-            }
-            set
-            {
-                OnProductNameChanging(value);
-                ReportPropertyChanging("ProductName");
-                _ProductName = StructuralObject.SetValidValue(value, false, "ProductName");
-                ReportPropertyChanged("ProductName");
-                OnProductNameChanged();
-            }
-        }
-        private global::System.String _ProductName;
-        partial void OnProductNameChanging(global::System.String value);
-        partial void OnProductNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FileName
-        {
-            get
-            {
-                return _FileName;
-            }
-            set
-            {
-                OnFileNameChanging(value);
-                ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, false, "FileName");
-                ReportPropertyChanged("FileName");
-                OnFileNameChanged();
-            }
-        }
-        private global::System.String _FileName;
-        partial void OnFileNameChanging(global::System.String value);
-        partial void OnFileNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FileProductName
-        {
-            get
-            {
-                return _FileProductName;
-            }
-            set
-            {
-                OnFileProductNameChanging(value);
-                ReportPropertyChanging("FileProductName");
-                _FileProductName = StructuralObject.SetValidValue(value, false, "FileProductName");
-                ReportPropertyChanged("FileProductName");
-                OnFileProductNameChanged();
-            }
-        }
-        private global::System.String _FileProductName;
-        partial void OnFileProductNameChanging(global::System.String value);
-        partial void OnFileProductNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Weight
-        {
-            get
-            {
-                return _Weight;
-            }
-            set
-            {
-                OnWeightChanging(value);
-                ReportPropertyChanging("Weight");
-                _Weight = StructuralObject.SetValidValue(value, "Weight");
-                ReportPropertyChanged("Weight");
-                OnWeightChanged();
-            }
-        }
-        private global::System.Int32 _Weight;
-        partial void OnWeightChanging(global::System.Int32 value);
-        partial void OnWeightChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="UserComputer")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserComputer : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserComputer object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="applicationId">Initial value of the ApplicationId property.</param>
-        /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="computerId">Initial value of the ComputerId property.</param>
-        /// <param name="computerName">Initial value of the ComputerName property.</param>
-        /// <param name="checksum">Initial value of the Checksum property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        public static UserComputer CreateUserComputer(global::System.Guid id, global::System.Guid applicationId, global::System.Guid userId, global::System.Guid computerId, global::System.String computerName, global::System.Guid checksum, global::System.DateTime dateCreated, global::System.DateTime dateUpdated)
-        {
-            UserComputer userComputer = new UserComputer();
-            userComputer.Id = id;
-            userComputer.ApplicationId = applicationId;
-            userComputer.UserId = userId;
-            userComputer.ComputerId = computerId;
-            userComputer.ComputerName = computerName;
-            userComputer.Checksum = checksum;
-            userComputer.DateCreated = dateCreated;
-            userComputer.DateUpdated = dateUpdated;
-            return userComputer;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ApplicationId
-        {
-            get
-            {
-                return _ApplicationId;
-            }
-            set
-            {
-                OnApplicationIdChanging(value);
-                ReportPropertyChanging("ApplicationId");
-                _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
-                ReportPropertyChanged("ApplicationId");
-                OnApplicationIdChanged();
-            }
-        }
-        private global::System.Guid _ApplicationId;
-        partial void OnApplicationIdChanging(global::System.Guid value);
-        partial void OnApplicationIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid UserId
-        {
-            get
-            {
-                return _UserId;
-            }
-            set
-            {
-                OnUserIdChanging(value);
-                ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value, "UserId");
-                ReportPropertyChanged("UserId");
-                OnUserIdChanged();
-            }
-        }
-        private global::System.Guid _UserId;
-        partial void OnUserIdChanging(global::System.Guid value);
-        partial void OnUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ComputerId
-        {
-            get
-            {
-                return _ComputerId;
-            }
-            set
-            {
-                OnComputerIdChanging(value);
-                ReportPropertyChanging("ComputerId");
-                _ComputerId = StructuralObject.SetValidValue(value, "ComputerId");
-                ReportPropertyChanged("ComputerId");
-                OnComputerIdChanged();
-            }
-        }
-        private global::System.Guid _ComputerId;
-        partial void OnComputerIdChanging(global::System.Guid value);
-        partial void OnComputerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String ComputerName
-        {
-            get
-            {
-                return _ComputerName;
-            }
-            set
-            {
-                OnComputerNameChanging(value);
-                ReportPropertyChanging("ComputerName");
-                _ComputerName = StructuralObject.SetValidValue(value, false, "ComputerName");
-                ReportPropertyChanged("ComputerName");
-                OnComputerNameChanged();
-            }
-        }
-        private global::System.String _ComputerName;
-        partial void OnComputerNameChanging(global::System.String value);
-        partial void OnComputerNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Checksum
-        {
-            get
-            {
-                return _Checksum;
-            }
-            set
-            {
-                OnChecksumChanging(value);
-                ReportPropertyChanging("Checksum");
-                _Checksum = StructuralObject.SetValidValue(value, "Checksum");
-                ReportPropertyChanged("Checksum");
-                OnChecksumChanged();
-            }
-        }
-        private global::System.Guid _Checksum;
-        partial void OnChecksumChanging(global::System.Guid value);
-        partial void OnChecksumChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="UserDevice")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserDevice : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserDevice object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="computerId">Initial value of the ComputerId property.</param>
-        /// <param name="instanceGuid">Initial value of the InstanceGuid property.</param>
-        /// <param name="instanceName">Initial value of the InstanceName property.</param>
-        /// <param name="productGuid">Initial value of the ProductGuid property.</param>
-        /// <param name="productName">Initial value of the ProductName property.</param>
-        /// <param name="capAxeCount">Initial value of the CapAxeCount property.</param>
-        /// <param name="capButtonCount">Initial value of the CapButtonCount property.</param>
-        /// <param name="capDriverVersion">Initial value of the CapDriverVersion property.</param>
-        /// <param name="capFirmwareRevision">Initial value of the CapFirmwareRevision property.</param>
-        /// <param name="capFlags">Initial value of the CapFlags property.</param>
-        /// <param name="capForceFeedbackMinimumTimeResolution">Initial value of the CapForceFeedbackMinimumTimeResolution property.</param>
-        /// <param name="capForceFeedbackSamplePeriod">Initial value of the CapForceFeedbackSamplePeriod property.</param>
-        /// <param name="capHardwareRevision">Initial value of the CapHardwareRevision property.</param>
-        /// <param name="capPovCount">Initial value of the CapPovCount property.</param>
-        /// <param name="capIsHumanInterfaceDevice">Initial value of the CapIsHumanInterfaceDevice property.</param>
-        /// <param name="capSubtype">Initial value of the CapSubtype property.</param>
-        /// <param name="capType">Initial value of the CapType property.</param>
-        /// <param name="hidManufacturer">Initial value of the HidManufacturer property.</param>
-        /// <param name="hidVendorId">Initial value of the HidVendorId property.</param>
-        /// <param name="hidProductId">Initial value of the HidProductId property.</param>
-        /// <param name="hidRevision">Initial value of the HidRevision property.</param>
-        /// <param name="hidDescription">Initial value of the HidDescription property.</param>
-        /// <param name="hidDeviceId">Initial value of the HidDeviceId property.</param>
-        /// <param name="hidDevicePath">Initial value of the HidDevicePath property.</param>
-        /// <param name="hidParentDeviceId">Initial value of the HidParentDeviceId property.</param>
-        /// <param name="hidClassGuid">Initial value of the HidClassGuid property.</param>
-        /// <param name="hidClassDescription">Initial value of the HidClassDescription property.</param>
-        /// <param name="devManufacturer">Initial value of the DevManufacturer property.</param>
-        /// <param name="devVendorId">Initial value of the DevVendorId property.</param>
-        /// <param name="devProductId">Initial value of the DevProductId property.</param>
-        /// <param name="devRevision">Initial value of the DevRevision property.</param>
-        /// <param name="devDescription">Initial value of the DevDescription property.</param>
-        /// <param name="devDeviceId">Initial value of the DevDeviceId property.</param>
-        /// <param name="devDevicePath">Initial value of the DevDevicePath property.</param>
-        /// <param name="devParentDeviceId">Initial value of the DevParentDeviceId property.</param>
-        /// <param name="devClassGuid">Initial value of the DevClassGuid property.</param>
-        /// <param name="devClassDescription">Initial value of the DevClassDescription property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        /// <param name="isEnabled">Initial value of the IsEnabled property.</param>
-        /// <param name="checksum">Initial value of the Checksum property.</param>
-        /// <param name="diAxeMask">Initial value of the DiAxeMask property.</param>
-        /// <param name="diSliderMask">Initial value of the DiSliderMask property.</param>
-        /// <param name="isHidden">Initial value of the IsHidden property.</param>
-        /// <param name="diActuatorMask">Initial value of the DiActuatorMask property.</param>
-        /// <param name="diActuatorCount">Initial value of the DiActuatorCount property.</param>
-        /// <param name="profileId">Initial value of the ProfileId property.</param>
-        /// <param name="connectionClass">Initial value of the ConnectionClass property.</param>
-        public static UserDevice CreateUserDevice(global::System.Guid id, global::System.Guid computerId, global::System.Guid instanceGuid, global::System.String instanceName, global::System.Guid productGuid, global::System.String productName, global::System.Int32 capAxeCount, global::System.Int32 capButtonCount, global::System.Int32 capDriverVersion, global::System.Int32 capFirmwareRevision, global::System.Int32 capFlags, global::System.Int32 capForceFeedbackMinimumTimeResolution, global::System.Int32 capForceFeedbackSamplePeriod, global::System.Int32 capHardwareRevision, global::System.Int32 capPovCount, global::System.Boolean capIsHumanInterfaceDevice, global::System.Int32 capSubtype, global::System.Int32 capType, global::System.String hidManufacturer, global::System.Int32 hidVendorId, global::System.Int32 hidProductId, global::System.Int32 hidRevision, global::System.String hidDescription, global::System.String hidDeviceId, global::System.String hidDevicePath, global::System.String hidParentDeviceId, global::System.Guid hidClassGuid, global::System.String hidClassDescription, global::System.String devManufacturer, global::System.Int32 devVendorId, global::System.Int32 devProductId, global::System.Int32 devRevision, global::System.String devDescription, global::System.String devDeviceId, global::System.String devDevicePath, global::System.String devParentDeviceId, global::System.Guid devClassGuid, global::System.String devClassDescription, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Boolean isEnabled, global::System.Guid checksum, global::System.Int32 diAxeMask, global::System.Int32 diSliderMask, global::System.Boolean isHidden, global::System.Int32 diActuatorMask, global::System.Int32 diActuatorCount, global::System.Guid profileId, global::System.Guid connectionClass)
-        {
-            UserDevice userDevice = new UserDevice();
-            userDevice.Id = id;
-            userDevice.ComputerId = computerId;
-            userDevice.InstanceGuid = instanceGuid;
-            userDevice.InstanceName = instanceName;
-            userDevice.ProductGuid = productGuid;
-            userDevice.ProductName = productName;
-            userDevice.CapAxeCount = capAxeCount;
-            userDevice.CapButtonCount = capButtonCount;
-            userDevice.CapDriverVersion = capDriverVersion;
-            userDevice.CapFirmwareRevision = capFirmwareRevision;
-            userDevice.CapFlags = capFlags;
-            userDevice.CapForceFeedbackMinimumTimeResolution = capForceFeedbackMinimumTimeResolution;
-            userDevice.CapForceFeedbackSamplePeriod = capForceFeedbackSamplePeriod;
-            userDevice.CapHardwareRevision = capHardwareRevision;
-            userDevice.CapPovCount = capPovCount;
-            userDevice.CapIsHumanInterfaceDevice = capIsHumanInterfaceDevice;
-            userDevice.CapSubtype = capSubtype;
-            userDevice.CapType = capType;
-            userDevice.HidManufacturer = hidManufacturer;
-            userDevice.HidVendorId = hidVendorId;
-            userDevice.HidProductId = hidProductId;
-            userDevice.HidRevision = hidRevision;
-            userDevice.HidDescription = hidDescription;
-            userDevice.HidDeviceId = hidDeviceId;
-            userDevice.HidDevicePath = hidDevicePath;
-            userDevice.HidParentDeviceId = hidParentDeviceId;
-            userDevice.HidClassGuid = hidClassGuid;
-            userDevice.HidClassDescription = hidClassDescription;
-            userDevice.DevManufacturer = devManufacturer;
-            userDevice.DevVendorId = devVendorId;
-            userDevice.DevProductId = devProductId;
-            userDevice.DevRevision = devRevision;
-            userDevice.DevDescription = devDescription;
-            userDevice.DevDeviceId = devDeviceId;
-            userDevice.DevDevicePath = devDevicePath;
-            userDevice.DevParentDeviceId = devParentDeviceId;
-            userDevice.DevClassGuid = devClassGuid;
-            userDevice.DevClassDescription = devClassDescription;
-            userDevice.DateCreated = dateCreated;
-            userDevice.DateUpdated = dateUpdated;
-            userDevice.IsEnabled = isEnabled;
-            userDevice.Checksum = checksum;
-            userDevice.DiAxeMask = diAxeMask;
-            userDevice.DiSliderMask = diSliderMask;
-            userDevice.IsHidden = isHidden;
-            userDevice.DiActuatorMask = diActuatorMask;
-            userDevice.DiActuatorCount = diActuatorCount;
-            userDevice.ProfileId = profileId;
-            userDevice.ConnectionClass = connectionClass;
-            return userDevice;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ComputerId
-        {
-            get
-            {
-                return _ComputerId;
-            }
-            set
-            {
-                OnComputerIdChanging(value);
-                ReportPropertyChanging("ComputerId");
-                _ComputerId = StructuralObject.SetValidValue(value, "ComputerId");
-                ReportPropertyChanged("ComputerId");
-                OnComputerIdChanged();
-            }
-        }
-        private global::System.Guid _ComputerId;
-        partial void OnComputerIdChanging(global::System.Guid value);
-        partial void OnComputerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid InstanceGuid
-        {
-            get
-            {
-                return _InstanceGuid;
-            }
-            set
-            {
-                OnInstanceGuidChanging(value);
-                ReportPropertyChanging("InstanceGuid");
-                _InstanceGuid = StructuralObject.SetValidValue(value, "InstanceGuid");
-                ReportPropertyChanged("InstanceGuid");
-                OnInstanceGuidChanged();
-            }
-        }
-        private global::System.Guid _InstanceGuid;
-        partial void OnInstanceGuidChanging(global::System.Guid value);
-        partial void OnInstanceGuidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String InstanceName
-        {
-            get
-            {
-                return _InstanceName;
-            }
-            set
-            {
-                OnInstanceNameChanging(value);
-                ReportPropertyChanging("InstanceName");
-                _InstanceName = StructuralObject.SetValidValue(value, false, "InstanceName");
-                ReportPropertyChanged("InstanceName");
-                OnInstanceNameChanged();
-            }
-        }
-        private global::System.String _InstanceName;
-        partial void OnInstanceNameChanging(global::System.String value);
-        partial void OnInstanceNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProductGuid
-        {
-            get
-            {
-                return _ProductGuid;
-            }
-            set
-            {
-                OnProductGuidChanging(value);
-                ReportPropertyChanging("ProductGuid");
-                _ProductGuid = StructuralObject.SetValidValue(value, "ProductGuid");
-                ReportPropertyChanged("ProductGuid");
-                OnProductGuidChanged();
-            }
-        }
-        private global::System.Guid _ProductGuid;
-        partial void OnProductGuidChanging(global::System.Guid value);
-        partial void OnProductGuidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String ProductName
-        {
-            get
-            {
-                return _ProductName;
-            }
-            set
-            {
-                OnProductNameChanging(value);
-                ReportPropertyChanging("ProductName");
-                _ProductName = StructuralObject.SetValidValue(value, false, "ProductName");
-                ReportPropertyChanged("ProductName");
-                OnProductNameChanged();
-            }
-        }
-        private global::System.String _ProductName;
-        partial void OnProductNameChanging(global::System.String value);
-        partial void OnProductNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapAxeCount
-        {
-            get
-            {
-                return _CapAxeCount;
-            }
-            set
-            {
-                OnCapAxeCountChanging(value);
-                ReportPropertyChanging("CapAxeCount");
-                _CapAxeCount = StructuralObject.SetValidValue(value, "CapAxeCount");
-                ReportPropertyChanged("CapAxeCount");
-                OnCapAxeCountChanged();
-            }
-        }
-        private global::System.Int32 _CapAxeCount;
-        partial void OnCapAxeCountChanging(global::System.Int32 value);
-        partial void OnCapAxeCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapButtonCount
-        {
-            get
-            {
-                return _CapButtonCount;
-            }
-            set
-            {
-                OnCapButtonCountChanging(value);
-                ReportPropertyChanging("CapButtonCount");
-                _CapButtonCount = StructuralObject.SetValidValue(value, "CapButtonCount");
-                ReportPropertyChanged("CapButtonCount");
-                OnCapButtonCountChanged();
-            }
-        }
-        private global::System.Int32 _CapButtonCount;
-        partial void OnCapButtonCountChanging(global::System.Int32 value);
-        partial void OnCapButtonCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapDriverVersion
-        {
-            get
-            {
-                return _CapDriverVersion;
-            }
-            set
-            {
-                OnCapDriverVersionChanging(value);
-                ReportPropertyChanging("CapDriverVersion");
-                _CapDriverVersion = StructuralObject.SetValidValue(value, "CapDriverVersion");
-                ReportPropertyChanged("CapDriverVersion");
-                OnCapDriverVersionChanged();
-            }
-        }
-        private global::System.Int32 _CapDriverVersion;
-        partial void OnCapDriverVersionChanging(global::System.Int32 value);
-        partial void OnCapDriverVersionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapFirmwareRevision
-        {
-            get
-            {
-                return _CapFirmwareRevision;
-            }
-            set
-            {
-                OnCapFirmwareRevisionChanging(value);
-                ReportPropertyChanging("CapFirmwareRevision");
-                _CapFirmwareRevision = StructuralObject.SetValidValue(value, "CapFirmwareRevision");
-                ReportPropertyChanged("CapFirmwareRevision");
-                OnCapFirmwareRevisionChanged();
-            }
-        }
-        private global::System.Int32 _CapFirmwareRevision;
-        partial void OnCapFirmwareRevisionChanging(global::System.Int32 value);
-        partial void OnCapFirmwareRevisionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapFlags
-        {
-            get
-            {
-                return _CapFlags;
-            }
-            set
-            {
-                OnCapFlagsChanging(value);
-                ReportPropertyChanging("CapFlags");
-                _CapFlags = StructuralObject.SetValidValue(value, "CapFlags");
-                ReportPropertyChanged("CapFlags");
-                OnCapFlagsChanged();
-            }
-        }
-        private global::System.Int32 _CapFlags;
-        partial void OnCapFlagsChanging(global::System.Int32 value);
-        partial void OnCapFlagsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapForceFeedbackMinimumTimeResolution
-        {
-            get
-            {
-                return _CapForceFeedbackMinimumTimeResolution;
-            }
-            set
-            {
-                OnCapForceFeedbackMinimumTimeResolutionChanging(value);
-                ReportPropertyChanging("CapForceFeedbackMinimumTimeResolution");
-                _CapForceFeedbackMinimumTimeResolution = StructuralObject.SetValidValue(value, "CapForceFeedbackMinimumTimeResolution");
-                ReportPropertyChanged("CapForceFeedbackMinimumTimeResolution");
-                OnCapForceFeedbackMinimumTimeResolutionChanged();
-            }
-        }
-        private global::System.Int32 _CapForceFeedbackMinimumTimeResolution;
-        partial void OnCapForceFeedbackMinimumTimeResolutionChanging(global::System.Int32 value);
-        partial void OnCapForceFeedbackMinimumTimeResolutionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapForceFeedbackSamplePeriod
-        {
-            get
-            {
-                return _CapForceFeedbackSamplePeriod;
-            }
-            set
-            {
-                OnCapForceFeedbackSamplePeriodChanging(value);
-                ReportPropertyChanging("CapForceFeedbackSamplePeriod");
-                _CapForceFeedbackSamplePeriod = StructuralObject.SetValidValue(value, "CapForceFeedbackSamplePeriod");
-                ReportPropertyChanged("CapForceFeedbackSamplePeriod");
-                OnCapForceFeedbackSamplePeriodChanged();
-            }
-        }
-        private global::System.Int32 _CapForceFeedbackSamplePeriod;
-        partial void OnCapForceFeedbackSamplePeriodChanging(global::System.Int32 value);
-        partial void OnCapForceFeedbackSamplePeriodChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapHardwareRevision
-        {
-            get
-            {
-                return _CapHardwareRevision;
-            }
-            set
-            {
-                OnCapHardwareRevisionChanging(value);
-                ReportPropertyChanging("CapHardwareRevision");
-                _CapHardwareRevision = StructuralObject.SetValidValue(value, "CapHardwareRevision");
-                ReportPropertyChanged("CapHardwareRevision");
-                OnCapHardwareRevisionChanged();
-            }
-        }
-        private global::System.Int32 _CapHardwareRevision;
-        partial void OnCapHardwareRevisionChanging(global::System.Int32 value);
-        partial void OnCapHardwareRevisionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapPovCount
-        {
-            get
-            {
-                return _CapPovCount;
-            }
-            set
-            {
-                OnCapPovCountChanging(value);
-                ReportPropertyChanging("CapPovCount");
-                _CapPovCount = StructuralObject.SetValidValue(value, "CapPovCount");
-                ReportPropertyChanged("CapPovCount");
-                OnCapPovCountChanged();
-            }
-        }
-        private global::System.Int32 _CapPovCount;
-        partial void OnCapPovCountChanging(global::System.Int32 value);
-        partial void OnCapPovCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean CapIsHumanInterfaceDevice
-        {
-            get
-            {
-                return _CapIsHumanInterfaceDevice;
-            }
-            set
-            {
-                OnCapIsHumanInterfaceDeviceChanging(value);
-                ReportPropertyChanging("CapIsHumanInterfaceDevice");
-                _CapIsHumanInterfaceDevice = StructuralObject.SetValidValue(value, "CapIsHumanInterfaceDevice");
-                ReportPropertyChanged("CapIsHumanInterfaceDevice");
-                OnCapIsHumanInterfaceDeviceChanged();
-            }
-        }
-        private global::System.Boolean _CapIsHumanInterfaceDevice;
-        partial void OnCapIsHumanInterfaceDeviceChanging(global::System.Boolean value);
-        partial void OnCapIsHumanInterfaceDeviceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapSubtype
-        {
-            get
-            {
-                return _CapSubtype;
-            }
-            set
-            {
-                OnCapSubtypeChanging(value);
-                ReportPropertyChanging("CapSubtype");
-                _CapSubtype = StructuralObject.SetValidValue(value, "CapSubtype");
-                ReportPropertyChanged("CapSubtype");
-                OnCapSubtypeChanged();
-            }
-        }
-        private global::System.Int32 _CapSubtype;
-        partial void OnCapSubtypeChanging(global::System.Int32 value);
-        partial void OnCapSubtypeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CapType
-        {
-            get
-            {
-                return _CapType;
-            }
-            set
-            {
-                OnCapTypeChanging(value);
-                ReportPropertyChanging("CapType");
-                _CapType = StructuralObject.SetValidValue(value, "CapType");
-                ReportPropertyChanged("CapType");
-                OnCapTypeChanged();
-            }
-        }
-        private global::System.Int32 _CapType;
-        partial void OnCapTypeChanging(global::System.Int32 value);
-        partial void OnCapTypeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String HidManufacturer
-        {
-            get
-            {
-                return _HidManufacturer;
-            }
-            set
-            {
-                OnHidManufacturerChanging(value);
-                ReportPropertyChanging("HidManufacturer");
-                _HidManufacturer = StructuralObject.SetValidValue(value, false, "HidManufacturer");
-                ReportPropertyChanged("HidManufacturer");
-                OnHidManufacturerChanged();
-            }
-        }
-        private global::System.String _HidManufacturer;
-        partial void OnHidManufacturerChanging(global::System.String value);
-        partial void OnHidManufacturerChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 HidVendorId
-        {
-            get
-            {
-                return _HidVendorId;
-            }
-            set
-            {
-                OnHidVendorIdChanging(value);
-                ReportPropertyChanging("HidVendorId");
-                _HidVendorId = StructuralObject.SetValidValue(value, "HidVendorId");
-                ReportPropertyChanged("HidVendorId");
-                OnHidVendorIdChanged();
-            }
-        }
-        private global::System.Int32 _HidVendorId;
-        partial void OnHidVendorIdChanging(global::System.Int32 value);
-        partial void OnHidVendorIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 HidProductId
-        {
-            get
-            {
-                return _HidProductId;
-            }
-            set
-            {
-                OnHidProductIdChanging(value);
-                ReportPropertyChanging("HidProductId");
-                _HidProductId = StructuralObject.SetValidValue(value, "HidProductId");
-                ReportPropertyChanged("HidProductId");
-                OnHidProductIdChanged();
-            }
-        }
-        private global::System.Int32 _HidProductId;
-        partial void OnHidProductIdChanging(global::System.Int32 value);
-        partial void OnHidProductIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 HidRevision
-        {
-            get
-            {
-                return _HidRevision;
-            }
-            set
-            {
-                OnHidRevisionChanging(value);
-                ReportPropertyChanging("HidRevision");
-                _HidRevision = StructuralObject.SetValidValue(value, "HidRevision");
-                ReportPropertyChanged("HidRevision");
-                OnHidRevisionChanged();
-            }
-        }
-        private global::System.Int32 _HidRevision;
-        partial void OnHidRevisionChanging(global::System.Int32 value);
-        partial void OnHidRevisionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String HidDescription
-        {
-            get
-            {
-                return _HidDescription;
-            }
-            set
-            {
-                OnHidDescriptionChanging(value);
-                ReportPropertyChanging("HidDescription");
-                _HidDescription = StructuralObject.SetValidValue(value, false, "HidDescription");
-                ReportPropertyChanged("HidDescription");
-                OnHidDescriptionChanged();
-            }
-        }
-        private global::System.String _HidDescription;
-        partial void OnHidDescriptionChanging(global::System.String value);
-        partial void OnHidDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String HidDeviceId
-        {
-            get
-            {
-                return _HidDeviceId;
-            }
-            set
-            {
-                OnHidDeviceIdChanging(value);
-                ReportPropertyChanging("HidDeviceId");
-                _HidDeviceId = StructuralObject.SetValidValue(value, false, "HidDeviceId");
-                ReportPropertyChanged("HidDeviceId");
-                OnHidDeviceIdChanged();
-            }
-        }
-        private global::System.String _HidDeviceId;
-        partial void OnHidDeviceIdChanging(global::System.String value);
-        partial void OnHidDeviceIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String HidDevicePath
-        {
-            get
-            {
-                return _HidDevicePath;
-            }
-            set
-            {
-                OnHidDevicePathChanging(value);
-                ReportPropertyChanging("HidDevicePath");
-                _HidDevicePath = StructuralObject.SetValidValue(value, false, "HidDevicePath");
-                ReportPropertyChanged("HidDevicePath");
-                OnHidDevicePathChanged();
-            }
-        }
-        private global::System.String _HidDevicePath;
-        partial void OnHidDevicePathChanging(global::System.String value);
-        partial void OnHidDevicePathChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String HidParentDeviceId
-        {
-            get
-            {
-                return _HidParentDeviceId;
-            }
-            set
-            {
-                OnHidParentDeviceIdChanging(value);
-                ReportPropertyChanging("HidParentDeviceId");
-                _HidParentDeviceId = StructuralObject.SetValidValue(value, false, "HidParentDeviceId");
-                ReportPropertyChanged("HidParentDeviceId");
-                OnHidParentDeviceIdChanged();
-            }
-        }
-        private global::System.String _HidParentDeviceId;
-        partial void OnHidParentDeviceIdChanging(global::System.String value);
-        partial void OnHidParentDeviceIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid HidClassGuid
-        {
-            get
-            {
-                return _HidClassGuid;
-            }
-            set
-            {
-                OnHidClassGuidChanging(value);
-                ReportPropertyChanging("HidClassGuid");
-                _HidClassGuid = StructuralObject.SetValidValue(value, "HidClassGuid");
-                ReportPropertyChanged("HidClassGuid");
-                OnHidClassGuidChanged();
-            }
-        }
-        private global::System.Guid _HidClassGuid;
-        partial void OnHidClassGuidChanging(global::System.Guid value);
-        partial void OnHidClassGuidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String HidClassDescription
-        {
-            get
-            {
-                return _HidClassDescription;
-            }
-            set
-            {
-                OnHidClassDescriptionChanging(value);
-                ReportPropertyChanging("HidClassDescription");
-                _HidClassDescription = StructuralObject.SetValidValue(value, false, "HidClassDescription");
-                ReportPropertyChanged("HidClassDescription");
-                OnHidClassDescriptionChanged();
-            }
-        }
-        private global::System.String _HidClassDescription;
-        partial void OnHidClassDescriptionChanging(global::System.String value);
-        partial void OnHidClassDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DevManufacturer
-        {
-            get
-            {
-                return _DevManufacturer;
-            }
-            set
-            {
-                OnDevManufacturerChanging(value);
-                ReportPropertyChanging("DevManufacturer");
-                _DevManufacturer = StructuralObject.SetValidValue(value, false, "DevManufacturer");
-                ReportPropertyChanged("DevManufacturer");
-                OnDevManufacturerChanged();
-            }
-        }
-        private global::System.String _DevManufacturer;
-        partial void OnDevManufacturerChanging(global::System.String value);
-        partial void OnDevManufacturerChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DevVendorId
-        {
-            get
-            {
-                return _DevVendorId;
-            }
-            set
-            {
-                OnDevVendorIdChanging(value);
-                ReportPropertyChanging("DevVendorId");
-                _DevVendorId = StructuralObject.SetValidValue(value, "DevVendorId");
-                ReportPropertyChanged("DevVendorId");
-                OnDevVendorIdChanged();
-            }
-        }
-        private global::System.Int32 _DevVendorId;
-        partial void OnDevVendorIdChanging(global::System.Int32 value);
-        partial void OnDevVendorIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DevProductId
-        {
-            get
-            {
-                return _DevProductId;
-            }
-            set
-            {
-                OnDevProductIdChanging(value);
-                ReportPropertyChanging("DevProductId");
-                _DevProductId = StructuralObject.SetValidValue(value, "DevProductId");
-                ReportPropertyChanged("DevProductId");
-                OnDevProductIdChanged();
-            }
-        }
-        private global::System.Int32 _DevProductId;
-        partial void OnDevProductIdChanging(global::System.Int32 value);
-        partial void OnDevProductIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DevRevision
-        {
-            get
-            {
-                return _DevRevision;
-            }
-            set
-            {
-                OnDevRevisionChanging(value);
-                ReportPropertyChanging("DevRevision");
-                _DevRevision = StructuralObject.SetValidValue(value, "DevRevision");
-                ReportPropertyChanged("DevRevision");
-                OnDevRevisionChanged();
-            }
-        }
-        private global::System.Int32 _DevRevision;
-        partial void OnDevRevisionChanging(global::System.Int32 value);
-        partial void OnDevRevisionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DevDescription
-        {
-            get
-            {
-                return _DevDescription;
-            }
-            set
-            {
-                OnDevDescriptionChanging(value);
-                ReportPropertyChanging("DevDescription");
-                _DevDescription = StructuralObject.SetValidValue(value, false, "DevDescription");
-                ReportPropertyChanged("DevDescription");
-                OnDevDescriptionChanged();
-            }
-        }
-        private global::System.String _DevDescription;
-        partial void OnDevDescriptionChanging(global::System.String value);
-        partial void OnDevDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DevDeviceId
-        {
-            get
-            {
-                return _DevDeviceId;
-            }
-            set
-            {
-                OnDevDeviceIdChanging(value);
-                ReportPropertyChanging("DevDeviceId");
-                _DevDeviceId = StructuralObject.SetValidValue(value, false, "DevDeviceId");
-                ReportPropertyChanged("DevDeviceId");
-                OnDevDeviceIdChanged();
-            }
-        }
-        private global::System.String _DevDeviceId;
-        partial void OnDevDeviceIdChanging(global::System.String value);
-        partial void OnDevDeviceIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DevDevicePath
-        {
-            get
-            {
-                return _DevDevicePath;
-            }
-            set
-            {
-                OnDevDevicePathChanging(value);
-                ReportPropertyChanging("DevDevicePath");
-                _DevDevicePath = StructuralObject.SetValidValue(value, false, "DevDevicePath");
-                ReportPropertyChanged("DevDevicePath");
-                OnDevDevicePathChanged();
-            }
-        }
-        private global::System.String _DevDevicePath;
-        partial void OnDevDevicePathChanging(global::System.String value);
-        partial void OnDevDevicePathChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DevParentDeviceId
-        {
-            get
-            {
-                return _DevParentDeviceId;
-            }
-            set
-            {
-                OnDevParentDeviceIdChanging(value);
-                ReportPropertyChanging("DevParentDeviceId");
-                _DevParentDeviceId = StructuralObject.SetValidValue(value, false, "DevParentDeviceId");
-                ReportPropertyChanged("DevParentDeviceId");
-                OnDevParentDeviceIdChanged();
-            }
-        }
-        private global::System.String _DevParentDeviceId;
-        partial void OnDevParentDeviceIdChanging(global::System.String value);
-        partial void OnDevParentDeviceIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid DevClassGuid
-        {
-            get
-            {
-                return _DevClassGuid;
-            }
-            set
-            {
-                OnDevClassGuidChanging(value);
-                ReportPropertyChanging("DevClassGuid");
-                _DevClassGuid = StructuralObject.SetValidValue(value, "DevClassGuid");
-                ReportPropertyChanged("DevClassGuid");
-                OnDevClassGuidChanged();
-            }
-        }
-        private global::System.Guid _DevClassGuid;
-        partial void OnDevClassGuidChanging(global::System.Guid value);
-        partial void OnDevClassGuidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String DevClassDescription
-        {
-            get
-            {
-                return _DevClassDescription;
-            }
-            set
-            {
-                OnDevClassDescriptionChanging(value);
-                ReportPropertyChanging("DevClassDescription");
-                _DevClassDescription = StructuralObject.SetValidValue(value, false, "DevClassDescription");
-                ReportPropertyChanged("DevClassDescription");
-                OnDevClassDescriptionChanged();
-            }
-        }
-        private global::System.String _DevClassDescription;
-        partial void OnDevClassDescriptionChanging(global::System.String value);
-        partial void OnDevClassDescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5674,7 +3181,7 @@ namespace x360ce.Engine.Data
             {
                 OnIsEnabledChanging(value);
                 ReportPropertyChanging("IsEnabled");
-                _IsEnabled = StructuralObject.SetValidValue(value, "IsEnabled");
+                _IsEnabled = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsEnabled");
                 OnIsEnabledChanged();
             }
@@ -5688,370 +3195,72 @@ namespace x360ce.Engine.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Guid Checksum
+        public global::System.DateTime DateCreated
         {
             get
             {
-                return _Checksum;
+                return _DateCreated;
             }
             set
             {
-                OnChecksumChanging(value);
-                ReportPropertyChanging("Checksum");
-                _Checksum = StructuralObject.SetValidValue(value, "Checksum");
-                ReportPropertyChanged("Checksum");
-                OnChecksumChanged();
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
             }
         }
-        private global::System.Guid _Checksum;
-        partial void OnChecksumChanging(global::System.Guid value);
-        partial void OnChecksumChanged();
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DateUpdated
+        {
+            get
+            {
+                return _DateUpdated;
+            }
+            set
+            {
+                OnDateUpdatedChanging(value);
+                ReportPropertyChanging("DateUpdated");
+                _DateUpdated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateUpdated");
+                OnDateUpdatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DateUpdated;
+        partial void OnDateUpdatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateUpdatedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 DiAxeMask
+        public global::System.String Comment
         {
             get
             {
-                return _DiAxeMask;
+                return _Comment;
             }
             set
             {
-                OnDiAxeMaskChanging(value);
-                ReportPropertyChanging("DiAxeMask");
-                _DiAxeMask = StructuralObject.SetValidValue(value, "DiAxeMask");
-                ReportPropertyChanged("DiAxeMask");
-                OnDiAxeMaskChanged();
+                OnCommentChanging(value);
+                ReportPropertyChanging("Comment");
+                _Comment = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Comment");
+                OnCommentChanged();
             }
         }
-        private global::System.Int32 _DiAxeMask;
-        partial void OnDiAxeMaskChanging(global::System.Int32 value);
-        partial void OnDiAxeMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DiSliderMask
-        {
-            get
-            {
-                return _DiSliderMask;
-            }
-            set
-            {
-                OnDiSliderMaskChanging(value);
-                ReportPropertyChanging("DiSliderMask");
-                _DiSliderMask = StructuralObject.SetValidValue(value, "DiSliderMask");
-                ReportPropertyChanged("DiSliderMask");
-                OnDiSliderMaskChanged();
-            }
-        }
-        private global::System.Int32 _DiSliderMask;
-        partial void OnDiSliderMaskChanging(global::System.Int32 value);
-        partial void OnDiSliderMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsHidden
-        {
-            get
-            {
-                return _IsHidden;
-            }
-            set
-            {
-                OnIsHiddenChanging(value);
-                ReportPropertyChanging("IsHidden");
-                _IsHidden = StructuralObject.SetValidValue(value, "IsHidden");
-                ReportPropertyChanged("IsHidden");
-                OnIsHiddenChanged();
-            }
-        }
-        private global::System.Boolean _IsHidden;
-        partial void OnIsHiddenChanging(global::System.Boolean value);
-        partial void OnIsHiddenChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DiActuatorMask
-        {
-            get
-            {
-                return _DiActuatorMask;
-            }
-            set
-            {
-                OnDiActuatorMaskChanging(value);
-                ReportPropertyChanging("DiActuatorMask");
-                _DiActuatorMask = StructuralObject.SetValidValue(value, "DiActuatorMask");
-                ReportPropertyChanged("DiActuatorMask");
-                OnDiActuatorMaskChanged();
-            }
-        }
-        private global::System.Int32 _DiActuatorMask;
-        partial void OnDiActuatorMaskChanging(global::System.Int32 value);
-        partial void OnDiActuatorMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 DiActuatorCount
-        {
-            get
-            {
-                return _DiActuatorCount;
-            }
-            set
-            {
-                OnDiActuatorCountChanging(value);
-                ReportPropertyChanging("DiActuatorCount");
-                _DiActuatorCount = StructuralObject.SetValidValue(value, "DiActuatorCount");
-                ReportPropertyChanged("DiActuatorCount");
-                OnDiActuatorCountChanged();
-            }
-        }
-        private global::System.Int32 _DiActuatorCount;
-        partial void OnDiActuatorCountChanging(global::System.Int32 value);
-        partial void OnDiActuatorCountChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.Guid _ProfileId;
-        partial void OnProfileIdChanging(global::System.Guid value);
-        partial void OnProfileIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ConnectionClass
-        {
-            get
-            {
-                return _ConnectionClass;
-            }
-            set
-            {
-                OnConnectionClassChanging(value);
-                ReportPropertyChanging("ConnectionClass");
-                _ConnectionClass = StructuralObject.SetValidValue(value, "ConnectionClass");
-                ReportPropertyChanged("ConnectionClass");
-                OnConnectionClassChanged();
-            }
-        }
-        private global::System.Guid _ConnectionClass;
-        partial void OnConnectionClassChanging(global::System.Guid value);
-        partial void OnConnectionClassChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="UserGame")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserGame : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserGame object.
-        /// </summary>
-        /// <param name="gameId">Initial value of the GameId property.</param>
-        /// <param name="computerId">Initial value of the ComputerId property.</param>
-        /// <param name="fileName">Initial value of the FileName property.</param>
-        /// <param name="fileProductName">Initial value of the FileProductName property.</param>
-        /// <param name="fileVersion">Initial value of the FileVersion property.</param>
-        /// <param name="fullPath">Initial value of the FullPath property.</param>
-        /// <param name="companyName">Initial value of the CompanyName property.</param>
-        /// <param name="processorArchitecture">Initial value of the ProcessorArchitecture property.</param>
-        /// <param name="hookMask">Initial value of the HookMask property.</param>
-        /// <param name="xInputMask">Initial value of the XInputMask property.</param>
-        /// <param name="dInputMask">Initial value of the DInputMask property.</param>
-        /// <param name="dInputFile">Initial value of the DInputFile property.</param>
-        /// <param name="fakeVID">Initial value of the FakeVID property.</param>
-        /// <param name="fakePID">Initial value of the FakePID property.</param>
-        /// <param name="timeout">Initial value of the Timeout property.</param>
-        /// <param name="weight">Initial value of the Weight property.</param>
-        /// <param name="comment">Initial value of the Comment property.</param>
-        /// <param name="isEnabled">Initial value of the IsEnabled property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        /// <param name="autoMapMask">Initial value of the AutoMapMask property.</param>
-        /// <param name="enableMask">Initial value of the EnableMask property.</param>
-        /// <param name="emulationType">Initial value of the EmulationType property.</param>
-        /// <param name="checksum">Initial value of the Checksum property.</param>
-        /// <param name="xInputPath">Initial value of the XInputPath property.</param>
-        /// <param name="profileId">Initial value of the ProfileId property.</param>
-        public static UserGame CreateUserGame(global::System.Guid gameId, global::System.Guid computerId, global::System.String fileName, global::System.String fileProductName, global::System.String fileVersion, global::System.String fullPath, global::System.String companyName, global::System.Int32 processorArchitecture, global::System.Int32 hookMask, global::System.Int32 xInputMask, global::System.Int32 dInputMask, global::System.String dInputFile, global::System.Int32 fakeVID, global::System.Int32 fakePID, global::System.Int32 timeout, global::System.Int32 weight, global::System.String comment, global::System.Boolean isEnabled, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Int32 autoMapMask, global::System.Int32 enableMask, global::System.Int32 emulationType, global::System.Guid checksum, global::System.String xInputPath, global::System.Guid profileId)
-        {
-            UserGame userGame = new UserGame();
-            userGame.GameId = gameId;
-            userGame.ComputerId = computerId;
-            userGame.FileName = fileName;
-            userGame.FileProductName = fileProductName;
-            userGame.FileVersion = fileVersion;
-            userGame.FullPath = fullPath;
-            userGame.CompanyName = companyName;
-            userGame.ProcessorArchitecture = processorArchitecture;
-            userGame.HookMask = hookMask;
-            userGame.XInputMask = xInputMask;
-            userGame.DInputMask = dInputMask;
-            userGame.DInputFile = dInputFile;
-            userGame.FakeVID = fakeVID;
-            userGame.FakePID = fakePID;
-            userGame.Timeout = timeout;
-            userGame.Weight = weight;
-            userGame.Comment = comment;
-            userGame.IsEnabled = isEnabled;
-            userGame.DateCreated = dateCreated;
-            userGame.DateUpdated = dateUpdated;
-            userGame.AutoMapMask = autoMapMask;
-            userGame.EnableMask = enableMask;
-            userGame.EmulationType = emulationType;
-            userGame.Checksum = checksum;
-            userGame.XInputPath = xInputPath;
-            userGame.ProfileId = profileId;
-            return userGame;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid GameId
-        {
-            get
-            {
-                return _GameId;
-            }
-            set
-            {
-                if (_GameId != value)
-                {
-                    OnGameIdChanging(value);
-                    ReportPropertyChanging("GameId");
-                    _GameId = StructuralObject.SetValidValue(value, "GameId");
-                    ReportPropertyChanged("GameId");
-                    OnGameIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _GameId;
-        partial void OnGameIdChanging(global::System.Guid value);
-        partial void OnGameIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ComputerId
-        {
-            get
-            {
-                return _ComputerId;
-            }
-            set
-            {
-                OnComputerIdChanging(value);
-                ReportPropertyChanging("ComputerId");
-                _ComputerId = StructuralObject.SetValidValue(value, "ComputerId");
-                ReportPropertyChanged("ComputerId");
-                OnComputerIdChanged();
-            }
-        }
-        private global::System.Guid _ComputerId;
-        partial void OnComputerIdChanging(global::System.Guid value);
-        partial void OnComputerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FileName
-        {
-            get
-            {
-                return _FileName;
-            }
-            set
-            {
-                OnFileNameChanging(value);
-                ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, false, "FileName");
-                ReportPropertyChanged("FileName");
-                OnFileNameChanged();
-            }
-        }
-        private global::System.String _FileName;
-        partial void OnFileNameChanging(global::System.String value);
-        partial void OnFileNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FileProductName
-        {
-            get
-            {
-                return _FileProductName;
-            }
-            set
-            {
-                OnFileProductNameChanging(value);
-                ReportPropertyChanging("FileProductName");
-                _FileProductName = StructuralObject.SetValidValue(value, false, "FileProductName");
-                ReportPropertyChanged("FileProductName");
-                OnFileProductNameChanged();
-            }
-        }
-        private global::System.String _FileProductName;
-        partial void OnFileProductNameChanging(global::System.String value);
-        partial void OnFileProductNameChanged();
+        private global::System.String _Comment;
+        partial void OnCommentChanging(global::System.String value);
+        partial void OnCommentChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6068,7 +3277,7 @@ namespace x360ce.Engine.Data
             {
                 OnFileVersionChanging(value);
                 ReportPropertyChanging("FileVersion");
-                _FileVersion = StructuralObject.SetValidValue(value, false, "FileVersion");
+                _FileVersion = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FileVersion");
                 OnFileVersionChanged();
             }
@@ -6076,54 +3285,6 @@ namespace x360ce.Engine.Data
         private global::System.String _FileVersion;
         partial void OnFileVersionChanging(global::System.String value);
         partial void OnFileVersionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String FullPath
-        {
-            get
-            {
-                return _FullPath;
-            }
-            set
-            {
-                OnFullPathChanging(value);
-                ReportPropertyChanging("FullPath");
-                _FullPath = StructuralObject.SetValidValue(value, false, "FullPath");
-                ReportPropertyChanged("FullPath");
-                OnFullPathChanged();
-            }
-        }
-        private global::System.String _FullPath;
-        partial void OnFullPathChanging(global::System.String value);
-        partial void OnFullPathChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String CompanyName
-        {
-            get
-            {
-                return _CompanyName;
-            }
-            set
-            {
-                OnCompanyNameChanging(value);
-                ReportPropertyChanging("CompanyName");
-                _CompanyName = StructuralObject.SetValidValue(value, false, "CompanyName");
-                ReportPropertyChanged("CompanyName");
-                OnCompanyNameChanged();
-            }
-        }
-        private global::System.String _CompanyName;
-        partial void OnCompanyNameChanging(global::System.String value);
-        partial void OnCompanyNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6140,7 +3301,7 @@ namespace x360ce.Engine.Data
             {
                 OnProcessorArchitectureChanging(value);
                 ReportPropertyChanging("ProcessorArchitecture");
-                _ProcessorArchitecture = StructuralObject.SetValidValue(value, "ProcessorArchitecture");
+                _ProcessorArchitecture = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("ProcessorArchitecture");
                 OnProcessorArchitectureChanged();
             }
@@ -6148,54 +3309,6 @@ namespace x360ce.Engine.Data
         private global::System.Int32 _ProcessorArchitecture;
         partial void OnProcessorArchitectureChanging(global::System.Int32 value);
         partial void OnProcessorArchitectureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 HookMask
-        {
-            get
-            {
-                return _HookMask;
-            }
-            set
-            {
-                OnHookMaskChanging(value);
-                ReportPropertyChanging("HookMask");
-                _HookMask = StructuralObject.SetValidValue(value, "HookMask");
-                ReportPropertyChanged("HookMask");
-                OnHookMaskChanged();
-            }
-        }
-        private global::System.Int32 _HookMask;
-        partial void OnHookMaskChanging(global::System.Int32 value);
-        partial void OnHookMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 XInputMask
-        {
-            get
-            {
-                return _XInputMask;
-            }
-            set
-            {
-                OnXInputMaskChanging(value);
-                ReportPropertyChanging("XInputMask");
-                _XInputMask = StructuralObject.SetValidValue(value, "XInputMask");
-                ReportPropertyChanged("XInputMask");
-                OnXInputMaskChanged();
-            }
-        }
-        private global::System.Int32 _XInputMask;
-        partial void OnXInputMaskChanging(global::System.Int32 value);
-        partial void OnXInputMaskChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6212,7 +3325,7 @@ namespace x360ce.Engine.Data
             {
                 OnDInputMaskChanging(value);
                 ReportPropertyChanging("DInputMask");
-                _DInputMask = StructuralObject.SetValidValue(value, "DInputMask");
+                _DInputMask = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("DInputMask");
                 OnDInputMaskChanged();
             }
@@ -6236,7 +3349,7 @@ namespace x360ce.Engine.Data
             {
                 OnDInputFileChanging(value);
                 ReportPropertyChanging("DInputFile");
-                _DInputFile = StructuralObject.SetValidValue(value, false, "DInputFile");
+                _DInputFile = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("DInputFile");
                 OnDInputFileChanged();
             }
@@ -6260,7 +3373,7 @@ namespace x360ce.Engine.Data
             {
                 OnFakeVIDChanging(value);
                 ReportPropertyChanging("FakeVID");
-                _FakeVID = StructuralObject.SetValidValue(value, "FakeVID");
+                _FakeVID = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("FakeVID");
                 OnFakeVIDChanged();
             }
@@ -6284,7 +3397,7 @@ namespace x360ce.Engine.Data
             {
                 OnFakePIDChanging(value);
                 ReportPropertyChanging("FakePID");
-                _FakePID = StructuralObject.SetValidValue(value, "FakePID");
+                _FakePID = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("FakePID");
                 OnFakePIDChanged();
             }
@@ -6308,7 +3421,7 @@ namespace x360ce.Engine.Data
             {
                 OnTimeoutChanging(value);
                 ReportPropertyChanging("Timeout");
-                _Timeout = StructuralObject.SetValidValue(value, "Timeout");
+                _Timeout = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("Timeout");
                 OnTimeoutChanged();
             }
@@ -6316,6 +3429,30 @@ namespace x360ce.Engine.Data
         private global::System.Int32 _Timeout;
         partial void OnTimeoutChanging(global::System.Int32 value);
         partial void OnTimeoutChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid SettingChecksum
+        {
+            get
+            {
+                return _SettingChecksum;
+            }
+            set
+            {
+                OnSettingChecksumChanging(value);
+                ReportPropertyChanging("SettingChecksum");
+                _SettingChecksum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SettingChecksum");
+                OnSettingChecksumChanged();
+            }
+        }
+        private global::System.Guid _SettingChecksum;
+        partial void OnSettingChecksumChanging(global::System.Guid value);
+        partial void OnSettingChecksumChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6332,7 +3469,7 @@ namespace x360ce.Engine.Data
             {
                 OnWeightChanging(value);
                 ReportPropertyChanging("Weight");
-                _Weight = StructuralObject.SetValidValue(value, "Weight");
+                _Weight = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("Weight");
                 OnWeightChanged();
             }
@@ -6340,713 +3477,24 @@ namespace x360ce.Engine.Data
         private global::System.Int32 _Weight;
         partial void OnWeightChanging(global::System.Int32 value);
         partial void OnWeightChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Comment
-        {
-            get
-            {
-                return _Comment;
-            }
-            set
-            {
-                OnCommentChanging(value);
-                ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, false, "Comment");
-                ReportPropertyChanged("Comment");
-                OnCommentChanged();
-            }
-        }
-        private global::System.String _Comment;
-        partial void OnCommentChanging(global::System.String value);
-        partial void OnCommentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsEnabled
-        {
-            get
-            {
-                return _IsEnabled;
-            }
-            set
-            {
-                OnIsEnabledChanging(value);
-                ReportPropertyChanging("IsEnabled");
-                _IsEnabled = StructuralObject.SetValidValue(value, "IsEnabled");
-                ReportPropertyChanged("IsEnabled");
-                OnIsEnabledChanged();
-            }
-        }
-        private global::System.Boolean _IsEnabled;
-        partial void OnIsEnabledChanging(global::System.Boolean value);
-        partial void OnIsEnabledChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AutoMapMask
-        {
-            get
-            {
-                return _AutoMapMask;
-            }
-            set
-            {
-                OnAutoMapMaskChanging(value);
-                ReportPropertyChanging("AutoMapMask");
-                _AutoMapMask = StructuralObject.SetValidValue(value, "AutoMapMask");
-                ReportPropertyChanged("AutoMapMask");
-                OnAutoMapMaskChanged();
-            }
-        }
-        private global::System.Int32 _AutoMapMask;
-        partial void OnAutoMapMaskChanging(global::System.Int32 value);
-        partial void OnAutoMapMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 EnableMask
-        {
-            get
-            {
-                return _EnableMask;
-            }
-            set
-            {
-                OnEnableMaskChanging(value);
-                ReportPropertyChanging("EnableMask");
-                _EnableMask = StructuralObject.SetValidValue(value, "EnableMask");
-                ReportPropertyChanged("EnableMask");
-                OnEnableMaskChanged();
-            }
-        }
-        private global::System.Int32 _EnableMask;
-        partial void OnEnableMaskChanging(global::System.Int32 value);
-        partial void OnEnableMaskChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 EmulationType
-        {
-            get
-            {
-                return _EmulationType;
-            }
-            set
-            {
-                OnEmulationTypeChanging(value);
-                ReportPropertyChanging("EmulationType");
-                _EmulationType = StructuralObject.SetValidValue(value, "EmulationType");
-                ReportPropertyChanged("EmulationType");
-                OnEmulationTypeChanged();
-            }
-        }
-        private global::System.Int32 _EmulationType;
-        partial void OnEmulationTypeChanging(global::System.Int32 value);
-        partial void OnEmulationTypeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Checksum
-        {
-            get
-            {
-                return _Checksum;
-            }
-            set
-            {
-                OnChecksumChanging(value);
-                ReportPropertyChanging("Checksum");
-                _Checksum = StructuralObject.SetValidValue(value, "Checksum");
-                ReportPropertyChanged("Checksum");
-                OnChecksumChanged();
-            }
-        }
-        private global::System.Guid _Checksum;
-        partial void OnChecksumChanging(global::System.Guid value);
-        partial void OnChecksumChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String XInputPath
-        {
-            get
-            {
-                return _XInputPath;
-            }
-            set
-            {
-                OnXInputPathChanging(value);
-                ReportPropertyChanging("XInputPath");
-                _XInputPath = StructuralObject.SetValidValue(value, false, "XInputPath");
-                ReportPropertyChanged("XInputPath");
-                OnXInputPathChanged();
-            }
-        }
-        private global::System.String _XInputPath;
-        partial void OnXInputPathChanging(global::System.String value);
-        partial void OnXInputPathChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.Guid _ProfileId;
-        partial void OnProfileIdChanging(global::System.Guid value);
-        partial void OnProfileIdChanged();
 
         #endregion
 
+    
     }
     
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="UserInstance")]
+    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="Setting")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class UserInstance : EntityObject
+    public partial class Setting : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new UserInstance object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="controllerId">Initial value of the ControllerId property.</param>
-        /// <param name="instanceGuid">Initial value of the InstanceGuid property.</param>
-        /// <param name="checksum">Initial value of the Checksum property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        /// <param name="computerId">Initial value of the ComputerId property.</param>
-        /// <param name="profileId">Initial value of the ProfileId property.</param>
-        public static UserInstance CreateUserInstance(global::System.Guid id, global::System.Guid controllerId, global::System.Guid instanceGuid, global::System.Guid checksum, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Guid computerId, global::System.Guid profileId)
-        {
-            UserInstance userInstance = new UserInstance();
-            userInstance.Id = id;
-            userInstance.ControllerId = controllerId;
-            userInstance.InstanceGuid = instanceGuid;
-            userInstance.Checksum = checksum;
-            userInstance.DateCreated = dateCreated;
-            userInstance.DateUpdated = dateUpdated;
-            userInstance.ComputerId = computerId;
-            userInstance.ProfileId = profileId;
-            return userInstance;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ControllerId
-        {
-            get
-            {
-                return _ControllerId;
-            }
-            set
-            {
-                OnControllerIdChanging(value);
-                ReportPropertyChanging("ControllerId");
-                _ControllerId = StructuralObject.SetValidValue(value, "ControllerId");
-                ReportPropertyChanged("ControllerId");
-                OnControllerIdChanged();
-            }
-        }
-        private global::System.Guid _ControllerId;
-        partial void OnControllerIdChanging(global::System.Guid value);
-        partial void OnControllerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid InstanceGuid
-        {
-            get
-            {
-                return _InstanceGuid;
-            }
-            set
-            {
-                OnInstanceGuidChanging(value);
-                ReportPropertyChanging("InstanceGuid");
-                _InstanceGuid = StructuralObject.SetValidValue(value, "InstanceGuid");
-                ReportPropertyChanged("InstanceGuid");
-                OnInstanceGuidChanged();
-            }
-        }
-        private global::System.Guid _InstanceGuid;
-        partial void OnInstanceGuidChanging(global::System.Guid value);
-        partial void OnInstanceGuidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Checksum
-        {
-            get
-            {
-                return _Checksum;
-            }
-            set
-            {
-                OnChecksumChanging(value);
-                ReportPropertyChanging("Checksum");
-                _Checksum = StructuralObject.SetValidValue(value, "Checksum");
-                ReportPropertyChanged("Checksum");
-                OnChecksumChanged();
-            }
-        }
-        private global::System.Guid _Checksum;
-        partial void OnChecksumChanging(global::System.Guid value);
-        partial void OnChecksumChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ComputerId
-        {
-            get
-            {
-                return _ComputerId;
-            }
-            set
-            {
-                OnComputerIdChanging(value);
-                ReportPropertyChanging("ComputerId");
-                _ComputerId = StructuralObject.SetValidValue(value, "ComputerId");
-                ReportPropertyChanged("ComputerId");
-                OnComputerIdChanged();
-            }
-        }
-        private global::System.Guid _ComputerId;
-        partial void OnComputerIdChanging(global::System.Guid value);
-        partial void OnComputerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.Guid _ProfileId;
-        partial void OnProfileIdChanging(global::System.Guid value);
-        partial void OnProfileIdChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="UserProfile")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserProfile : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserProfile object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="computerId">Initial value of the ComputerId property.</param>
-        /// <param name="profileId">Initial value of the ProfileId property.</param>
-        /// <param name="profilePath">Initial value of the ProfilePath property.</param>
-        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
-        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
-        /// <param name="checksum">Initial value of the Checksum property.</param>
-        public static UserProfile CreateUserProfile(global::System.Guid id, global::System.Guid computerId, global::System.Guid profileId, global::System.String profilePath, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Guid checksum)
-        {
-            UserProfile userProfile = new UserProfile();
-            userProfile.Id = id;
-            userProfile.ComputerId = computerId;
-            userProfile.ProfileId = profileId;
-            userProfile.ProfilePath = profilePath;
-            userProfile.DateCreated = dateCreated;
-            userProfile.DateUpdated = dateUpdated;
-            userProfile.Checksum = checksum;
-            return userProfile;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ComputerId
-        {
-            get
-            {
-                return _ComputerId;
-            }
-            set
-            {
-                OnComputerIdChanging(value);
-                ReportPropertyChanging("ComputerId");
-                _ComputerId = StructuralObject.SetValidValue(value, "ComputerId");
-                ReportPropertyChanged("ComputerId");
-                OnComputerIdChanged();
-            }
-        }
-        private global::System.Guid _ComputerId;
-        partial void OnComputerIdChanging(global::System.Guid value);
-        partial void OnComputerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.Guid _ProfileId;
-        partial void OnProfileIdChanging(global::System.Guid value);
-        partial void OnProfileIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String ProfilePath
-        {
-            get
-            {
-                return _ProfilePath;
-            }
-            set
-            {
-                OnProfilePathChanging(value);
-                ReportPropertyChanging("ProfilePath");
-                _ProfilePath = StructuralObject.SetValidValue(value, false, "ProfilePath");
-                ReportPropertyChanged("ProfilePath");
-                OnProfilePathChanged();
-            }
-        }
-        private global::System.String _ProfilePath;
-        partial void OnProfilePathChanging(global::System.String value);
-        partial void OnProfilePathChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateCreated
-        {
-            get
-            {
-                return _DateCreated;
-            }
-            set
-            {
-                OnDateCreatedChanging(value);
-                ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
-                ReportPropertyChanged("DateCreated");
-                OnDateCreatedChanged();
-            }
-        }
-        private global::System.DateTime _DateCreated;
-        partial void OnDateCreatedChanging(global::System.DateTime value);
-        partial void OnDateCreatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateUpdated
-        {
-            get
-            {
-                return _DateUpdated;
-            }
-            set
-            {
-                OnDateUpdatedChanging(value);
-                ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
-                ReportPropertyChanged("DateUpdated");
-                OnDateUpdatedChanged();
-            }
-        }
-        private global::System.DateTime _DateUpdated;
-        partial void OnDateUpdatedChanging(global::System.DateTime value);
-        partial void OnDateUpdatedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Checksum
-        {
-            get
-            {
-                return _Checksum;
-            }
-            set
-            {
-                OnChecksumChanging(value);
-                ReportPropertyChanging("Checksum");
-                _Checksum = StructuralObject.SetValidValue(value, "Checksum");
-                ReportPropertyChanged("Checksum");
-                OnChecksumChanged();
-            }
-        }
-        private global::System.Guid _Checksum;
-        partial void OnChecksumChanging(global::System.Guid value);
-        partial void OnChecksumChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="UserSetting")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserSetting : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserSetting object.
+        /// Create a new Setting object.
         /// </summary>
         /// <param name="settingId">Initial value of the SettingId property.</param>
         /// <param name="instanceGuid">Initial value of the InstanceGuid property.</param>
@@ -7063,38 +3511,30 @@ namespace x360ce.Engine.Data
         /// <param name="padSettingChecksum">Initial value of the PadSettingChecksum property.</param>
         /// <param name="dateSelected">Initial value of the DateSelected property.</param>
         /// <param name="mapTo">Initial value of the MapTo property.</param>
-        /// <param name="completion">Initial value of the Completion property.</param>
-        /// <param name="computerId">Initial value of the ComputerId property.</param>
-        /// <param name="profileId">Initial value of the ProfileId property.</param>
-        /// <param name="checksum">Initial value of the Checksum property.</param>
-        public static UserSetting CreateUserSetting(global::System.Guid settingId, global::System.Guid instanceGuid, global::System.String instanceName, global::System.Guid productGuid, global::System.String productName, global::System.Int32 deviceType, global::System.String fileName, global::System.String fileProductName, global::System.String comment, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Boolean isEnabled, global::System.Guid padSettingChecksum, global::System.DateTime dateSelected, global::System.Int32 mapTo, global::System.Int32 completion, global::System.Guid computerId, global::System.Guid profileId, global::System.Guid checksum)
+        public static Setting CreateSetting(global::System.Guid settingId, global::System.Guid instanceGuid, global::System.String instanceName, global::System.Guid productGuid, global::System.String productName, global::System.Int32 deviceType, global::System.String fileName, global::System.String fileProductName, global::System.String comment, global::System.DateTime dateCreated, global::System.DateTime dateUpdated, global::System.Boolean isEnabled, global::System.Guid padSettingChecksum, global::System.DateTime dateSelected, global::System.Int32 mapTo)
         {
-            UserSetting userSetting = new UserSetting();
-            userSetting.SettingId = settingId;
-            userSetting.InstanceGuid = instanceGuid;
-            userSetting.InstanceName = instanceName;
-            userSetting.ProductGuid = productGuid;
-            userSetting.ProductName = productName;
-            userSetting.DeviceType = deviceType;
-            userSetting.FileName = fileName;
-            userSetting.FileProductName = fileProductName;
-            userSetting.Comment = comment;
-            userSetting.DateCreated = dateCreated;
-            userSetting.DateUpdated = dateUpdated;
-            userSetting.IsEnabled = isEnabled;
-            userSetting.PadSettingChecksum = padSettingChecksum;
-            userSetting.DateSelected = dateSelected;
-            userSetting.MapTo = mapTo;
-            userSetting.Completion = completion;
-            userSetting.ComputerId = computerId;
-            userSetting.ProfileId = profileId;
-            userSetting.Checksum = checksum;
-            return userSetting;
+            Setting setting = new Setting();
+            setting.SettingId = settingId;
+            setting.InstanceGuid = instanceGuid;
+            setting.InstanceName = instanceName;
+            setting.ProductGuid = productGuid;
+            setting.ProductName = productName;
+            setting.DeviceType = deviceType;
+            setting.FileName = fileName;
+            setting.FileProductName = fileProductName;
+            setting.Comment = comment;
+            setting.DateCreated = dateCreated;
+            setting.DateUpdated = dateUpdated;
+            setting.IsEnabled = isEnabled;
+            setting.PadSettingChecksum = padSettingChecksum;
+            setting.DateSelected = dateSelected;
+            setting.MapTo = mapTo;
+            return setting;
         }
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7113,7 +3553,7 @@ namespace x360ce.Engine.Data
                 {
                     OnSettingIdChanging(value);
                     ReportPropertyChanging("SettingId");
-                    _SettingId = StructuralObject.SetValidValue(value, "SettingId");
+                    _SettingId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("SettingId");
                     OnSettingIdChanged();
                 }
@@ -7138,7 +3578,7 @@ namespace x360ce.Engine.Data
             {
                 OnInstanceGuidChanging(value);
                 ReportPropertyChanging("InstanceGuid");
-                _InstanceGuid = StructuralObject.SetValidValue(value, "InstanceGuid");
+                _InstanceGuid = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("InstanceGuid");
                 OnInstanceGuidChanged();
             }
@@ -7162,7 +3602,7 @@ namespace x360ce.Engine.Data
             {
                 OnInstanceNameChanging(value);
                 ReportPropertyChanging("InstanceName");
-                _InstanceName = StructuralObject.SetValidValue(value, false, "InstanceName");
+                _InstanceName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("InstanceName");
                 OnInstanceNameChanged();
             }
@@ -7186,7 +3626,7 @@ namespace x360ce.Engine.Data
             {
                 OnProductGuidChanging(value);
                 ReportPropertyChanging("ProductGuid");
-                _ProductGuid = StructuralObject.SetValidValue(value, "ProductGuid");
+                _ProductGuid = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("ProductGuid");
                 OnProductGuidChanged();
             }
@@ -7210,7 +3650,7 @@ namespace x360ce.Engine.Data
             {
                 OnProductNameChanging(value);
                 ReportPropertyChanging("ProductName");
-                _ProductName = StructuralObject.SetValidValue(value, false, "ProductName");
+                _ProductName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ProductName");
                 OnProductNameChanged();
             }
@@ -7234,7 +3674,7 @@ namespace x360ce.Engine.Data
             {
                 OnDeviceTypeChanging(value);
                 ReportPropertyChanging("DeviceType");
-                _DeviceType = StructuralObject.SetValidValue(value, "DeviceType");
+                _DeviceType = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("DeviceType");
                 OnDeviceTypeChanged();
             }
@@ -7258,7 +3698,7 @@ namespace x360ce.Engine.Data
             {
                 OnFileNameChanging(value);
                 ReportPropertyChanging("FileName");
-                _FileName = StructuralObject.SetValidValue(value, false, "FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FileName");
                 OnFileNameChanged();
             }
@@ -7282,7 +3722,7 @@ namespace x360ce.Engine.Data
             {
                 OnFileProductNameChanging(value);
                 ReportPropertyChanging("FileProductName");
-                _FileProductName = StructuralObject.SetValidValue(value, false, "FileProductName");
+                _FileProductName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FileProductName");
                 OnFileProductNameChanged();
             }
@@ -7306,7 +3746,7 @@ namespace x360ce.Engine.Data
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, false, "Comment");
+                _Comment = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -7330,7 +3770,7 @@ namespace x360ce.Engine.Data
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -7354,7 +3794,7 @@ namespace x360ce.Engine.Data
             {
                 OnDateUpdatedChanging(value);
                 ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
+                _DateUpdated = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("DateUpdated");
                 OnDateUpdatedChanged();
             }
@@ -7378,7 +3818,7 @@ namespace x360ce.Engine.Data
             {
                 OnIsEnabledChanging(value);
                 ReportPropertyChanging("IsEnabled");
-                _IsEnabled = StructuralObject.SetValidValue(value, "IsEnabled");
+                _IsEnabled = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsEnabled");
                 OnIsEnabledChanged();
             }
@@ -7402,7 +3842,7 @@ namespace x360ce.Engine.Data
             {
                 OnPadSettingChecksumChanging(value);
                 ReportPropertyChanging("PadSettingChecksum");
-                _PadSettingChecksum = StructuralObject.SetValidValue(value, "PadSettingChecksum");
+                _PadSettingChecksum = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("PadSettingChecksum");
                 OnPadSettingChecksumChanged();
             }
@@ -7426,7 +3866,7 @@ namespace x360ce.Engine.Data
             {
                 OnDateSelectedChanging(value);
                 ReportPropertyChanging("DateSelected");
-                _DateSelected = StructuralObject.SetValidValue(value, "DateSelected");
+                _DateSelected = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("DateSelected");
                 OnDateSelectedChanged();
             }
@@ -7450,7 +3890,7 @@ namespace x360ce.Engine.Data
             {
                 OnMapToChanging(value);
                 ReportPropertyChanging("MapTo");
-                _MapTo = StructuralObject.SetValidValue(value, "MapTo");
+                _MapTo = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("MapTo");
                 OnMapToChanged();
             }
@@ -7458,105 +3898,275 @@ namespace x360ce.Engine.Data
         private global::System.Int32 _MapTo;
         partial void OnMapToChanging(global::System.Int32 value);
         partial void OnMapToChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Completion
-        {
-            get
-            {
-                return _Completion;
-            }
-            set
-            {
-                OnCompletionChanging(value);
-                ReportPropertyChanging("Completion");
-                _Completion = StructuralObject.SetValidValue(value, "Completion");
-                ReportPropertyChanged("Completion");
-                OnCompletionChanged();
-            }
-        }
-        private global::System.Int32 _Completion;
-        partial void OnCompletionChanging(global::System.Int32 value);
-        partial void OnCompletionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ComputerId
-        {
-            get
-            {
-                return _ComputerId;
-            }
-            set
-            {
-                OnComputerIdChanging(value);
-                ReportPropertyChanging("ComputerId");
-                _ComputerId = StructuralObject.SetValidValue(value, "ComputerId");
-                ReportPropertyChanged("ComputerId");
-                OnComputerIdChanged();
-            }
-        }
-        private global::System.Guid _ComputerId;
-        partial void OnComputerIdChanging(global::System.Guid value);
-        partial void OnComputerIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, "ProfileId");
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.Guid _ProfileId;
-        partial void OnProfileIdChanging(global::System.Guid value);
-        partial void OnProfileIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid Checksum
-        {
-            get
-            {
-                return _Checksum;
-            }
-            set
-            {
-                OnChecksumChanging(value);
-                ReportPropertyChanging("Checksum");
-                _Checksum = StructuralObject.SetValidValue(value, "Checksum");
-                ReportPropertyChanged("Checksum");
-                OnChecksumChanged();
-            }
-        }
-        private global::System.Guid _Checksum;
-        partial void OnChecksumChanging(global::System.Guid value);
-        partial void OnChecksumChanged();
 
         #endregion
 
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="x360ceModel", Name="Summary")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Summary : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Summary object.
+        /// </summary>
+        /// <param name="summaryId">Initial value of the SummaryId property.</param>
+        /// <param name="users">Initial value of the Users property.</param>
+        /// <param name="padSettingChecksum">Initial value of the PadSettingChecksum property.</param>
+        /// <param name="productGuid">Initial value of the ProductGuid property.</param>
+        /// <param name="productName">Initial value of the ProductName property.</param>
+        /// <param name="fileName">Initial value of the FileName property.</param>
+        /// <param name="fileProductName">Initial value of the FileProductName property.</param>
+        /// <param name="dateCreated">Initial value of the DateCreated property.</param>
+        /// <param name="dateUpdated">Initial value of the DateUpdated property.</param>
+        public static Summary CreateSummary(global::System.Guid summaryId, global::System.Int32 users, global::System.Guid padSettingChecksum, global::System.Guid productGuid, global::System.String productName, global::System.String fileName, global::System.String fileProductName, global::System.DateTime dateCreated, global::System.DateTime dateUpdated)
+        {
+            Summary summary = new Summary();
+            summary.SummaryId = summaryId;
+            summary.Users = users;
+            summary.PadSettingChecksum = padSettingChecksum;
+            summary.ProductGuid = productGuid;
+            summary.ProductName = productName;
+            summary.FileName = fileName;
+            summary.FileProductName = fileProductName;
+            summary.DateCreated = dateCreated;
+            summary.DateUpdated = dateUpdated;
+            return summary;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid SummaryId
+        {
+            get
+            {
+                return _SummaryId;
+            }
+            set
+            {
+                if (_SummaryId != value)
+                {
+                    OnSummaryIdChanging(value);
+                    ReportPropertyChanging("SummaryId");
+                    _SummaryId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("SummaryId");
+                    OnSummaryIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _SummaryId;
+        partial void OnSummaryIdChanging(global::System.Guid value);
+        partial void OnSummaryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Users
+        {
+            get
+            {
+                return _Users;
+            }
+            set
+            {
+                OnUsersChanging(value);
+                ReportPropertyChanging("Users");
+                _Users = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Users");
+                OnUsersChanged();
+            }
+        }
+        private global::System.Int32 _Users;
+        partial void OnUsersChanging(global::System.Int32 value);
+        partial void OnUsersChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid PadSettingChecksum
+        {
+            get
+            {
+                return _PadSettingChecksum;
+            }
+            set
+            {
+                OnPadSettingChecksumChanging(value);
+                ReportPropertyChanging("PadSettingChecksum");
+                _PadSettingChecksum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PadSettingChecksum");
+                OnPadSettingChecksumChanged();
+            }
+        }
+        private global::System.Guid _PadSettingChecksum;
+        partial void OnPadSettingChecksumChanging(global::System.Guid value);
+        partial void OnPadSettingChecksumChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ProductGuid
+        {
+            get
+            {
+                return _ProductGuid;
+            }
+            set
+            {
+                OnProductGuidChanging(value);
+                ReportPropertyChanging("ProductGuid");
+                _ProductGuid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProductGuid");
+                OnProductGuidChanged();
+            }
+        }
+        private global::System.Guid _ProductGuid;
+        partial void OnProductGuidChanging(global::System.Guid value);
+        partial void OnProductGuidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ProductName
+        {
+            get
+            {
+                return _ProductName;
+            }
+            set
+            {
+                OnProductNameChanging(value);
+                ReportPropertyChanging("ProductName");
+                _ProductName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ProductName");
+                OnProductNameChanged();
+            }
+        }
+        private global::System.String _ProductName;
+        partial void OnProductNameChanging(global::System.String value);
+        partial void OnProductNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FileProductName
+        {
+            get
+            {
+                return _FileProductName;
+            }
+            set
+            {
+                OnFileProductNameChanging(value);
+                ReportPropertyChanging("FileProductName");
+                _FileProductName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FileProductName");
+                OnFileProductNameChanged();
+            }
+        }
+        private global::System.String _FileProductName;
+        partial void OnFileProductNameChanging(global::System.String value);
+        partial void OnFileProductNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateCreated
+        {
+            get
+            {
+                return _DateCreated;
+            }
+            set
+            {
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
+            }
+        }
+        private global::System.DateTime _DateCreated;
+        partial void OnDateCreatedChanging(global::System.DateTime value);
+        partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateUpdated
+        {
+            get
+            {
+                return _DateUpdated;
+            }
+            set
+            {
+                OnDateUpdatedChanging(value);
+                ReportPropertyChanging("DateUpdated");
+                _DateUpdated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateUpdated");
+                OnDateUpdatedChanged();
+            }
+        }
+        private global::System.DateTime _DateUpdated;
+        partial void OnDateUpdatedChanging(global::System.DateTime value);
+        partial void OnDateUpdatedChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
@@ -7588,7 +4198,7 @@ namespace x360ce.Engine.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7607,7 +4217,7 @@ namespace x360ce.Engine.Data
                 {
                     OnVendorIdChanging(value);
                     ReportPropertyChanging("VendorId");
-                    _VendorId = StructuralObject.SetValidValue(value, "VendorId");
+                    _VendorId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("VendorId");
                     OnVendorIdChanged();
                 }
@@ -7632,7 +4242,7 @@ namespace x360ce.Engine.Data
             {
                 OnVendorNameChanging(value);
                 ReportPropertyChanging("VendorName");
-                _VendorName = StructuralObject.SetValidValue(value, false, "VendorName");
+                _VendorName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("VendorName");
                 OnVendorNameChanged();
             }
@@ -7656,7 +4266,7 @@ namespace x360ce.Engine.Data
             {
                 OnShortNameChanging(value);
                 ReportPropertyChanging("ShortName");
-                _ShortName = StructuralObject.SetValidValue(value, false, "ShortName");
+                _ShortName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ShortName");
                 OnShortNameChanged();
             }
@@ -7680,7 +4290,7 @@ namespace x360ce.Engine.Data
             {
                 OnWebSiteChanging(value);
                 ReportPropertyChanging("WebSite");
-                _WebSite = StructuralObject.SetValidValue(value, false, "WebSite");
+                _WebSite = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("WebSite");
                 OnWebSiteChanged();
             }
@@ -7691,8 +4301,10 @@ namespace x360ce.Engine.Data
 
         #endregion
 
+    
     }
 
     #endregion
 
+    
 }

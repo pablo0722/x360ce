@@ -1,4 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 
 namespace JocysCom.ClassLibrary.Drawing
 {
@@ -13,16 +17,14 @@ namespace JocysCom.ClassLibrary.Drawing
 		/// <returns></returns>
 		public void Transparent(Bitmap b, int alpha)
 		{
-			var w = b.Width;
-			var h = b.Height;
-			int a;
-			Color p;
+			int w = b.Width;
+			int h = b.Height;
 			for (int y = 0; y < h; y++)
 			{
 				for (int x = 0; x < w; x++)
 				{
-					p = b.GetPixel(x, y);
-					a = (int)(p.A * (float)alpha / byte.MaxValue);
+					Color p = b.GetPixel(x, y);
+					int a = (int)((float)p.A * (float)alpha / byte.MaxValue);
 					if (a >= byte.MaxValue) a = byte.MaxValue;
 					if (a <= byte.MinValue) a = byte.MinValue;
 					b.SetPixel(x, y, Color.FromArgb(a, p.R, p.G, p.B));

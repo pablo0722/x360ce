@@ -32,6 +32,11 @@ namespace x360ce.App.Controls
 			else Application.ThreadException -= new System.Threading.ThreadExceptionEventHandler(Program.Application_ThreadException);
 		}
 
+		void XInputEnableCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			MainForm.Current.XInputEnable(XInputEnableCheckBox.Checked);
+		}
+
 		/// <summary>
 		/// Link control with INI key. Value/Text of control will be automatically tracked and INI file updated.
 		/// </summary>
@@ -45,13 +50,13 @@ namespace x360ce.App.Controls
 			SettingManager.AddMap(section, () => SettingName.Console, ConsoleCheckBox);
 			SettingManager.AddMap(section, () => SettingName.InternetDatabaseUrl, InternetDatabaseUrlComboBox);
 			SettingManager.AddMap(section, () => SettingName.InternetFeatures, InternetCheckBox);
+			SettingManager.AddMap(section, () => SettingName.InternetAutoload, InternetAutoloadCheckBox);
 			SettingManager.AddMap(section, () => SettingName.AllowOnlyOneCopy, AllowOnlyOneCopyCheckBox);
 			SettingManager.AddMap(section, () => SettingName.ProgramScanLocations, GameScanLocationsListBox);
 			SettingManager.AddMap(section, () => SettingName.Version, ConfigurationVersionTextBox);
 			SettingManager.AddMap(section, () => SettingName.CombineEnabled, CombineEnabledCheckBox);
-			SettingManager.AddMap(section, "InternetAutoload", InternetAutoloadCheckBox, SettingManager.Current.SettingsMap);
-			SettingManager.AddMap(section, "ExcludeSupplementalDevices", ExcludeSupplementalDevicesCheckBox, SettingManager.Current.SettingsMap);
-			SettingManager.AddMap(section, "ExcludeVirtualDevices", ExcludeVirtualDevicesCheckBox, SettingManager.Current.SettingsMap);
+			SettingManager.AddMap(section, () => SettingName.ExcludeSupplementalDevices, ExcludeSupplementalDevicesCheckBox);
+			SettingManager.AddMap(section, () => SettingName.ExcludeVirtualDevices, ExcludeVirtualDevicesCheckBox);
 		}
 
 		void InternetCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -71,7 +76,7 @@ namespace x360ce.App.Controls
 			{
 				// Don't allow to add windows folder.
 				var winFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-				if (LocationFolderBrowserDialog.SelectedPath.StartsWith(winFolder, StringComparison.OrdinalIgnoreCase))
+				if (LocationFolderBrowserDialog.SelectedPath.StartsWith(winFolder))
 				{
 					MessageBoxForm.Show("Windows folders are not allowed.", "Windows Folder", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}

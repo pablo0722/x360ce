@@ -10,8 +10,6 @@ using x360ce.Engine;
 using x360ce.App.Controls;
 using System.Diagnostics;
 using System.Data.Objects.DataClasses;
-using JocysCom.ClassLibrary.Runtime;
-using JocysCom.ClassLibrary.ComponentModel;
 
 namespace x360ce.App
 {
@@ -68,7 +66,8 @@ namespace x360ce.App
 				{
 					if (_XmlFile == null)
 					{
-						var path = EngineHelper.AppDataPath + "\\" + _FileName;
+						var folder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\X360CE";
+						var path = folder + "\\" + _FileName;
 						_XmlFile = new FileInfo(path);
 					}
 					return _XmlFile;
@@ -88,7 +87,7 @@ namespace x360ce.App
 					var o = Items[i] as EntityObject;
 					if (o != null) o.EntityKey = null;
 				}
-				Serializer.SerializeToXmlFile(this, XmlFile.FullName, Encoding.UTF8, true);
+				Serializer.SerializeToXmlFile(this, XmlFile.FullName, Encoding.UTF8);
 			}
 		}
 
@@ -171,7 +170,7 @@ namespace x360ce.App
 			if (!settingsLoaded)
 			{
 				// Get internal resources.
-				var resource = EngineHelper.GetResourceStream(_FileName + ".gz");
+				var resource = EngineHelper.GetResource(_FileName + ".gz");
 				// If internal preset was found.
 				if (resource != null)
 				{
@@ -183,7 +182,8 @@ namespace x360ce.App
 						compressedBytes = memstream.ToArray();
 					}
 					var bytes = EngineHelper.Decompress(compressedBytes);
-					var data = Serializer.DeserializeFromXmlBytes<SettingsData<T>>(bytes);
+					var xml = Encoding.UTF8.GetString(bytes);
+					var data = Serializer.DeserializeFromXmlString<SettingsData<T>>(xml);
 					Items.Clear();
 					for (int i = 0; i < data.Items.Count; i++) Items.Add(data.Items[i]);
 				}

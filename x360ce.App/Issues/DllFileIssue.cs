@@ -2,8 +2,6 @@
 using System.Reflection;
 using Microsoft.Win32;
 using x360ce.Engine;
-using JocysCom.ClassLibrary.Runtime;
-using JocysCom.ClassLibrary.Win32;
 
 namespace x360ce.App.Issues
 {
@@ -29,7 +27,7 @@ namespace x360ce.App.Issues
 			// If XInput DLL was not found then...
 			if (file == null)
 			{
-				var xFile = Attributes.GetDescription(XInputMask.XInput13_x86);
+				var xFile = JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription(XInputMask.XInput13_x86);
 				Description = string.Format("'{0}' was not found.\r\nThis file is required for emulator to function properly.\r\n\r\nDo you want to create this file?", xFile);
 				// Offer extract.
 				FixType = 1;
@@ -46,7 +44,7 @@ namespace x360ce.App.Issues
 				Severity = IssueSeverity.Moderate;
 				return;
 			}
-			var xiCurrentArchitecture = PEReader.GetProcessorArchitecture(file.Name);
+			var xiCurrentArchitecture = Engine.Win32.PEReader.GetProcessorArchitecture(file.Name);
 			if (appArchitecture != xiCurrentArchitecture)
 			{
 				// Offer upgrade.
@@ -68,11 +66,10 @@ namespace x360ce.App.Issues
 		{
 			if (FixType > 0)
 			{
-				var appArchitecture = Assembly.GetExecutingAssembly().GetName().ProcessorArchitecture;
-				var resourceName = EngineHelper.GetXInputResoureceName(appArchitecture);
+				var resourceName = EngineHelper.GetXInputResoureceName();
 				var file = EngineHelper.GetDefaultDll();
 				var fileName = file == null
-					? Attributes.GetDescription(XInputMask.XInput13_x86)
+					? JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription(XInputMask.XInput13_x86)
 					: file.Name;
 				AppHelper.WriteFile(resourceName, fileName);
 			}

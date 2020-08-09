@@ -1,5 +1,4 @@
-﻿using JocysCom.ClassLibrary.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -105,7 +104,6 @@ namespace x360ce.App.Controls
 					ActiveControl = Button3;
 					break;
 			}
-			JocysCom.ClassLibrary.Controls.ControlsHelper.CheckTopMost(this);
 			return ShowDialog();
 		}
 
@@ -234,7 +232,7 @@ namespace x360ce.App.Controls
 
 		void MainLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			ControlsHelper.OpenUrl(MainLinkLabel.Text);
+			EngineHelper.OpenUrl(MainLinkLabel.Text);
 		}
 
 	}

@@ -12,7 +12,6 @@ using System.Linq;
 using x360ce.Engine;
 using System.Diagnostics;
 using JocysCom.ClassLibrary.IO;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App.Controls
 {
@@ -21,10 +20,19 @@ namespace x360ce.App.Controls
 		public PadControl(int controllerIndex)
 		{
 			InitializeComponent();
-			TestTimer = new System.Timers.Timer();
-			TestTimer.AutoReset = false;
-			TestTimer.Elapsed += TestTimer_Elapsed;
 			ControllerIndex = controllerIndex;
+			object[] rates = {
+				1000/8, //  125
+				1000/7, //  142
+				1000/6, //  166
+				1000/5, //  200
+				1000/4, //  250
+				1000/3, //  333
+				1000/2, //  500
+				1000/1, // 1000
+			};
+			PollingRateComboBox.Items.AddRange(rates);
+			PollingRateComboBox.SelectedIndex = 0;
 			// Add direct input user control.
 			this.SuspendLayout();
 			diControl = new DirectInputControl();
@@ -54,10 +62,10 @@ namespace x360ce.App.Controls
 			// Initialize images.
 			this.TopPictureBox.Image = topDisabledImage;
 			this.FrontPictureBox.Image = frontDisabledImage;
-			this.markB = new Bitmap(EngineHelper.GetResourceStream("Images.MarkButton.png"));
-			this.markA = new Bitmap(EngineHelper.GetResourceStream("Images.MarkAxis.png"));
-			this.markC = new Bitmap(EngineHelper.GetResourceStream("Images.MarkController.png"));
-			this.markR = new Bitmap(EngineHelper.GetResourceStream("Images.bullet_ball_glass_red_16x16.png"));
+			this.markB = new Bitmap(EngineHelper.GetResource("Images.MarkButton.png"));
+			this.markA = new Bitmap(EngineHelper.GetResource("Images.MarkAxis.png"));
+			this.markC = new Bitmap(EngineHelper.GetResource("Images.MarkController.png"));
+			this.markR = new Bitmap(EngineHelper.GetResource("Images.bullet_ball_glass_red_16x16.png"));
 			float rH = topDisabledImage.HorizontalResolution;
 			float rV = topDisabledImage.VerticalResolution;
 			// Make sure resolution is same everywhere so images won't be resized.
@@ -69,7 +77,7 @@ namespace x360ce.App.Controls
 			var types = (SharpDX.XInput.DeviceSubType[])Enum.GetValues(typeof(SharpDX.XInput.DeviceSubType));
 			foreach (var item in types) DeviceSubTypeComboBox.Items.Add(item);
 			// Add force feedback typed to ComboBox.
-			var effectsTypes = Enum.GetValues(typeof(ForceEffectType)).Cast<ForceEffectType>().Distinct().ToArray();
+			var effectsTypes = (ForceEffectType[])Enum.GetValues(typeof(ForceEffectType));
 			foreach (var item in effectsTypes) ForceTypeComboBox.Items.Add(item);
 
 			var effectDirections = (ForceEffectDirection[])Enum.GetValues(typeof(ForceEffectDirection));
@@ -282,17 +290,17 @@ namespace x360ce.App.Controls
 		Bitmap markC;
 		Bitmap markR;
 
+		Bitmap _topImage;
 		Bitmap topImage
 		{
-			get { return _topImage = _topImage ?? new Bitmap(EngineHelper.GetResourceStream("Images.xboxControllerTop.png")); }
+			get { return _topImage = _topImage ?? new Bitmap(EngineHelper.GetResource("Images.xboxControllerTop.png")); }
 		}
-		Bitmap _topImage;
 
+		Bitmap _frontImage;
 		Bitmap frontImage
 		{
-			get { return _frontImage = _frontImage ?? new Bitmap(EngineHelper.GetResourceStream("Images.xboxControllerFront.png")); }
+			get { return _frontImage = _frontImage ?? new Bitmap(EngineHelper.GetResource("Images.xboxControllerFront.png")); }
 		}
-		Bitmap _frontImage;
 
 		Bitmap _topDisabledImage;
 		Bitmap topDisabledImage
@@ -507,7 +515,7 @@ namespace x360ce.App.Controls
 			SettingManager.AddMap(section, () => SettingName.ProductName, diControl.DeviceProductNameTextBox, sm);
 			SettingManager.AddMap(section, () => SettingName.ProductGuid, diControl.DeviceProductGuidTextBox, sm);
 			SettingManager.AddMap(section, () => SettingName.InstanceGuid, diControl.DeviceInstanceGuidTextBox, sm);
-			SettingManager.AddMap(section, () => SettingName.GamePadType, DeviceSubTypeComboBox, sm);
+			SettingManager.AddMap(section, () => SettingName.DeviceSubType, DeviceSubTypeComboBox, sm);
 			SettingManager.AddMap(section, () => SettingName.PassThrough, PassThroughCheckBox, sm);
 			SettingManager.AddMap(section, () => SettingName.ForcesPassThrough, ForceFeedbackPassThroughCheckBox, sm);
 			SettingManager.AddMap(section, () => SettingName.PassThroughIndex, PassThroughIndexComboBox, sm);
@@ -528,21 +536,21 @@ namespace x360ce.App.Controls
 			SettingManager.AddMap(section, () => SettingName.DPadLeft, DPadLeftComboBox, sm);
 			SettingManager.AddMap(section, () => SettingName.DPadRight, DPadRightComboBox, sm);
 			// Axis To Button
-			SettingManager.AddMap(section, () => SettingName.ButtonADeadZone, AxisToButtonADeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.ButtonBDeadZone, AxisToButtonBDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.ButtonXDeadZone, AxisToButtonXDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.ButtonYDeadZone, AxisToButtonYDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.ButtonStartDeadZone, AxisToButtonStartDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.ButtonBackDeadZone, AxisToButtonBackDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.LeftShoulderDeadZone, AxisToLeftShoulderDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.LeftThumbButtonDeadZone, AxisToLeftThumbButtonDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.RightShoulderDeadZone, AxisToRightShoulderDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.RightThumbButtonDeadZone, AxisToRightThumbButtonDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToButtonADeadZone, AxisToButtonADeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToButtonBDeadZone, AxisToButtonBDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToButtonXDeadZone, AxisToButtonXDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToButtonYDeadZone, AxisToButtonYDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToButtonStartDeadZone, AxisToButtonStartDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToButtonBackDeadZone, AxisToButtonBackDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToLeftShoulderDeadZone, AxisToLeftShoulderDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToLeftThumbButtonDeadZone, AxisToLeftThumbButtonDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToRightShoulderDeadZone, AxisToRightShoulderDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToRightThumbButtonDeadZone, AxisToRightThumbButtonDeadZonePanel.DeadZoneNumericUpDown, sm);
 			// Axis To D-Pad (separate directions).
-			SettingManager.AddMap(section, () => SettingName.DPadDownDeadZone, AxisToDPadDownDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.DPadLeftDeadZone, AxisToDPadLeftDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.DPadRightDeadZone, AxisToDPadRightDeadZonePanel.DeadZoneNumericUpDown, sm);
-			SettingManager.AddMap(section, () => SettingName.DPadUpDeadZone, AxisToDPadUpDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToDPadDownDeadZone, AxisToDPadDownDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToDPadLeftDeadZone, AxisToDPadLeftDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToDPadRightDeadZone, AxisToDPadRightDeadZonePanel.DeadZoneNumericUpDown, sm);
+			SettingManager.AddMap(section, () => SettingName.AxisToDPadUpDeadZone, AxisToDPadUpDeadZonePanel.DeadZoneNumericUpDown, sm);
 			// Axis To D-Pad.
 			SettingManager.AddMap(section, () => SettingName.AxisToDPadEnabled, AxisToDPadEnabledCheckBox, sm);
 			SettingManager.AddMap(section, () => SettingName.AxisToDPadDeadZone, AxisToDPadDeadZoneTrackBar, sm);
@@ -744,18 +752,18 @@ namespace x360ce.App.Controls
 			bool success;
 			int index;
 			SettingType type;
-			success = SettingsConverter.TryParseTextValue(LeftThumbAxisXComboBox.Text, out type, out index);
+			success = SettingsConverter.TryParseIndexAndType(LeftThumbAxisXComboBox.Text, out index, out type);
 			if (success)
-				LeftThumbXUserControl.DrawPoint(axis[index - 1], _leftX, type == SettingType.IAxis, false);
-			success = SettingsConverter.TryParseTextValue(LeftThumbAxisYComboBox.Text, out type, out index);
+				LeftThumbXUserControl.DrawPoint(axis[index - 1], _leftX, type == SettingType.IAxis);
+			success = SettingsConverter.TryParseIndexAndType(LeftThumbAxisYComboBox.Text, out index, out type);
 			if (success)
-				LeftThumbYUserControl.DrawPoint(axis[index - 1], _leftY, type == SettingType.IAxis, false);
-			success = SettingsConverter.TryParseTextValue(RightThumbAxisXComboBox.Text, out type, out index);
+				LeftThumbYUserControl.DrawPoint(axis[index - 1], _leftY, type == SettingType.IAxis);
+			success = SettingsConverter.TryParseIndexAndType(RightThumbAxisXComboBox.Text, out index, out type);
 			if (success)
-				RightThumbXUserControl.DrawPoint(axis[index - 1], _rightX, type == SettingType.IAxis, false);
-			success = SettingsConverter.TryParseTextValue(RightThumbAxisYComboBox.Text, out type, out index);
+				RightThumbXUserControl.DrawPoint(axis[index - 1], _rightX, type == SettingType.IAxis);
+			success = SettingsConverter.TryParseIndexAndType(RightThumbAxisYComboBox.Text, out index, out type);
 			if (success)
-				RightThumbYUserControl.DrawPoint(axis[index - 1], _rightY, type == SettingType.IAxis, false);
+				RightThumbYUserControl.DrawPoint(axis[index - 1], _rightY, type == SettingType.IAxis);
 			// Update controller images.
 			this.TopPictureBox.Refresh();
 			this.FrontPictureBox.Refresh();
@@ -782,7 +790,7 @@ namespace x360ce.App.Controls
 
 		string cRecord = "[Record]";
 		string cEmpty = "<empty>";
-		string cPOVs = "POVs";
+
 
 		// Function is recreated as soon as new DirectInput Device is available.
 		public void ResetDiMenuStrip(Device device)
@@ -797,7 +805,7 @@ namespace x360ce.App.Controls
 			if (device == null) return;
 			// Add [Record] button.
 			mi = new ToolStripMenuItem(cRecord);
-			mi.Image = new Bitmap(EngineHelper.GetResourceStream("Images.bullet_ball_glass_red_16x16.png"));
+			mi.Image = new Bitmap(EngineHelper.GetResource("Images.bullet_ball_glass_red_16x16.png"));
 			mi.Click += new EventHandler(DiMenuStrip_Click);
 			DiMenuStrip.Items.Add(mi);
 			// Add Buttons.
@@ -821,18 +829,18 @@ namespace x360ce.App.Controls
 			CreateItems(mi, "Half", "HSlider {0}", "h{0}", slidersCount);
 			CreateItems(mi, "Slider {0}", "s{0}", slidersCount);
 			// Add D-Pads.
-			mi = new ToolStripMenuItem(cPOVs);
+			mi = new ToolStripMenuItem("DPads");
 			DiMenuStrip.Items.Add(mi);
 			// Add D-Pad Top, Right, Bottom, Left button.
 			var dPadNames = Enum.GetNames(typeof(DPadEnum));
 			for (int p = 0; p < device.Capabilities.PovCount; p++)
 			{
-				var dPadItem = CreateItem("POV {0}", "{1}{0}", p + 1, SettingName.SType.POV);
+				var dPadItem = CreateItem("DPad {0}", "{1}{0}", p + 1, SettingName.SType.DPad);
 				mi.DropDownItems.Add(dPadItem);
 				for (int d = 0; d < dPadNames.Length; d++)
 				{
 					var dPadButtonIndex = p * 4 + d + 1;
-					var dPadButtonItem = CreateItem("POV {0} {1}", "{2}{3}", p + 1, dPadNames[d], SettingName.SType.POVButton, dPadButtonIndex);
+					var dPadButtonItem = CreateItem("DPad {0} {1}", "{2}{3}", p + 1, dPadNames[d], SettingName.SType.DPadButton, dPadButtonIndex);
 					dPadItem.DropDownItems.Add(dPadButtonItem);
 				}
 			}
@@ -910,11 +918,11 @@ namespace x360ce.App.Controls
 			{
 				if (!item.Text.StartsWith(cRecord)
 					&& !item.Text.StartsWith(cEmpty)
-					&& !item.Text.StartsWith(cPOVs))
+					&& !item.Text.StartsWith("DPad"))
 				{
 					item.Visible = !enable;
 				}
-				if (item.Text.StartsWith(cPOVs))
+				if (item.Text.StartsWith("DPad"))
 				{
 					if (item.HasDropDownItems)
 					{
@@ -947,6 +955,14 @@ namespace x360ce.App.Controls
 			RightTriggerDeadZoneTextBox.Text = string.Format("{0} % ", control.Value);
 		}
 
+
+
+		void MotorTrackBar_ValueChanged(object sender, EventArgs e)
+		{
+			//if (gamePadState == null) return;
+			UpdateForceFeedBack();
+		}
+
 		void MotorPeriodTrackBar_ValueChanged(object sender, EventArgs e)
 		{
 			//if (gamePadState == null) return;
@@ -966,27 +982,23 @@ namespace x360ce.App.Controls
 		{
 			if (MainForm.Current.ControllerIndex == -1) return;
 			// Convert 100% TrackBar to MotorSpeed's 0 - 65,535 (100%).
-			var leftMotor = (short)(LeftMotorStrengthTrackBar.Value / 100F * ushort.MaxValue);
-			var rightMotor = (short)(RightMotorStrengthTrackBar.Value / 100F * ushort.MaxValue);
-			lock (Controller.XInputLock)
+			var leftMotor = (short)(LeftMotorTestTrackBar.Value / 100F * ushort.MaxValue);
+			var rightMotor = (short)(RightMotorTestTrackBar.Value / 100F * ushort.MaxValue);
+			LeftMotorTestTextBox.Text = string.Format("{0} % ", LeftMotorTestTrackBar.Value);
+			RightMotorTestTextBox.Text = string.Format("{0} % ", RightMotorTestTrackBar.Value);
+			lock (MainForm.XInputLock)
 			{
 				var gPad = MainForm.Current.GamePads[ControllerIndex];
-				if (Controller.IsLoaded && gPad.IsConnected)
+				if (XInput.IsLoaded && gPad.IsConnected)
 				{
 					var vibration = new Vibration();
-					if (_TestEnabled)
-					{
-						vibration.LeftMotorSpeed = leftMotor;
-						vibration.RightMotorSpeed = rightMotor;
-						UpdateControl(TestButton, "Stop Test");
-					}
-					else
-					{
-						UpdateControl(TestButton, "Start Test");
-					}
+					vibration.LeftMotorSpeed = leftMotor;
+					vibration.RightMotorSpeed = rightMotor;
 					gPad.SetVibration(vibration);
 				}
 			}
+			//UnsafeNativeMethods.Enable(false);
+			//UnsafeNativeMethods.Enable(true);
 		}
 
 		void AxisToDPadOffsetTrackBar_ValueChanged(object sender, EventArgs e)
@@ -1038,7 +1050,7 @@ namespace x360ce.App.Controls
 				MainForm.Current.LoadPreset("Clear", ControllerIndex);
 				var objects = AppHelper.GetDeviceObjects(d);
 				DeviceObjectItem o = null;
-				o = objects.FirstOrDefault(x => x.Type == ObjectGuid.RxAxis);
+				o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.RxAxis);
 				// If Right thumb triggers are missing then...
 				if (o == null)
 				{
@@ -1057,9 +1069,9 @@ namespace x360ce.App.Controls
 					AutoPreset(objects, SettingName.LeftTrigger, 6);
 					AutoPreset(objects, SettingName.RightTrigger, 7);
 					// Right Thumb.
-					o = objects.FirstOrDefault(x => x.Type == ObjectGuid.ZAxis);
+					o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.ZAxis);
 					if (o != null) AutoPresetRead(SettingName.RightThumbAxisX, string.Format("{0}{1}", SettingName.SType.Axis, o.Instance + 1));
-					o = objects.FirstOrDefault(x => x.Type == ObjectGuid.RzAxis);
+					o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.RzAxis);
 					if (o != null) AutoPresetRead(SettingName.RightThumbAxisY, string.Format("{0}-{1}", SettingName.SType.Axis, o.Instance + 1));
 				}
 				else
@@ -1109,30 +1121,30 @@ namespace x360ce.App.Controls
 					AutoPreset(objects, SettingName.LeftThumbButton, 8);
 					AutoPreset(objects, SettingName.RightThumbButton, 9);
 					// Triggers.
-					o = objects.FirstOrDefault(x => x.Type == ObjectGuid.ZAxis);
+					o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.ZAxis);
 					if (o != null) AutoPresetRead(SettingName.LeftTrigger, string.Format("{0}{1}", SettingName.SType.Axis, o.Instance + 1));
-					o = objects.FirstOrDefault(x => x.Type == ObjectGuid.RzAxis);
+					o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.RzAxis);
 					if (o != null) AutoPresetRead(SettingName.RightTrigger, string.Format("{0}{1}", SettingName.SType.Axis, o.Instance + 1));
 					// Right Thumb.
-					o = objects.FirstOrDefault(x => x.Type == ObjectGuid.RxAxis);
+					o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.RxAxis);
 					if (o != null) AutoPresetRead(SettingName.RightThumbAxisX, string.Format("{0}{1}", SettingName.SType.Axis, o.Instance + 1));
-					o = objects.FirstOrDefault(x => x.Type == ObjectGuid.RyAxis);
+					o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.RyAxis);
 					if (o != null) AutoPresetRead(SettingName.RightThumbAxisY, string.Format("{0}-{1}", SettingName.SType.Axis, o.Instance + 1));
 				}
 				// Left Thumb.
-				o = objects.FirstOrDefault(x => x.Type == ObjectGuid.XAxis);
+				o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.XAxis);
 				if (o != null) AutoPresetRead(SettingName.LeftThumbAxisX, string.Format("{0}{1}", SettingName.SType.Axis, o.Instance + 1));
-				o = objects.FirstOrDefault(x => x.Type == ObjectGuid.YAxis);
+				o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.YAxis);
 				if (o != null) AutoPresetRead(SettingName.LeftThumbAxisY, string.Format("{0}-{1}", SettingName.SType.Axis, o.Instance + 1));
 				// D-Pad
-				o = objects.FirstOrDefault(x => x.Type == ObjectGuid.PovController);
-				if (o != null) AutoPresetRead(SettingName.DPad, string.Format("{0}{1}", SettingName.SType.POV, o.Instance + 1));
+				o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.PovController);
+				if (o != null) AutoPresetRead(SettingName.DPad, string.Format("{0}{1}", SettingName.SType.DPad, o.Instance + 1));
 			}
 		}
 
 		void AutoPreset(DeviceObjectItem[] objects, string settingName, int index)
 		{
-			var o = objects.FirstOrDefault(x => x.Type == ObjectGuid.Button && x.Instance == index);
+			var o = objects.FirstOrDefault(x => x.GuidValue == ObjectGuid.Button && x.Instance == index);
 			if (o != null) AutoPresetRead(settingName, string.Format("{0}{1}", SettingName.SType.Button, o.Instance + 1));
 		}
 
@@ -1176,14 +1188,12 @@ namespace x360ce.App.Controls
 		{
 			var control = (TrackBar)sender;
 			LeftMotorStrengthTextBox.Text = string.Format("{0} % ", control.Value);
-			UpdateForceFeedBack();
 		}
 
 		private void RightMotorStrengthTrackBar_ValueChanged(object sender, EventArgs e)
 		{
 			var control = (TrackBar)sender;
 			RightMotorStrengthTextBox.Text = string.Format("{0} % ", control.Value);
-			UpdateForceFeedBack();
 		}
 
 		private void PassThroughCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -1205,65 +1215,55 @@ namespace x360ce.App.Controls
 		{
 			var path = System.Environment.GetFolderPath(Environment.SpecialFolder.System);
 			path += "\\joy.cpl";
-			ControlsHelper.OpenPath(path);
+			OpenPath(path, "");
 		}
 
-		object TestTimerLock = new object();
-		System.Timers.Timer TestTimer;
-
-		bool _TestEnabled;
-		public bool TestEnabled
+		void OpenPath(string path, string arguments = null)
 		{
-			get { lock (TestTimerLock) { return _TestEnabled; } }
-			set
+			try
 			{
-				lock (TestTimerLock)
+				var fi = new System.IO.FileInfo(path);
+				//if (!fi.Exists) return;
+				// Brings up the "Windows cannot open this file" dialog if association not found.
+				var psi = new ProcessStartInfo(path);
+				psi.UseShellExecute = true;
+				psi.WorkingDirectory = fi.Directory.FullName;
+				psi.ErrorDialog = true;
+				if (arguments != null) psi.Arguments = arguments;
+				Process.Start(psi);
+			}
+			catch (Exception) { }
+		}
+
+
+		private void FeedVirtualDeviceCeckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			FeedingEnabled = EnableVirtualDeviceCeckBox.Checked;
+			if (EnableVirtualDeviceCeckBox.Checked)
+			{
+				var resourceName = Program.GetResourceName("vJoy", "vJoyInterface");
+				if (!System.IO.File.Exists("vJoyInterface.dll"))
 				{
-					_TestEnabled = value;
-					var list = SettingManager.Current.DisabledControls;
-					if (_TestEnabled)
-					{
-						if (!list.Contains(LeftMotorStrengthTrackBar)) list.Add(LeftMotorStrengthTrackBar);
-						if (!list.Contains(RightMotorStrengthTrackBar)) list.Add(RightMotorStrengthTrackBar);
-						TestTimer.Interval = (double)TestTimerNumericUpDown.Value;
-						TestTimer.Start();
-					}
-					else
-					{
-						TestTimer.Stop();
-						if (list.Contains(LeftMotorStrengthTrackBar)) list.Remove(LeftMotorStrengthTrackBar);
-						if (list.Contains(RightMotorStrengthTrackBar)) list.Remove(RightMotorStrengthTrackBar);
-					}
-					UpdateForceFeedBack();
+					AppHelper.WriteFile(typeof(MainForm).Namespace + "." + resourceName + ".dll", "vJoyInterface.dll");
 				}
+
+
+
+				System.Threading.ThreadPool.QueueUserWorkItem(FeedWaitCallback, (uint)1);
 			}
 		}
 
-		private void TestButton_Click(object sender, EventArgs e)
-		{
-			var oldValue = TestEnabled;
-			TestEnabled = !oldValue;
-		}
+		bool FeedingEnabled;
 
-		private void TestTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		void FeedWaitCallback(object state)
 		{
-			lock (TestTimerLock)
+			string message;
+			var success = FeedDinputDevice((uint)state, out message);
+			if (!string.IsNullOrEmpty(message) && !success)
 			{
-				if (_TestEnabled)
-				{
-					UpdateForceFeedBack();
-					TestTimer.Start();
-				}
+				MessageBox.Show(message);
 			}
 		}
 
-		private void TestTimerNumericUpDown_ValueChanged(object sender, EventArgs e)
-		{
-			if (TestEnabled)
-			{
-				TestEnabled = false;
-				TestEnabled = true;
-			}
-		}
 	}
 }

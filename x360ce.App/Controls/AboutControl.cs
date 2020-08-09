@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
 using x360ce.Engine;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App.Controls
 {
@@ -21,16 +20,33 @@ namespace x360ce.App.Controls
 
 		void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			ControlsHelper.OpenUrl(((Control)sender).Text);
+			OpenUrl(((Control)sender).Text);
+		}
+
+		public void OpenUrl(string url)
+		{
+			try
+			{
+				System.Diagnostics.Process.Start(url);
+			}
+			catch (System.ComponentModel.Win32Exception noBrowser)
+			{
+				if (noBrowser.ErrorCode == -2147467259)
+					MessageBox.Show(noBrowser.Message);
+			}
+			catch (System.Exception other)
+			{
+				MessageBox.Show(other.Message);
+			}
 		}
 
 		void AboutControl_Load(object sender, EventArgs e)
 		{
-			var stream = EngineHelper.GetResourceStream("ChangeLog.txt");
+			var stream = EngineHelper.GetResource("ChangeLog.txt");
 			var sr = new StreamReader(stream);
 			ChangeLogTextBox.Text = sr.ReadToEnd();
 			AboutProductLabel.Text = string.Format(AboutProductLabel.Text, Application.ProductVersion);
-			stream = EngineHelper.GetResourceStream("License.txt");
+			stream = EngineHelper.GetResource("License.txt");
 			sr = new StreamReader(stream);
 			LicenseTextBox.Text = sr.ReadToEnd();
 			LicenseTabPage.Text = string.Format("{0} {1} License", Application.ProductName, new Version(Application.ProductVersion).ToString(2));

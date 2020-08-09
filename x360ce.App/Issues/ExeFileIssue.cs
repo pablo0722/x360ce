@@ -4,7 +4,6 @@ using Microsoft.Win32;
 using x360ce.Engine;
 using System.IO;
 using System.Windows.Forms;
-using JocysCom.ClassLibrary.Win32;
 
 namespace x360ce.App.Issues
 {
@@ -21,7 +20,7 @@ namespace x360ce.App.Issues
 		{
 			var fi = new FileInfo(Application.ExecutablePath);
 			var winFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.Windows);
-			var insideWindowsFolder = fi.FullName.StartsWith(winFolder, StringComparison.OrdinalIgnoreCase);
+			var insideWindowsFolder = fi.FullName.StartsWith(winFolder, StringComparison.InvariantCultureIgnoreCase);
 			if (insideWindowsFolder)
 			{
 				Description = string.Format("Do not run X360CE Application from Windows folder.");
@@ -54,7 +53,7 @@ namespace x360ce.App.Issues
 					}
 					fi.CopyTo(newFile.FullName);
 				}
-				WinAPI.RunElevatedAsync(newFile.FullName, null);
+				x360ce.Engine.Win32.WinAPI.RunElevatedAsync(newFile.FullName, null);
 				//Close this instance because we have an elevated instance
 				Application.Exit();
 			}

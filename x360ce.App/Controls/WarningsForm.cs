@@ -11,7 +11,6 @@ using System.Text;
 using System.Windows.Forms;
 using x360ce.Engine;
 using x360ce.App.Issues;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App
 {
@@ -101,9 +100,9 @@ namespace x360ce.App
 				if (issue.Severity == IssueSeverity.Critical) clearRest = true;
 				UpdateWarning(issue);
 			}
-            ControlsHelper.BeginInvoke(() =>
-            {
-                var update2 = MainForm.Current.update2Enabled;
+			MainForm.Current.BeginInvoke((MethodInvoker)delegate ()
+			{
+				var update2 = MainForm.Current.update2Enabled;
 				if (Warnings.Count > 0)
 				{
 					// If not visible and must not ignored then...
@@ -188,10 +187,8 @@ namespace x360ce.App
 
 		private void WarningsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex < 0 || e.ColumnIndex < 0)
-				return;
 			var grid = (DataGridView)sender;
-			if (grid.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+			if (grid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
 			{
 				var row = grid.Rows[e.RowIndex];
 				var item = (WarningItem)row.DataBoundItem;
@@ -207,13 +204,12 @@ namespace x360ce.App
 
 		private void WarningsDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
-			if (e.RowIndex < 0 || e.ColumnIndex < 0)
-				return;
+			if (e.RowIndex == -1) return;
 			var grid = (DataGridView)sender;
 			var row = grid.Rows[e.RowIndex];
-			var column = grid.Columns[e.ColumnIndex];
+			var column = grid.Columns[SeverityColumn.Name];
 			var item = (WarningItem)row.DataBoundItem;
-			if (column == SeverityColumn)
+			if (e.ColumnIndex == grid.Columns[SeverityColumn.Name].Index)
 			{
 				switch (item.Severity)
 				{

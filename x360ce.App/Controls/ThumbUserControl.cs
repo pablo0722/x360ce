@@ -10,7 +10,6 @@ using System.Threading;
 using JocysCom.ClassLibrary.Threading;
 using System.Text.RegularExpressions;
 using SharpDX.XInput;
-using x360ce.Engine;
 
 namespace x360ce.App.Controls
 {
@@ -20,7 +19,7 @@ namespace x360ce.App.Controls
 		{
 			InitializeComponent();
 			updateTimer = new QueueTimer(500, 0);
-			updateTimer.DoWork = RefreshBackgroundImage;
+			updateTimer.DoAction = RefreshBackgroundImage;
 			deadzoneLink = new DeadZoneControlsLink(DeadZoneTrackBar, DeadZoneNumericUpDown, DeadZoneTextBox);
 			deadzoneLink.ValueChanged += deadzoneLink_ValueChanged;
 			antiDeadzoneLink = new DeadZoneControlsLink(AntiDeadZoneTrackBar, AntiDeadZoneNumericUpDown, AntiDeadZoneTextBox);
@@ -61,17 +60,17 @@ namespace x360ce.App.Controls
 
 		Bitmap LastBackgroundImage = null;
 
-		void RefreshBackgroundImage(object sender, object state)
+		void RefreshBackgroundImage(object state)
 		{
 			int deadZone = 0;
 			int antiDeadZone = 0;
 			int sensitivity = 0;
-			Invoke((Action)delegate ()
+			Invoke(((MethodInvoker)delegate()
 			{
 				deadZone = (int)DeadZoneNumericUpDown.Value;
 				antiDeadZone = (int)AntiDeadZoneNumericUpDown.Value;
 				sensitivity = (int)SensitivityNumericUpDown.Value;
-			});
+			}));
 			var borders = MainPictureBox.BorderStyle == System.Windows.Forms.BorderStyle.None ? 0 : 2;
 			var w = MainPictureBox.Width - borders;
 			var h = MainPictureBox.Height - borders;
@@ -85,29 +84,31 @@ namespace x360ce.App.Controls
 			var xInputBrush = new SolidBrush(System.Drawing.Color.Red);
 			var nInputBrush = new SolidBrush(System.Drawing.Color.FromArgb(32, 128, 128, 128));
 			var nInputPen = new Pen(nInputBrush);
-			var radius = 1f;
+			var radius = 0.5f;
 			g.DrawLine(nInputPen, 0, h, w, 0);
-			var m = (float)w;
-			for (float i = 0; i <= m; i += 0.5f)
+			for (float i = 0; i < w; i += 0.5f)
 			{
-				// Convert Image X position [0;m] to DInput position [0;65535].
-				var dInputValue = ConvertHelper.ConvertRangeF(0, w, ushort.MinValue, ushort.MaxValue, i);
-				var result = ConvertHelper.GetThumbValue(dInputValue, deadZone, antiDeadZone, sensitivity, _invert, _half);
-				// Convert XInput Y position [-32768;32767] to image size [0;m].
-				var y = ConvertHelper.ConvertRangeF(short.MinValue, short.MaxValue, 0, h, result);
-				g.FillEllipse(xInputBrush, i - 1f, h - y - 1f, radius, radius);
+				var m = (float)w;
+				// Get value range [-1;1].
+				float value = i / (m - 1f) * 2f - 1f;
+				short dInputValue = SharpDX.XInput.XInput.ConvertToShort(value);
+				short result = SharpDX.XInput.XInput.GetThumbValue(dInputValue, deadZone, antiDeadZone, sensitivity);
+				var resultInt = ((SharpDX.XInput.XInput.ConvertToFloat(result) + 1f) / 2f * m);
+				var x1 = i;
+				var y1 = m - resultInt - 1f;
+				g.FillEllipse(xInputBrush, x1, y1, radius * 2f, radius * 2f);
 			}
-			Invoke((Action)delegate ()
+			Invoke(((MethodInvoker)delegate()
 			{
 				LastBackgroundImage = bmp;
 				MainPictureBox.BackgroundImage = Enabled ? LastBackgroundImage : null;
-			});
+			}));
 		}
 
 		void RefreshBackgroundImageAsync()
 		{
 			var param = (int)SensitivityTrackBar.Value;
-			updateTimer.DoActionNow(param);
+			updateTimer.AddToQueue(param);
 			SensitivityLabel.Text = SensitivityCheckBox.Checked
 				? "Sensitivity - Make more sensitive in the center:"
 				: "Sensitivity - Make less sensitive in the center:";
@@ -141,16 +142,14 @@ namespace x360ce.App.Controls
 		}
 
 		bool _invert;
-		bool _half;
 		int _dInput;
 		int _xInput;
 
-		public void DrawPoint(int dInput, int xInput, bool invert, bool half)
+		public void DrawPoint(int dInput, int xInput, bool invert)
 		{
 			DInputValueLabel.Text = (dInput + short.MinValue).ToString();
 			XInputValueLabel.Text = xInput.ToString();
 			_invert = invert;
-			_half = half;
 			_dInput = dInput;
 			_xInput = xInput;
 			MainPictureBox.Refresh();
@@ -162,9 +161,8 @@ namespace x360ce.App.Controls
 			if (image == null) return;
 			var w = (float)image.Width;
 			var h = (float)image.Width;
-			// Convert DInput to image position.
-			var di = ConvertHelper.ConvertRangeF(0, ushort.MaxValue, 0, w, _dInput);
-			// Convert DInput to image position.
+			var radius = 2f;
+			var di = ((float)_dInput / (float)ushort.MaxValue * (w - 1f));
 			var xi = ((float)(_xInput - short.MinValue) / (float)ushort.MaxValue * (w - 1f));
 			var xInputPoint = new SolidBrush(System.Drawing.Color.FromArgb(255, 0, 0, 255));
 			var xInputBrush = new SolidBrush(System.Drawing.Color.FromArgb(32, 0, 0, 255));
@@ -184,7 +182,6 @@ namespace x360ce.App.Controls
 			g.DrawLine(nInputPen, x1, 0, x1, h);
 			g.DrawLine(dInputPen, 0, h - x1 - 1f, w, h - x1 - 1f);
 			g.DrawLine(xInputPen, 0, y1, w, y1);
-			var radius = 2f;
 			g.FillEllipse(dInputPoint, x1 - radius, (h - x1 - 1f) - radius, radius * 2f, radius * 2f);
 			g.FillEllipse(xInputPoint, x1 - radius, y1 - radius, radius * 2f, radius * 2f);
 		}
@@ -255,13 +252,16 @@ namespace x360ce.App.Controls
 
 		#endregion
 
+		const int XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE = 7849;
+		const int XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE = 8689;
+
 		private void P_X_Y_Z_MenuItem_Click(object sender, EventArgs e)
 		{
 			var c = (ToolStripMenuItem)sender;
 			var values = c.Name.Split('_');
 			var xDeadZone = ThumbIndex == SharpDX.XInput.ThumbIndex.LeftX || ThumbIndex == SharpDX.XInput.ThumbIndex.LeftX
-				? Controller.XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE
-				: Controller.XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
+				? XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE
+				: XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
 			var deadZone = int.Parse(values[1]);
 			var antiDeadZone = int.Parse(values[2]);
 			var sensitivity = int.Parse(values[3]);

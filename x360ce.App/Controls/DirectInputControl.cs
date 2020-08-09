@@ -69,12 +69,12 @@ namespace x360ce.App.Controls
 				DiEffectsTable.Rows.Clear();
 				return;
 			}
-			lock (Controller.XInputLock)
+			lock (MainForm.XInputLock)
 			{
-				var isLoaded = Controller.IsLoaded;
-				if (isLoaded) Controller.FreeLibrary();
+				var isLoaded = XInput.IsLoaded;
+				if (isLoaded) XInput.FreeLibrary();
 				device.Unacquire();
-				device.SetCooperativeLevel(MainForm.Current.Handle, CooperativeLevel.Background | CooperativeLevel.Exclusive);
+				device.SetCooperativeLevel(MainForm.Current, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
 				effects = new List<EffectInfo>();
 				try
 				{
@@ -97,11 +97,11 @@ namespace x360ce.App.Controls
 							});
 				}
 				device.Unacquire();
-				device.SetCooperativeLevel(MainForm.Current.Handle, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
+				device.SetCooperativeLevel(MainForm.Current, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
 				if (isLoaded)
 				{
 					Exception error;
-					Controller.ReLoadLibrary(Controller.LibraryName, out error);
+					XInput.ReLoadLibrary(XInput.LibraryName, out error);
 				}
 			}
 			DiCapFfStateTextBox.Text = forceFeedbackState;
@@ -112,7 +112,7 @@ namespace x360ce.App.Controls
 			var actuators = objects.Where(x => x.Flags.HasFlag(DeviceObjectTypeFlags.ForceFeedbackActuator));
 			ActuatorsTextBox.Text = actuators.Count().ToString();
 			var di = device.Information;
-			var slidersCount = objects.Where(x => x.Type.Equals(SharpDX.DirectInput.ObjectGuid.Slider)).Count();
+			var slidersCount = objects.Where(x => x.GuidValue.Equals(SharpDX.DirectInput.ObjectGuid.Slider)).Count();
 			DiCapAxesTextBox.Text = (device.Capabilities.AxeCount - slidersCount).ToString();
 			SlidersTextBox.Text = slidersCount.ToString();
 			// Update PID and VID always so they wont be overwritten by load settings.
@@ -336,18 +336,16 @@ namespace x360ce.App.Controls
 		{
 			var objects = DiObjectsDataGridView.DataSource as DeviceObjectItem[];
 			var sb = new StringBuilder();
-			var maxTypeName = objects.Max(x => x.TypeName.Length);
+			var maxGuidName = objects.Max(x => x.GuidName.Length);
 			var maxName = objects.Max(x => x.Name.Length);
 			var maxFlags = objects.Max(x => x.Flags.ToString().Length);
-			var maxAspectName = objects.Max(x => x.AspectName.Length);
-			var names = new string[] { "Offset", "Type", "Aspect", "Flags", "Instance", "Name" };
-			var sizes = new int[] { "Offset".Length, -maxTypeName, -maxAspectName, -maxFlags, "Instance".Length, -maxName };
-			// Create format line.
+			var names = new string[] { "Offset", "Usage", "Instance", "Guid", "Name", "Flags" };
+			var sizes = new int[] { 6, 6, 8, -maxGuidName, -maxName, -maxFlags };
 			var format = "// ";
 			for (int i = 0; i < sizes.Length; i++)
 			{
 				if (i > 0) format += "  ";
-				format += "{" + i.ToString() + "," + sizes[i].ToString() + "}";
+				format += "{"+i.ToString()+"," + sizes[i].ToString() + "}";
 			}
 			sb.AppendFormat(format, names).AppendLine();
 			sb.Append("// ");
@@ -360,7 +358,7 @@ namespace x360ce.App.Controls
 			for (int i = 0; i < objects.Length; i++)
 			{
 				var o = objects[i];
-				sb.AppendFormat(format, o.Offset, o.TypeName, o.AspectName, o.Flags, o.Instance, o.Name);
+				sb.AppendFormat(format, o.Offset, o.Usage, o.Instance, o.GuidName, o.Name, o.Flags);
 				sb.AppendLine();
 			}
 			Clipboard.SetDataObject(sb.ToString());

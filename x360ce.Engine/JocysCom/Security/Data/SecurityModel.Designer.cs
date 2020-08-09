@@ -234,7 +234,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -251,7 +251,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnApplicationNameChanging(value);
                 ReportPropertyChanging("ApplicationName");
-                _ApplicationName = StructuralObject.SetValidValue(value, false, "ApplicationName");
+                _ApplicationName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ApplicationName");
                 OnApplicationNameChanged();
             }
@@ -275,7 +275,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLoweredApplicationNameChanging(value);
                 ReportPropertyChanging("LoweredApplicationName");
-                _LoweredApplicationName = StructuralObject.SetValidValue(value, false, "LoweredApplicationName");
+                _LoweredApplicationName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LoweredApplicationName");
                 OnLoweredApplicationNameChanged();
             }
@@ -301,7 +301,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
                 {
                     OnApplicationIdChanging(value);
                     ReportPropertyChanging("ApplicationId");
-                    _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
+                    _ApplicationId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("ApplicationId");
                     OnApplicationIdChanged();
                 }
@@ -326,7 +326,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true, "Description");
+                _Description = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -337,6 +337,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
+    
         #region Navigation Properties
     
         /// <summary>
@@ -460,7 +461,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -477,7 +478,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnApplicationIdChanging(value);
                 ReportPropertyChanging("ApplicationId");
-                _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
+                _ApplicationId = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("ApplicationId");
                 OnApplicationIdChanged();
             }
@@ -503,7 +504,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value, "UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -528,7 +529,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, false, "Password");
+                _Password = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -552,7 +553,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnPasswordFormatChanging(value);
                 ReportPropertyChanging("PasswordFormat");
-                _PasswordFormat = StructuralObject.SetValidValue(value, "PasswordFormat");
+                _PasswordFormat = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("PasswordFormat");
                 OnPasswordFormatChanged();
             }
@@ -576,7 +577,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnPasswordSaltChanging(value);
                 ReportPropertyChanging("PasswordSalt");
-                _PasswordSalt = StructuralObject.SetValidValue(value, false, "PasswordSalt");
+                _PasswordSalt = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("PasswordSalt");
                 OnPasswordSaltChanged();
             }
@@ -600,7 +601,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnMobilePINChanging(value);
                 ReportPropertyChanging("MobilePIN");
-                _MobilePIN = StructuralObject.SetValidValue(value, true, "MobilePIN");
+                _MobilePIN = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("MobilePIN");
                 OnMobilePINChanged();
             }
@@ -624,7 +625,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true, "Email");
+                _Email = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -648,7 +649,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLoweredEmailChanging(value);
                 ReportPropertyChanging("LoweredEmail");
-                _LoweredEmail = StructuralObject.SetValidValue(value, true, "LoweredEmail");
+                _LoweredEmail = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("LoweredEmail");
                 OnLoweredEmailChanged();
             }
@@ -672,7 +673,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnPasswordQuestionChanging(value);
                 ReportPropertyChanging("PasswordQuestion");
-                _PasswordQuestion = StructuralObject.SetValidValue(value, true, "PasswordQuestion");
+                _PasswordQuestion = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("PasswordQuestion");
                 OnPasswordQuestionChanged();
             }
@@ -696,7 +697,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnPasswordAnswerChanging(value);
                 ReportPropertyChanging("PasswordAnswer");
-                _PasswordAnswer = StructuralObject.SetValidValue(value, true, "PasswordAnswer");
+                _PasswordAnswer = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("PasswordAnswer");
                 OnPasswordAnswerChanged();
             }
@@ -720,7 +721,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnIsApprovedChanging(value);
                 ReportPropertyChanging("IsApproved");
-                _IsApproved = StructuralObject.SetValidValue(value, "IsApproved");
+                _IsApproved = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsApproved");
                 OnIsApprovedChanged();
             }
@@ -744,7 +745,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnIsLockedOutChanging(value);
                 ReportPropertyChanging("IsLockedOut");
-                _IsLockedOut = StructuralObject.SetValidValue(value, "IsLockedOut");
+                _IsLockedOut = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsLockedOut");
                 OnIsLockedOutChanged();
             }
@@ -768,7 +769,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnCreateDateChanging(value);
                 ReportPropertyChanging("CreateDate");
-                _CreateDate = StructuralObject.SetValidValue(value, "CreateDate");
+                _CreateDate = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("CreateDate");
                 OnCreateDateChanged();
             }
@@ -792,7 +793,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLastLoginDateChanging(value);
                 ReportPropertyChanging("LastLoginDate");
-                _LastLoginDate = StructuralObject.SetValidValue(value, "LastLoginDate");
+                _LastLoginDate = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("LastLoginDate");
                 OnLastLoginDateChanged();
             }
@@ -816,7 +817,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLastPasswordChangedDateChanging(value);
                 ReportPropertyChanging("LastPasswordChangedDate");
-                _LastPasswordChangedDate = StructuralObject.SetValidValue(value, "LastPasswordChangedDate");
+                _LastPasswordChangedDate = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("LastPasswordChangedDate");
                 OnLastPasswordChangedDateChanged();
             }
@@ -840,7 +841,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLastLockoutDateChanging(value);
                 ReportPropertyChanging("LastLockoutDate");
-                _LastLockoutDate = StructuralObject.SetValidValue(value, "LastLockoutDate");
+                _LastLockoutDate = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("LastLockoutDate");
                 OnLastLockoutDateChanged();
             }
@@ -864,7 +865,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnFailedPasswordAttemptCountChanging(value);
                 ReportPropertyChanging("FailedPasswordAttemptCount");
-                _FailedPasswordAttemptCount = StructuralObject.SetValidValue(value, "FailedPasswordAttemptCount");
+                _FailedPasswordAttemptCount = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("FailedPasswordAttemptCount");
                 OnFailedPasswordAttemptCountChanged();
             }
@@ -888,7 +889,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnFailedPasswordAttemptWindowStartChanging(value);
                 ReportPropertyChanging("FailedPasswordAttemptWindowStart");
-                _FailedPasswordAttemptWindowStart = StructuralObject.SetValidValue(value, "FailedPasswordAttemptWindowStart");
+                _FailedPasswordAttemptWindowStart = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("FailedPasswordAttemptWindowStart");
                 OnFailedPasswordAttemptWindowStartChanged();
             }
@@ -912,7 +913,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnFailedPasswordAnswerAttemptCountChanging(value);
                 ReportPropertyChanging("FailedPasswordAnswerAttemptCount");
-                _FailedPasswordAnswerAttemptCount = StructuralObject.SetValidValue(value, "FailedPasswordAnswerAttemptCount");
+                _FailedPasswordAnswerAttemptCount = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("FailedPasswordAnswerAttemptCount");
                 OnFailedPasswordAnswerAttemptCountChanged();
             }
@@ -936,7 +937,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnFailedPasswordAnswerAttemptWindowStartChanging(value);
                 ReportPropertyChanging("FailedPasswordAnswerAttemptWindowStart");
-                _FailedPasswordAnswerAttemptWindowStart = StructuralObject.SetValidValue(value, "FailedPasswordAnswerAttemptWindowStart");
+                _FailedPasswordAnswerAttemptWindowStart = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("FailedPasswordAnswerAttemptWindowStart");
                 OnFailedPasswordAnswerAttemptWindowStartChanged();
             }
@@ -960,7 +961,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true, "Comment");
+                _Comment = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -971,6 +972,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
+    
         #region Navigation Properties
     
         /// <summary>
@@ -1082,7 +1084,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1099,7 +1101,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnApplicationIdChanging(value);
                 ReportPropertyChanging("ApplicationId");
-                _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
+                _ApplicationId = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("ApplicationId");
                 OnApplicationIdChanged();
             }
@@ -1125,7 +1127,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
                 {
                     OnRoleIdChanging(value);
                     ReportPropertyChanging("RoleId");
-                    _RoleId = StructuralObject.SetValidValue(value, "RoleId");
+                    _RoleId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("RoleId");
                     OnRoleIdChanged();
                 }
@@ -1150,7 +1152,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnRoleNameChanging(value);
                 ReportPropertyChanging("RoleName");
-                _RoleName = StructuralObject.SetValidValue(value, false, "RoleName");
+                _RoleName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("RoleName");
                 OnRoleNameChanged();
             }
@@ -1174,7 +1176,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLoweredRoleNameChanging(value);
                 ReportPropertyChanging("LoweredRoleName");
-                _LoweredRoleName = StructuralObject.SetValidValue(value, false, "LoweredRoleName");
+                _LoweredRoleName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LoweredRoleName");
                 OnLoweredRoleNameChanged();
             }
@@ -1198,7 +1200,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true, "Description");
+                _Description = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -1209,6 +1211,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
+    
         #region Navigation Properties
     
         /// <summary>
@@ -1302,7 +1305,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1321,7 +1324,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
                 {
                     OnFeatureChanging(value);
                     ReportPropertyChanging("Feature");
-                    _Feature = StructuralObject.SetValidValue(value, false, "Feature");
+                    _Feature = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("Feature");
                     OnFeatureChanged();
                 }
@@ -1348,7 +1351,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
                 {
                     OnCompatibleSchemaVersionChanging(value);
                     ReportPropertyChanging("CompatibleSchemaVersion");
-                    _CompatibleSchemaVersion = StructuralObject.SetValidValue(value, false, "CompatibleSchemaVersion");
+                    _CompatibleSchemaVersion = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("CompatibleSchemaVersion");
                     OnCompatibleSchemaVersionChanged();
                 }
@@ -1373,7 +1376,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnIsCurrentVersionChanging(value);
                 ReportPropertyChanging("IsCurrentVersion");
-                _IsCurrentVersion = StructuralObject.SetValidValue(value, "IsCurrentVersion");
+                _IsCurrentVersion = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsCurrentVersion");
                 OnIsCurrentVersionChanged();
             }
@@ -1384,6 +1387,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
+    
     }
     
     /// <summary>
@@ -1427,7 +1431,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
-        #region Simple Properties
+        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1444,7 +1448,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnApplicationIdChanging(value);
                 ReportPropertyChanging("ApplicationId");
-                _ApplicationId = StructuralObject.SetValidValue(value, "ApplicationId");
+                _ApplicationId = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("ApplicationId");
                 OnApplicationIdChanged();
             }
@@ -1470,7 +1474,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value, "UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -1495,7 +1499,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnUserNameChanging(value);
                 ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, false, "UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("UserName");
                 OnUserNameChanged();
             }
@@ -1519,7 +1523,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLoweredUserNameChanging(value);
                 ReportPropertyChanging("LoweredUserName");
-                _LoweredUserName = StructuralObject.SetValidValue(value, false, "LoweredUserName");
+                _LoweredUserName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LoweredUserName");
                 OnLoweredUserNameChanged();
             }
@@ -1543,7 +1547,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnMobileAliasChanging(value);
                 ReportPropertyChanging("MobileAlias");
-                _MobileAlias = StructuralObject.SetValidValue(value, true, "MobileAlias");
+                _MobileAlias = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("MobileAlias");
                 OnMobileAliasChanged();
             }
@@ -1567,7 +1571,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnIsAnonymousChanging(value);
                 ReportPropertyChanging("IsAnonymous");
-                _IsAnonymous = StructuralObject.SetValidValue(value, "IsAnonymous");
+                _IsAnonymous = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IsAnonymous");
                 OnIsAnonymousChanged();
             }
@@ -1591,7 +1595,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLastActivityDateChanging(value);
                 ReportPropertyChanging("LastActivityDate");
-                _LastActivityDate = StructuralObject.SetValidValue(value, "LastActivityDate");
+                _LastActivityDate = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("LastActivityDate");
                 OnLastActivityDateChanged();
             }
@@ -1615,7 +1619,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, false, "FirstName");
+                _FirstName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -1639,7 +1643,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, false, "LastName");
+                _LastName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -1663,7 +1667,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnGenderChanging(value);
                 ReportPropertyChanging("Gender");
-                _Gender = StructuralObject.SetValidValue(value, false, "Gender");
+                _Gender = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Gender");
                 OnGenderChanged();
             }
@@ -1687,7 +1691,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, false, "Description");
+                _Description = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -1711,7 +1715,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
             {
                 OnDateBirthChanging(value);
                 ReportPropertyChanging("DateBirth");
-                _DateBirth = StructuralObject.SetValidValue(value, "DateBirth");
+                _DateBirth = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("DateBirth");
                 OnDateBirthChanged();
             }
@@ -1722,6 +1726,7 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
         #endregion
 
+    
         #region Navigation Properties
     
         /// <summary>
@@ -1828,4 +1833,5 @@ namespace JocysCom.WebSites.Engine.Security.Data
 
     #endregion
 
+    
 }

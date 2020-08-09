@@ -17,7 +17,7 @@ namespace x360ce.App
 		}
 
 
-		public static string ToString(this UserSetting s)
+		public static string ToString(this Setting s)
 		{
 			var result = s.ProductName;
 			if (!string.IsNullOrEmpty(s.FileName)) result += " | " + s.FileName;

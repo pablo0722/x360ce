@@ -9,9 +9,6 @@ using System.Windows.Forms;
 using System.Reflection;
 using x360ce.Engine;
 using System.IO;
-using JocysCom.ClassLibrary.Runtime;
-using JocysCom.ClassLibrary.Win32;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App.Controls
 {
@@ -32,7 +29,17 @@ namespace x360ce.App.Controls
 			}
 		}
 
-		internal bool IsDesignMode { get { return JocysCom.ClassLibrary.Controls.ControlsHelper.IsDesignMode(this); } }
+		internal bool IsDesignMode
+		{
+			get
+			{
+				if (DesignMode) return true;
+				if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return true;
+				var pa = this.ParentForm;
+				if (pa != null && pa.GetType().FullName.Contains("VisualStudio")) return true;
+				return false;
+			}
+		}
 
 		object CurrentGameLock = new object();
 		bool EnabledEvents = false;
@@ -42,11 +49,11 @@ namespace x360ce.App.Controls
 		CheckBox[] DInputCheckBoxes;
 		CheckBox[] HookCheckBoxes;
 
-		x360ce.Engine.Data.UserGame _CurrentGame;
+		x360ce.Engine.Data.Game _CurrentGame;
 		x360ce.Engine.Data.Program _DefaultSettings;
 
 		[DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
-		public x360ce.Engine.Data.UserGame CurrentGame
+		public x360ce.Engine.Data.Game CurrentGame
 		{
 			get { return _CurrentGame; }
 			set
@@ -56,13 +63,13 @@ namespace x360ce.App.Controls
 				UpdateFakeVidPidControls();
 				UpdateDinputControls();
 				UpdateHelpButtons();
-			}
+            }
 		}
 
 		void UpdateInterface()
 		{
 			var en = (CurrentGame != null);
-			var item = CurrentGame ?? new x360ce.Engine.Data.UserGame();
+			var item = CurrentGame ?? new x360ce.Engine.Data.Game();
 			var dInputMask = (DInputMask)item.DInputMask;
 			var xInputMask = (XInputMask)item.XInputMask;
 			var hookMask = (HookMask)item.HookMask;
@@ -87,7 +94,7 @@ namespace x360ce.App.Controls
 		}
 
 		// Check game settings against folder.
-		public GameRefreshStatus GetGameStatus(x360ce.Engine.Data.UserGame game, bool fix = false)
+		public GameRefreshStatus GetGameStatus(x360ce.Engine.Data.Game game, bool fix = false)
 		{
 			var fi = new FileInfo(game.FullPath);
 			// Check if game file exists.
@@ -108,7 +115,7 @@ namespace x360ce.App.Controls
 				var dic = new Dictionary<XInputMask, string>();
 				foreach (var value in xiValues)
 				{
-					dic.Add(value, Attributes.GetDescription(value));
+					dic.Add(value, JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription(value));
 				}
 				var xiFileNames = dic.Values.Distinct();
 				// Loop through all files.
@@ -138,7 +145,7 @@ namespace x360ce.App.Controls
 							}
 							else
 							{
-								return GameRefreshStatus.UnnecessaryLibraryFile;
+								return GameRefreshStatus.XInputFilesUnnecessary;
 							}
 						}
 					}
@@ -156,7 +163,7 @@ namespace x360ce.App.Controls
 							else return GameRefreshStatus.XInputFilesNotExist;
 						}
 						// Get current architecture.
-						var xiCurrentArchitecture = PEReader.GetProcessorArchitecture(xiFullPath);
+						var xiCurrentArchitecture = Engine.Win32.PEReader.GetProcessorArchitecture(xiFullPath);
 						// If processor architectures doesn't match then...
 						if (xiArchitecture != xiCurrentArchitecture)
 						{
@@ -323,7 +330,7 @@ namespace x360ce.App.Controls
 		void SetCheckXinput(XInputMask mask)
 		{
 			//if (CurrentGame == null) return;
-			var name = Attributes.GetDescription(mask);
+			var name = JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription(mask);
 			var path = System.IO.Path.GetDirectoryName(CurrentGame.FullPath);
 			var fullPath = System.IO.Path.Combine(path, name);
 			///var box = (CheckBox)sender;
@@ -336,13 +343,13 @@ namespace x360ce.App.Controls
 			MessageBoxForm form = new MessageBoxForm();
 			form.StartPosition = FormStartPosition.CenterParent;
 			var status = GetGameStatus(CurrentGame, false);
-			var values = ((GameRefreshStatus[])Enum.GetValues(typeof(GameRefreshStatus))).Except(new[] { GameRefreshStatus.OK }).ToArray();
+			var values = Enum.GetValues(typeof(GameRefreshStatus));
 			List<string> errors = new List<string>();
 			foreach (GameRefreshStatus value in values)
 			{
 				if (status.HasFlag(value))
 				{
-					var description = Attributes.GetDescription(value);
+					var description = JocysCom.ClassLibrary.ClassTools.EnumTools.GetDescription(value);
 					errors.Add(description);
 				}
 			}
@@ -526,17 +533,17 @@ namespace x360ce.App.Controls
 
 		private void GoogleSearchButton_Click(object sender, EventArgs e)
 		{
-			ControlsHelper.OpenUrl(GetGoogleSearchUrl());
+			EngineHelper.OpenUrl(GetGoogleSearchUrl());
 		}
 
 		private void NGEmuSearchLinkButton_Click(object sender, EventArgs e)
 		{
-			ControlsHelper.OpenUrl(GetNGemuSearchUrl());
+			EngineHelper.OpenUrl(GetNGemuSearchUrl());
 		}
 
 		private void NGEmuThreadLinkButton_Click(object sender, EventArgs e)
 		{
-			ControlsHelper.OpenUrl(GetNGemuThreadUrl());
+			EngineHelper.OpenUrl(GetNGemuThreadUrl()); 
 		}
 	}
 }

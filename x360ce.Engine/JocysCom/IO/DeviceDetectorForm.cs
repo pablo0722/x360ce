@@ -1,4 +1,9 @@
-﻿using JocysCom.ClassLibrary.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace JocysCom.ClassLibrary.IO
@@ -10,13 +15,11 @@ namespace JocysCom.ClassLibrary.IO
 	{
 		public DeviceDetectorForm()
 		{
-			ControlsHelper.InitInvokeContext();
 			InitializeComponent();
 		}
 
 		public DeviceDetectorForm(DeviceDetector detector)
 		{
-			ControlsHelper.InitInvokeContext();
 			InitializeComponent();
 			_Detector = detector;
 			_Detector.DeviceChanged += new DeviceDetector.DeviceDetectorEventHandler(_Detector_DeviceChanged);
@@ -24,10 +27,7 @@ namespace JocysCom.ClassLibrary.IO
 
 		void _Detector_DeviceChanged(object sender, DeviceDetectorEventArgs e)
 		{
-			ControlsHelper.BeginInvoke(() =>
-			{
-				InfoLabel.Text = e.ChangeType.ToString();
-			});
+			InfoLabel.Text = e.ChangeType.ToString();
 		}
 
 		DeviceDetector _Detector = null;
@@ -40,6 +40,7 @@ namespace JocysCom.ClassLibrary.IO
 		protected override void WndProc(ref Message m)
 		{
 			base.WndProc(ref m);
+
 			if (_Detector != null)
 			{
 				_Detector.WndProc(ref m);

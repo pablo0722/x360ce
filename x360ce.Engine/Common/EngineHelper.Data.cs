@@ -15,7 +15,7 @@ namespace x360ce.Engine
 		{
 			var cmd = new SqlCommand("x360ce_GetTopControllers");
 			cmd.CommandType = CommandType.StoredProcedure;
-			var cn = SqlHelper.GetConnectionString("x360ceModelContainer");
+			var cn = SqlHelper.Current.GetConnectionString("x360ceModelContainer");
 			var table = SqlHelper.Current.ExecuteDataTable(cn, cmd);
 			return table;
 		}
@@ -24,7 +24,7 @@ namespace x360ce.Engine
 		{
 			var cmd = new SqlCommand("x360ce_GetTopGames");
 			cmd.CommandType = CommandType.StoredProcedure;
-			var cn = SqlHelper.GetConnectionString("x360ceModelContainer");
+			var cn = SqlHelper.Current.GetConnectionString("x360ceModelContainer");
 			var table = SqlHelper.Current.ExecuteDataTable(cn, cmd);
 			return table;
 		}
@@ -52,21 +52,24 @@ namespace x360ce.Engine
 			if (MaxRecords.HasValue) cmd.Parameters.AddWithValue("@MaxRecords", MaxRecords);
 			if (MaxPerProduct.HasValue) cmd.Parameters.AddWithValue("@MaxPerProduct", MaxPerProduct);
 			if (MaxPerProductFile.HasValue) cmd.Parameters.AddWithValue("@MaxPerProductFile", MaxPerProductFile);
-			var cn = SqlHelper.GetConnectionString("x360ceModelContainer");
+			var cn = SqlHelper.Current.GetConnectionString("x360ceModelContainer");
 			var ds = SqlHelper.Current.ExecuteDataSet(cn, cmd);
 			return ds;
 		}
 
-		public static DataSet GetSettings(SearchParameter[] args)
-		{
-			var p = SqlHelper.ConvertToTable(args);
-			var cmd = new SqlCommand("x360ce_GetUserInstances");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("@args", p);
-			var cn = SqlHelper.GetConnectionString("x360ceModelContainer");
-			var ds = SqlHelper.Current.ExecuteDataSet(cn, cmd);
-			return ds;
-		}
+		//public static DataSet GetPresets(Guid? productGuid = null, string fileName = null, int maxRecords = 50, int maxPerProductFile = 2)
+		//{
+		//	var cmd = new SqlCommand("x360ce_GetPresets");
+		//	cmd.CommandType = CommandType.StoredProcedure;
+		//	cmd.Parameters.AddWithValue("@ProductGuid", productGuid);
+		//	cmd.Parameters.AddWithValue("@FileName", fileName);
+		//	cmd.Parameters.AddWithValue("@MaxRecords", maxRecords);
+		//	cmd.Parameters.AddWithValue("@MaxPerProductFile", maxPerProductFile);
+		//	var cn = SqlHelper.Current.GetConnectionString("x360ceModelContainer");
+		//	var ds = SqlHelper.Current.ExecuteDataSet(cn, cmd);
+		//	return ds;
+		//}
+
 
 	}
 }

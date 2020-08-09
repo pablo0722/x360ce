@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace JocysCom.WebSites.Engine
@@ -11,20 +13,15 @@ namespace JocysCom.WebSites.Engine
 	{
 		/// <summary>
 		/// Get attribute by enumeration:
-		///	Guid attribute = GuidEnum.Attribute(myEnum)
+		///	    <para>Guid attribute = GuidEnum.Attribute(myEnum)</para>
 		/// </summary>
-		/// <typeparam name="TE">Enum Type</typeparam>
-		/// <param name="e">You can use 'dynamic' to supply unknown enum value.
-		/// dynamic en = Enum.Parse(enumType, name);
-		/// </param>
+		/// <param name="e"></param>
 		/// <returns></returns>
-		public static Guid Attribute<TE>(TE e)
-			// Declare TE as same as Enum.
-			where TE : struct, IComparable, IFormattable, IConvertible
+		public static Guid Attribute<E>(E e)
 		{
-			var attrs =
-				typeof(TE).GetField(e.ToString()).GetCustomAttributes(
-				typeof(GuidValueAttribute), false
+			GuidValueAttribute[] attrs =
+			typeof(E).GetField(e.ToString()).GetCustomAttributes(
+			typeof(GuidValueAttribute), false
 			) as GuidValueAttribute[];
 			return attrs[0].Value;
 		}
@@ -37,9 +34,9 @@ namespace JocysCom.WebSites.Engine
 				if (_GuidRegex == null)
 				{
 					_GuidRegex = new Regex(
-						"^[A-Fa-f0-9]{32}$|" +
-						"^({|\\()?[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}(}|\\))?$|" +
-						"^({)?[0xA-Fa-f0-9]{3,10}(, {0,1}[0xA-Fa-f0-9]{3,6}){2}, {0,1}({)([0xA-Fa-f0-9]{3,4}, {0,1}){7}[0xA-Fa-f0-9]{3,4}(}})$");
+				"^[A-Fa-f0-9]{32}$|" +
+				"^({|\\()?[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}(}|\\))?$|" +
+				"^({)?[0xA-Fa-f0-9]{3,10}(, {0,1}[0xA-Fa-f0-9]{3,6}){2}, {0,1}({)([0xA-Fa-f0-9]{3,4}, {0,1}){7}[0xA-Fa-f0-9]{3,4}(}})$");
 				}
 				return _GuidRegex;
 			}
@@ -48,9 +45,8 @@ namespace JocysCom.WebSites.Engine
 
 		public static bool IsGuid(string s)
 		{
-			if (string.IsNullOrEmpty(s))
-				return false;
-			var match = GuidRegex.Match(s);
+			if (string.IsNullOrEmpty(s)) return false;
+			Match match = GuidRegex.Match(s);
 			return match.Success;
 		}
 
@@ -60,30 +56,24 @@ namespace JocysCom.WebSites.Engine
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static TE Parse<TE>(string value)
-			// Declare TE as same as Enum.
-			where TE : struct, IComparable, IFormattable, IConvertible
+		public static E Parse<E>(string value)
 		{
-			if (value == null)
-				throw new ArgumentNullException(nameof(value));
-			return (TE)Enum.Parse(typeof(TE), value);
+			if (value == null) throw new ArgumentNullException("value");
+			return (E)Enum.Parse(typeof(E), value);
 		}
 
-		public static TE TryParse<TE>(string value, TE defaultValue, bool asString)
-			// Declare TE as same as Enum.
-			where TE : struct, IComparable, IFormattable, IConvertible
+		public static E TryParse<E>(string value, E defaultValue, bool asString)
 		{
-			if (value == null)
-				throw new ArgumentNullException(nameof(value));
-			var results = defaultValue;
+			if (value == null) throw new ArgumentNullException("value");
+			E results = defaultValue;
 			try
 			{
 				if (char.IsLetter(value[0]) || !asString)
-					results = (TE)Enum.Parse(typeof(TE), value);
+				{
+					results = (E)Enum.Parse(typeof(E), value);
+				}
 			}
-#pragma warning disable CA1031 // Do not catch general exception types
 			catch (Exception) { }
-#pragma warning restore CA1031 // Do not catch general exception types
 			return results;
 		}
 
@@ -94,27 +84,22 @@ namespace JocysCom.WebSites.Engine
 		/// <param name="value"></param>
 		/// <param name="ignoreCase"></param>
 		/// <returns></returns>
-		public static TE Parse<TE>(string value, bool ignoreCase)
-			// Declare TE as same as Enum.
-			where TE : struct, IComparable, IFormattable, IConvertible
+		public static E Parse<E>(string value, bool ignoreCase)
 		{
-			if (value == null)
-				throw new ArgumentNullException(nameof(value));
-			return (TE)Enum.Parse(typeof(TE), value, ignoreCase);
+			if (value == null) throw new ArgumentNullException("value");
+			return (E)Enum.Parse(typeof(E), value, ignoreCase);
 		}
 
 		/// <summary>
 		/// Get enumeration by attribute:
 		///     <para>myEnum = GuidEnum&lt;MyEnum&gt;.ParseByAttribute("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")</para>
 		/// </summary>
-		/// <typeparam name="TE"></typeparam>
+		/// <typeparam name="E"></typeparam>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static TE ParseByAttribute<TE>(string value)
-			// Declare TE as same as Enum.
-			where TE : struct, IComparable, IFormattable, IConvertible
+		public static E ParseByAttribute<E>(string value)
 		{
-			return ParseByAttribute<TE>(new Guid(value));
+			return ParseByAttribute<E>(new Guid(value));
 		}
 
 		/// <summary>
@@ -123,17 +108,19 @@ namespace JocysCom.WebSites.Engine
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static TE ParseByAttribute<TE>(Guid value)
-			// Declare TE as same as Enum.
-			where TE : struct, IComparable, IFormattable, IConvertible
+		public static E ParseByAttribute<E>(Guid value)
 		{
-			foreach (string name in Enum.GetNames(typeof(TE)))
+			E result = default(E);
+			foreach (string name in Enum.GetNames(typeof(E)))
 			{
-				var e = (TE)Enum.Parse(typeof(TE), name);
+				E e = (E)Enum.Parse(typeof(E), name);
 				if (Attribute(e) == value)
-					return e;
+				{
+					result = e;
+					break;
+				}
 			}
-			return default(TE);
+			return result;
 		}
 
 		/// <summary>
@@ -144,18 +131,20 @@ namespace JocysCom.WebSites.Engine
 		/// <returns>The System.Type with the specified name, if found; otherwise, null.</returns>
 		public static Type FindType(string typeName, bool resolve)
 		{
-			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-			var t = Type.GetType(typeName);
+			System.Reflection.Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+			Type t = Type.GetType(typeName);
 			// Search for object in other assemblies.
-			for (var a = 0; a < assemblies.Length && t == null; a++)
-				t = assemblies[a].GetType(typeName);
+			for (int a = 0; a < assemblies.Length && t == null; a++) t = assemblies[a].GetType(typeName);
+
 			if (resolve)
 			{
-				for (var a = 0; a < assemblies.Length && t == null; a++)
+				for (int a = 0; a < assemblies.Length && t == null; a++)
 				{
-					var types = assemblies[a].GetTypes();
-					for (var i = 0; i < types.Length; i++)
+					Type[] types = assemblies[a].GetTypes();
+					for (int i = 0; i < types.Length; i++)
+					{
 						if (types[i].FullName.EndsWith("." + typeName)) t = types[i];
+					}
 				}
 			}
 			return t;
@@ -183,12 +172,10 @@ namespace JocysCom.WebSites.Engine
 		/// <returns>A System.Collections.Generic.Dictionary.</returns>
 		public static SortedDictionary<string, object> ToNameDictionary(Type type)
 		{
-			var list = new SortedDictionary<string, object>();
-			if (type == null)
-				throw new ArgumentNullException(nameof(type));
-			var names = Enum.GetNames(type);
-			foreach (string name in names)
-				list.Add(name, name);
+			SortedDictionary<string, object> list = new SortedDictionary<string, object>();
+			if (type == null) throw new ArgumentNullException("type");
+			string[] names = Enum.GetNames(type);
+			foreach (string name in names) list.Add(name, name);
 			return list;
 		}
 
@@ -201,12 +188,10 @@ namespace JocysCom.WebSites.Engine
 		public static SortedDictionary<string, object> ToValueDictionary(string typeName, bool resolve)
 		{
 			Type enumType = FindType(typeName, resolve);
-			var list = new SortedDictionary<string, object>();
-			if (enumType == null)
-				throw new ArgumentNullException(typeName);
-			var names = Enum.GetNames(enumType);
-			foreach (string name in names)
-				list.Add(name, Enum.Parse(enumType, name));
+			SortedDictionary<string, object> list = new SortedDictionary<string, object>();
+			if (enumType == null) throw new Exception(typeName);
+			string[] names = Enum.GetNames(enumType);
+			foreach (string name in names) list.Add(name, Enum.Parse(enumType, name));
 			return list;
 		}
 
@@ -218,17 +203,11 @@ namespace JocysCom.WebSites.Engine
 		/// <returns>A System.Collections.Generic.Dictionary.</returns>
 		public static SortedDictionary<string, Guid> ToAttributeDictionary(string typeName, bool resolve)
 		{
-			var enumType = FindType(typeName, resolve);
-			var list = new SortedDictionary<string, Guid>();
-			if (enumType == null)
-				throw new ArgumentNullException(typeName);
-			var names = Enum.GetNames(enumType);
-			foreach (string name in names)
-			{
-				dynamic en = Enum.Parse(enumType, name);
-				var guid = Attribute(en);
-				list.Add(name, guid);
-			}
+			Type enumType = FindType(typeName, resolve);
+			SortedDictionary<string, Guid> list = new SortedDictionary<string, Guid>();
+			if (enumType == null) throw new Exception(typeName);
+			string[] names = Enum.GetNames(enumType);
+			foreach (string name in names) list.Add(name, Attribute(Enum.Parse(enumType, name)));
 			return list;
 		}
 

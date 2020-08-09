@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        Closing="MainWindow_Closing" 
         Title="MainWindow" Height="450" Width="800" Icon="App.ico" Loaded="Window_Loaded">
 	<Viewbox OpacityMask="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 		<Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="420" Width="800">
@@ -23,7 +24,8 @@
 			<Ellipse Name="ButtonYEllipse" Height="50" Margin="0,35,175,0"  VerticalAlignment="Top" RenderTransformOrigin="0.489,1.479" HorizontalAlignment="Right" Width="50" />
 			<Ellipse Name="ButtonXEllipse" HorizontalAlignment="Right" Height="50" Margin="0,75,215,0"  VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.489,1.479"/>
 			<Ellipse Name="ButtonBEllipse" Height="50" Margin="0,75,135,0"  VerticalAlignment="Top" RenderTransformOrigin="0.489,1.479" HorizontalAlignment="Right" Width="50"/>
-			<Button Name="OptionsButton" Content="Options..." Margin="350,25,350,0" VerticalAlignment="Top" Click="OptionsButton_Click"/>
+			<Button Name="HostButton" Content="Host..." Margin="350,25,350,0" VerticalAlignment="Top" Click="HostButton_Click"/>
+            <Button Name="ConnectButton" Content="Connect to Host..." Margin="350,55,350,0" VerticalAlignment="Top" Click="ConnectButton_Click"/>
 		</Grid>
 	</Viewbox>
 </Window>

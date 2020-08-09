@@ -12,8 +12,6 @@ using Microsoft.Win32;
 using System.Linq;
 using x360ce.Engine.Data;
 using x360ce.Engine;
-using JocysCom.ClassLibrary.ComponentModel;
-using JocysCom.ClassLibrary.Web.Services;
 
 namespace x360ce.App.Controls
 {
@@ -141,7 +139,7 @@ namespace x360ce.App.Controls
 			ws.LoadSettingAsync(new Guid[] { padSettingChecksum });
 		}
 
-		void ws_LoadSettingCompleted(object sender, SoapHttpClientEventArgs e)
+		void ws_LoadSettingCompleted(object sender, ResultEventArgs e)
 		{
 			var result = (SearchResult)e.Result;
 			if (result.PadSettings.Length == 0)
@@ -240,7 +238,7 @@ namespace x360ce.App.Controls
 
 		SearchResult sr;
 
-		void ws_SearchSettingsCompleted(object sender, SoapHttpClientEventArgs e)
+		void ws_SearchSettingsCompleted(object sender, ResultEventArgs e)
 		{
 			sr = null;
 			if (e.Error != null)

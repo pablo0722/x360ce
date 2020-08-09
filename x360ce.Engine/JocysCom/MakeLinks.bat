@@ -5,30 +5,23 @@
 ATTRIB %windir%\system32 -h | FINDSTR /I "denied" >nul
 IF NOT ERRORLEVEL 1 GOTO:ADM
 GOTO:EXE
-::-------------------------------------------------------------
 :ADM
-::-------------------------------------------------------------
 :: Create temp batch.
-SET tb="%TEMP%\%~n0.tmp.bat"
-SET tj="%TEMP%\%~n0.tmp.js"
-echo @echo off> %tb%
-echo %~d0>> %tb%
-echo cd "%~p0">> %tb%
-echo call "%~nx0" %1 %2 %3 %4 %5 %6 %7 %8 %9>> %tb%
-echo del %tj%>> %tb%
-:: Delete itself without generating any error message.
-echo (goto) 2^>nul ^& del %tb%>> %tb%
+echo @echo off> %~n0.tmp.bat
+echo %~d0>> %~n0.tmp.bat
+echo cd "%~p0">> %~n0.tmp.bat
+echo call "%~nx0" %1 %2 %3 %4 %5 %6 %7 %8 %9>> %~n0.tmp.bat
+echo del %~n0.tmp.bat>> %~n0.tmp.bat
 :: Create temp script.
-echo var arg = WScript.Arguments;> %tj%
-echo var wsh = WScript.CreateObject("WScript.Shell");>> %tj%
-echo var sha = WScript.CreateObject("Shell.Application");>> %tj%
-echo sha.ShellExecute(arg(0), "", wsh.CurrentDirectory, "runas", 1);>> %tj%
+echo var arg = WScript.Arguments;> %~n0.tmp.js
+echo var wsh = WScript.CreateObject("WScript.Shell");>> %~n0.tmp.js
+echo var sha = WScript.CreateObject("Shell.Application");>> %~n0.tmp.js
+echo sha.ShellExecute(arg(0), "", wsh.CurrentDirectory, "runas", 1);>> %~n0.tmp.js
 :: Execute as Administrator.
-cscript /B /NoLogo %tj% %tb%
+cscript /B /NoLogo "%~n0.tmp.js" "%~dp0%~n0.tmp.bat"
+del %~n0.tmp.js
 GOTO:EOF
-::-------------------------------------------------------------
 :EXE
-::-------------------------------------------------------------
 
 ::-------------------------------------------------------------
 :: Main
@@ -37,28 +30,15 @@ GOTO:EOF
 :: Remote symbolic links: rmdir Skype
 SET upr=C:\Projects\Jocys.com\Class Library
 IF EXIST "D:\Projects\Jocys.com\Class Library" SET upr=D:\Projects\Jocys.com\Class Library
-CALL:MKJ Collections
+CALL:MKJ ClassTools
 CALL:MKJ Common
-CALL:MKJ ComponentModel
-CALL:MKJ Configuration
 CALL:MKJ Controls
-CALL:MKJ Data
-CALL:MKJ Diagnostics
 CALL:MKJ Drawing
-CALL:MKJ Extensions
-CALL:MKJ Files
 CALL:MKJ IO
-CALL:MKJ Mail
-CALL:MKJ Network
-CALL:MKJ Processes
-CALL:MKJ Resources
-CALL:MKJ Runtime
 CALL:MKJ Security
-CALL:MKJ Services
-CALL:MKJ Text
 CALL:MKJ Threading
-CALL:MKJ Web
 CALL:MKJ Win32
+CALL:MKJ Data
 pause
 GOTO:EOF
 

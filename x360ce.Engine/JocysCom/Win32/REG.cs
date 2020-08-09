@@ -1,4 +1,6 @@
-﻿namespace JocysCom.ClassLibrary.Win32
+﻿using System.Runtime.InteropServices;
+
+namespace JocysCom.ClassLibrary.Win32
 {
 	/// <summary>
 	/// Registry property value types.
@@ -22,7 +24,7 @@
 	/// not possible to include a zero-length string in the sequence. An empty
 	/// sequence would be defined as follows: \0.
 	/// </remarks>
-	public enum REG : uint
+	public enum REG : int
 	{
 		/// <summary>No defined value type.</summary>
 		REG_NONE = 0,

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>x360ce.App</RootNamespace>
     <AssemblyName>x360ce</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
@@ -50,8 +50,7 @@
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
@@ -70,13 +69,11 @@
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -89,8 +86,7 @@
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
@@ -108,8 +104,7 @@
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
@@ -118,21 +113,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
     <CodeAnalysisLogFile>bin\Release\x360ce.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
@@ -164,21 +155,31 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="vJoyInterfaceWrap">
+      <HintPath>Resources\vJoy\vJoyInterfaceWrap.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AppHelper.cs" />
     <Compile Include="Common\CloudItem.cs" />
     <Compile Include="Common\CloudState.cs" />
     <Compile Include="Common\DeadZoneControlsLink.cs" />
+    <Compile Include="Common\DeviceObjectItem.cs" />
     <Compile Include="Common\DirectInputState.cs" />
     <Compile Include="Common\Extensions.cs" />
-    <Compile Include="Common\GameDatabaseManager.cs" />
     <Compile Include="Common\HookMode.cs" />
+    <Compile Include="Common\FilterList.cs" />
+    <Compile Include="Common\ForceFeedBackType.cs" />
     <Compile Include="Common\KeyValuePair.cs" />
+    <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\RuntimePolicyHelper.cs" />
     <Compile Include="Common\SettingEventArgs.cs" />
     <Compile Include="Common\SettingManager.cs" />
+    <Compile Include="Common\SettingName.cs" />
     <Compile Include="Common\SettingsData.cs" />
+    <Compile Include="Common\SettingType.cs" />
+    <Compile Include="Common\SortableBindingList.cs" />
     <Compile Include="Common\Vendor.cs" />
     <Compile Include="Common\WarningItem.cs" />
     <Compile Include="Controls\AboutControl.cs">
@@ -193,6 +194,12 @@
     <Compile Include="Controls\AxisToButtonUserControl.Designer.cs">
       <DependentUpon>AxisToButtonUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CloudStorageUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CloudStorageUserControl.Designer.cs">
+      <DependentUpon>CloudStorageUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DirectInputControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -204,6 +211,9 @@
     </Compile>
     <Compile Include="Controls\GameSettingDetailsUserControl.Designer.cs">
       <DependentUpon>GameSettingDetailsUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PadControl.VirtualDevice.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ThumbUserControl.cs">
       <SubType>UserControl</SubType>
@@ -265,6 +275,30 @@
     <Compile Include="Issues\IniFileIssue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\DPadEnum.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SharpDX.XInput\BatteryDeviceType.cs" />
+    <Compile Include="SharpDX.XInput\BatteryInformation.cs" />
+    <Compile Include="SharpDX.XInput\BatteryLevel.cs" />
+    <Compile Include="SharpDX.XInput\BatteryType.cs" />
+    <Compile Include="SharpDX.XInput\Capabilities.cs" />
+    <Compile Include="SharpDX.XInput\CapabilityFlags.cs" />
+    <Compile Include="SharpDX.XInput\Controller.cs" />
+    <Compile Include="SharpDX.XInput\DeviceQueryType.cs" />
+    <Compile Include="SharpDX.XInput\DeviceSubType.cs" />
+    <Compile Include="SharpDX.XInput\DeviceType.cs" />
+    <Compile Include="SharpDX.XInput\Gamepad.cs" />
+    <Compile Include="SharpDX.XInput\GamepadButtonFlags.cs" />
+    <Compile Include="SharpDX.XInput\GamepadKeyCode.cs" />
+    <Compile Include="SharpDX.XInput\Keystroke.cs" />
+    <Compile Include="SharpDX.XInput\KeyStrokeFlags.cs" />
+    <Compile Include="SharpDX.XInput\ResultCode.cs" />
+    <Compile Include="SharpDX.XInput\State.cs" />
+    <Compile Include="SharpDX.XInput\ThumbIndex.cs" />
+    <Compile Include="SharpDX.XInput\UserIndex.cs" />
+    <Compile Include="SharpDX.XInput\Vibration.cs" />
+    <Compile Include="SharpDX.XInput\XInput.cs" />
     <Compile Include="Controls\WarningsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AxisToButtonUserControl.resx">
       <DependentUpon>AxisToButtonUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CloudStorageUserControl.resx">
+      <DependentUpon>CloudStorageUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\DirectInputControl.resx">
       <DependentUpon>DirectInputControl.cs</DependentUpon>
@@ -350,7 +387,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\SettingsConverter.cs" />
     <EmbeddedResource Include="Resources\x360ce_Games.xml.gz" />
+    <EmbeddedResource Include="Resources\vJoy_x64\vJoyInterface.lib" />
+    <EmbeddedResource Include="Resources\vJoy_x86\vJoyInterface.lib" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
@@ -416,10 +456,15 @@
     <Content Include="Controls\MessageBoxFormImages\MessageBoxIcon_Question_32x32.png" />
     <Content Include="Controls\MessageBoxFormImages\MessageBoxIcon_Warning.ico" />
     <Content Include="Controls\MessageBoxFormImages\MessageBoxIcon_Warning_32x32.png" />
+    <EmbeddedResource Include="Resources\vJoy_x64\vJoyInterface.dll" />
+    <EmbeddedResource Include="Resources\vJoy_x64\vJoyInterfaceWrap.dll" />
+    <EmbeddedResource Include="Resources\vJoy_x86\vJoyInterface.dll" />
+    <EmbeddedResource Include="Resources\vJoy_x86\vJoyInterfaceWrap.dll" />
     <EmbeddedResource Include="Resources\dinput.dll" />
     <EmbeddedResource Include="Resources\dinput_x64.dll" />
     <EmbeddedResource Include="Resources\dinput_x86.dll" />
     <EmbeddedResource Include="Resources\xinput.dll" />
+    <EmbeddedResource Include="Resources\x360ce.Engine.XmlSerializers.dll" />
     <EmbeddedResource Include="Resources\xinput_x86.dll" />
     <EmbeddedResource Include="Resources\xinput_x64.dll" />
     <EmbeddedResource Include="Resources\x360ce.Engine.dll" />
@@ -523,7 +568,7 @@
     <ProjectReference Include="..\x360ce.Engine\x360ce.Engine.csproj">
       <Project>{f980d78a-9448-4834-a6fe-84797077d309}</Project>
       <Name>x360ce.Engine</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -534,35 +579,18 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="PopulateEmbeddedFiles" AfterTargets="BeforeCompile" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <EmbeddedFiles Include="@(Compile);@(AdditionalFiles)" />
-    </ItemGroup>
-  </Target>
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
-if $(PlatformName) == x86 "$(SolutionDir)$(ProjectName)\Resources\NetZ\netz.exe" -pl x86 -s -so -z "$(TargetPath)"
-if $(PlatformName) == x64 "$(SolutionDir)$(ProjectName)\Resources\NetZ\netz.exe" -pl x64 -s -so -z "$(TargetPath)"
-if $(PlatformName) == AnyCPU "$(SolutionDir)x360ce.App\Resources\NetZ\netz.exe" -s -so -z "$(TargetPath)"
+if $(PlatformName) == x86 $(SolutionDir)x360ce.App\Resources\NetZ\netz.exe -pl x86 -s -so -z $(TargetPath)
+if $(PlatformName) == x64 $(SolutionDir)x360ce.App\Resources\NetZ\netz.exe -pl x64 -s -so -z $(TargetPath)
+if $(PlatformName) == AnyCPU $(SolutionDir)\x360ce.App\Resources\NetZ\netz.exe -s -so -z $(TargetPath)
 )
 ::if $(PlatformName) == x86 COPY /Y "$(TargetPath)" "$(SolutionDir)x360ce\x360ce\bin\$(ConfigurationName)"
 ::if $(PlatformName) == x64 COPY /Y "$(TargetPath)" "$(SolutionDir)x360ce\x360ce\bin64\$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>:: Copy Engine.
-SET src=$(SolutionDir)x360ce.Engine\$(OutDir)x360ce.Engine.dll
-echo copy x360ce.Engine.dll to $(ProjectDir)Resources
-copy /y "%25src%25" "$(ProjectDir)Resources"
-::
-:: Copy XML Serializer.
-SET src=$(SolutionDir)x360ce.Engine\$(OutDir)x360ce.Engine.XmlSerializers.dll
-IF EXIST "%25src%25" (
-echo copy x360ce.Engine.XmlSerializers.dll to $(ProjectDir)Resources
-copy /y "%25src%25" "$(ProjectDir)Resources"
-)
-::
-ECHO PlatformName = $(PlatformName)
-:: Copy x360ce binaries.
+    <PreBuildEvent>copy /y "$(SolutionDir)x360ce.Engine\$(OutDir)x360ce.Engine.dll" "$(ProjectDir)Resources"
+copy /y "$(SolutionDir)x360ce.Engine\$(OutDir)x360ce.Engine.XmlSerializers.dll" "$(ProjectDir)Resources"
 if $(ConfigurationName) == Debug (
 if $(PlatformName) == x86 (
 copy /y "$(SolutionDir)x360ce\x360ce\bin\Debug\*.dll" "$(TargetDir)"

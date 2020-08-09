@@ -1,5 +1,4 @@
 ﻿using System;
-using JocysCom.ClassLibrary.Controls;
 using Microsoft.Win32;
 using x360ce.Engine;
 
@@ -12,7 +11,7 @@ namespace x360ce.App.Issues
 			Name = "Leak Detector";
 			FixName = "Download";
 			Description = "You are using debug version of XInput Library. Visual Leak Detector not found You can click the link below to download Visual Leak Detector:\r\n" +
-					"https://vld.codeplex.com";
+					"https://github.com/KindDragon/vld/releases";
 		}
 
 		public override void Check()
@@ -44,7 +43,7 @@ namespace x360ce.App.Issues
 
 		public override void Fix()
 		{
-			ControlsHelper.OpenUrl("https://vld.codeplex.com");
+			EngineHelper.OpenUrl("https://github.com/KindDragon/vld/releases");
 			RaiseFixApplied();
 		}
 

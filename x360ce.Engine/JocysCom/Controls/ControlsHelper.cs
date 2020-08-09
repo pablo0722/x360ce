@@ -1,137 +1,199 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using JocysCom.ClassLibrary.Win32;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Objects.DataClasses;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Linq;
 
 namespace JocysCom.ClassLibrary.Controls
 {
-	public static partial class ControlsHelper
+	public class ControlsHelper
 	{
 		private const int WM_SETREDRAW = 0x000B;
 
-#region Invoke and BeginInvoke
-
-		/// <summary>
-		/// Call this method from main form constructor for BeginInvoke to work.
-		/// </summary>
-		public static void InitInvokeContext()
+		public static void SuspendDrawing(Control control)
 		{
-			if (MainTaskScheduler != null)
-				return;
-			MainThreadId = Thread.CurrentThread.ManagedThreadId;
-			// Create a TaskScheduler that wraps the SynchronizationContext returned from
-			// System.Threading.SynchronizationContext.Current
-			MainTaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+			var msgSuspendUpdate = Message.Create(control.Handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
+			var window = NativeWindow.FromHandle(control.Handle);
+			window.DefWndProc(ref msgSuspendUpdate);
+		}
+
+		public static void ResumeDrawing(Control control)
+		{
+			var wparam = new IntPtr(1);
+			var msgResumeUpdate = Message.Create(control.Handle, WM_SETREDRAW, wparam, IntPtr.Zero);
+			var window = NativeWindow.FromHandle(control.Handle);
+			window.DefWndProc(ref msgResumeUpdate);
+			control.Invalidate();
 		}
 
 		/// <summary>
-		/// Object that handles the low-level work of queuing tasks onto main User Interface (GUI) thread.
+		/// Get list of primary keys of items selected in the grid.
 		/// </summary>
-		public static TaskScheduler MainTaskScheduler { get; private set; }
-
-		private static int MainThreadId;
-
-		public static bool InvokeRequired()
+		/// <typeparam name="T">Type of Primary key.</typeparam>
+		/// <param name="grid">Grid for geting selection</param>
+		/// <param name="primaryKeyPropertyName">Primary key name.</param>
+		public static List<T> GetSelection<T>(DataGridView grid, string primaryKeyPropertyName = null)
 		{
-			return MainThreadId != Thread.CurrentThread.ManagedThreadId;
-		}
-
-		/*
-
-		public static void TestTasks(TaskCreationOptions childOptions)
-		{
-			var i = 5000000;
-			Console.WriteLine("//");
-			Console.WriteLine("TestTasks(TaskCreationOptions.{0});", childOptions);
-			Console.WriteLine("// Parent starting");
-			var parent = Task.Factory.StartNew(() =>
+			List<T> list = new List<T>();
+			for (int i = 0; i <= grid.SelectedRows.Count - 1; i++)
 			{
-				Console.WriteLine("// Parent started");
-				Console.WriteLine("// Child starting");
-				var child = Task.Factory.StartNew(() =>
+				var item = grid.SelectedRows[i].DataBoundItem;
+				// If primary key was not specified then...
+				if (primaryKeyPropertyName == null)
 				{
-					Console.WriteLine("// Child started");
-					Thread.SpinWait(i);
-					Console.WriteLine("// Child completing");
-				}, childOptions);
-				//child.Wait();
-				//Console.WriteLine("// Child completed");
-				Console.WriteLine("// Parent completing");
-			});
-			parent.Wait();
-			Console.WriteLine("// Parent completed");
-			Thread.SpinWait(i * 4);
-		}
-		
-		// Attached and Detached Child Tasks.
-		//
-		// TaskCreationOptions.AttachedToParent:
-		//
-		//     - Parent task waits for child tasks to complete.
-		//     - Parent task propagates exceptions thrown by child tasks.
-		//     - Status of parent task depends on status of child task.
-	    //
-		TestTasks(TaskCreationOptions.AttachedToParent);
-		//
-		// Parent starting
-		// Parent started
-		// Child starting
-		// Parent completing
-		// Child started
-		// Child completing
-		// Parent completed
-		//
-		TestTasks(TaskCreationOptions.None);
-		//
-		// Parent starting
-		// Parent started
-		// Child starting
-		// Parent completing
-		// Parent completed
-		// Child started
-		// Child completing
-
-		*/
-
-		/// <summary>Executes the specified action delegate asynchronously on main Graphical User Interface (GUI) Thread.</summary>
-		/// <param name="action">The action delegate to execute asynchronously.</param>
-		/// <returns>The started System.Threading.Tasks.Task.</returns>
-		public static Task BeginInvoke(Action action)
-		{
-			InitInvokeContext();
-			return Task.Factory.StartNew(action,
-				CancellationToken.None, TaskCreationOptions.DenyChildAttach, MainTaskScheduler);
+					if (typeof(EntityObject).IsAssignableFrom(item.GetType()))
+					{
+						var eo = (EntityObject)item;
+						primaryKeyPropertyName = eo.EntityKey.EntityKeyValues[0].Key;
+					}
+				}
+				var val = GetValue<T>(item, primaryKeyPropertyName);
+				list.Add(val);
+			}
+			return list;
 		}
 
-		/// <summary>Executes the specified action delegate asynchronously on main User Interface (UI) Thread.</summary>
-		/// <param name="action">The action delegate to execute asynchronously.</param>
-		/// <returns>The started System.Threading.Tasks.Task.</returns>
-		public static Task BeginInvoke(Delegate method, params object[] args)
+		public static void RestoreSelection<T>(DataGridView grid, string primaryKeyPropertyName, List<T> list, bool selectFirst = true)
 		{
-			InitInvokeContext();
-			// 
-			return Task.Factory.StartNew(() => { method.DynamicInvoke(args); },
-				CancellationToken.None, TaskCreationOptions.DenyChildAttach, MainTaskScheduler);
+			// Restore selections
+			if (list.Count == 0)
+				return;
+			DataGridViewRow firstVisibleRow = null;
+			for (int i = 0; i <= grid.Rows.Count - 1; i++)
+			{
+				var row = grid.Rows[i];
+				if ((firstVisibleRow == null && row.Visible))
+					firstVisibleRow = row;
+				var item = row.DataBoundItem;
+				// If primary key was not specified then...
+				if (primaryKeyPropertyName == null)
+				{
+					if (typeof(EntityObject).IsAssignableFrom(item.GetType()))
+					{
+						var eo = (EntityObject)item;
+						primaryKeyPropertyName = eo.EntityKey.EntityKeyValues[0].Key;
+					}
+				}
+				var val = GetValue<T>(item, primaryKeyPropertyName);
+				if (list.Contains(val) != row.Selected)
+				{
+					var selected = list.Contains(val);
+					// Select visible rows only, because invisible rows can't be selected or they will throw exception:
+					// Row associated with the currency manager's position cannot be made invisible.'
+					row.Selected = selected && row.Visible;
+				}
+			}
+			if (selectFirst && grid.Rows.Count > 0 && grid.SelectedRows.Count == 0 && firstVisibleRow != null)
+			{
+				firstVisibleRow.Selected = true;
+			}
 		}
 
-		/// <summary>Executes the specified action delegate synchronously on main Graphical User Interface (GUI) Thread.</summary>
-		/// <param name="action">The action delegate to execute synchronously.</param>
-		public static void Invoke(Action action)
+		private static T GetValue<T>(object item, string dataPropertyName)
 		{
-			InitInvokeContext();
-			var t = new Task(action);
-			t.RunSynchronously(MainTaskScheduler);
+			object val = null;
+			if (item is DataRowView)
+			{
+				var row = ((DataRowView)item).Row;
+				val = (T)row[dataPropertyName];
+			}
+			else
+			{
+				var pi = item.GetType().GetProperty(dataPropertyName);
+				val = (T)pi.GetValue(item, null);
+			}
+			return (T)val;
 		}
 
-		/// <summary>Executes the specified action delegate synchronously on main Graphical User Interface (GUI) Thread.</summary>
-		/// <param name="action">The delegate to execute synchronously.</param>
-		public static object Invoke(Delegate method, params object[] args)
+		#region "UserControl is Visible"
+
+		public static bool IsControlVisibleOnForm(Control control)
 		{
-			if (method == null)
-				throw new ArgumentNullException(nameof(method));
-			// Run method on main Graphical User Interface thread.
-			var t = new Task<object>(() => method.DynamicInvoke(args));
-			t.RunSynchronously(MainTaskScheduler);
-			return t.Result;
+			if (control == null) return false;
+			if (!control.IsHandleCreated) return false;
+			if (control.Parent == null) return false;
+			var pointsToCheck = GetPoints(control);
+			foreach (var p in pointsToCheck)
+			{
+				var child = control.Parent.GetChildAtPoint(p);
+				if (child == null) continue;
+				if (control == child || control.Contains(child)) return true;
+			}
+			return false;
+		}
+
+		public static POINT[] GetPoints(Control control)
+		{
+			var pos = control.PointToScreen(System.Drawing.Point.Empty);
+			var pointsToCheck =
+				new POINT[]
+					{
+						pos,
+						new POINT(pos.X + control.Width - 1, pos.Y),
+						new POINT(pos.X, pos.Y + control.Height - 1),
+						new POINT(pos.X + control.Width - 1, pos.Y + control.Height - 1),
+						new POINT(pos.X + control.Width/2, pos.Y + control.Height/2)
+					};
+			return pointsToCheck;
+		}
+
+		public static bool IsControlVisibleToUser(Control control)
+		{
+			if (!control.IsHandleCreated) return false;
+			var pointsToCheck = GetPoints(control);
+			foreach (var p in pointsToCheck)
+			{
+				var hwnd = JocysCom.ClassLibrary.Win32.NativeMethods.WindowFromPoint(p);
+				var other = Control.FromChildHandle(hwnd);
+				if (other == null) continue;
+				if (GetAll(control, null, true).Contains(other)) return true;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Get all child controls.
+		/// </summary>
+		public static IEnumerable<Control> GetAll(Control control, Type type = null, bool includeTop = false)
+		{
+			// Get all child controls.
+			var controls = control.Controls.Cast<Control>();
+			return controls
+				// Get children controls and flatten resulting sequences into one sequence.
+				.SelectMany(x => GetAll(x))
+				// Merge controls with their children.
+				.Concat(controls)
+				// Include top control if required.
+				.Concat(includeTop ? new[] { control } : new Control[0])
+				// Filter controls by type.
+				.Where(x => type == null || (type.IsInterface ? x.GetType().GetInterfaces().Contains(type) : x.GetType() == type));
+		}
+
+		/// <summary>
+		/// Get all child controls.
+		/// </summary>
+		public static T[] GetAll<T>(Control control, bool includeTop = false)
+		{
+			if (control == null) return new T[0];
+			var type = typeof(T);
+			// Get all child controls.
+			var controls = control.Controls.Cast<Control>();
+			// Get children of controls and flatten resulting sequences into one sequence.
+			var result = controls.SelectMany(x => GetAll(x)).ToArray();
+			// Merge controls with their children.
+			result = result.Concat(controls).ToArray();
+			// Include top control if required.
+			if (includeTop) result = result.Concat(new[] { control }).ToArray();
+			// Filter controls by type.
+			result = type.IsInterface
+				? result.Where(x => x.GetType().GetInterfaces().Contains(type)).ToArray()
+				: result.Where(x => x.GetType() == type).ToArray();
+			// Cast to required type.
+			var result2 = result.Select(x => (T)(object)x).ToArray();
+			return result2;
 		}
 
 		#endregion

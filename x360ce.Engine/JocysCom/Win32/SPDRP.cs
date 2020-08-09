@@ -1,4 +1,7 @@
-﻿namespace JocysCom.ClassLibrary.Win32
+﻿using System;
+using System.Runtime.InteropServices;
+
+namespace JocysCom.ClassLibrary.Win32
 {
 	/// <summary>
 	/// Device registry property codes

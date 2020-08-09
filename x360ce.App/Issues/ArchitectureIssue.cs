@@ -6,8 +6,6 @@ using Microsoft.Win32;
 using x360ce.Engine;
 using System.Linq;
 using System.Windows.Forms;
-using JocysCom.ClassLibrary.Win32;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App.Issues
 {
@@ -42,7 +40,7 @@ namespace x360ce.App.Issues
 			}
 			foreach (var exe in exes)
 			{
-				var pa = PEReader.GetProcessorArchitecture(exe);
+				var pa = Engine.Win32.PEReader.GetProcessorArchitecture(exe);
 				architectures.Add(exe, pa);
 			}
 			var fi = new FileInfo(Application.ExecutablePath);
@@ -79,11 +77,11 @@ namespace x360ce.App.Issues
 		{
 			if (_architecture == ProcessorArchitecture.X86)
 			{
-				ControlsHelper.OpenUrl("http://www.x360ce.com/Files/x360ce.zip");
+				EngineHelper.OpenUrl("http://www.x360ce.com/Files/x360ce.zip");
 			}
 			else
 			{
-				ControlsHelper.OpenUrl("http://www.x360ce.com/Files/x360ce_x64.zip");
+				EngineHelper.OpenUrl("http://www.x360ce.com/Files/x360ce_x64.zip");
 			}
 			RaiseFixApplied();
 		}

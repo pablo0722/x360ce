@@ -15,9 +15,5 @@ namespace JocysCom.ClassLibrary.Win32
 		public Guid dbch_classguid;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
 		public char[] dbcc_name;
-		public void Initialize()
-		{
-			dbch_size = Marshal.SizeOf(typeof(DEV_BROADCAST_DEVICEINTERFACE));
-		}
 	}
 }

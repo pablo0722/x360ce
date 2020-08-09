@@ -10,9 +10,6 @@ using x360ce.Engine;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
-using JocysCom.ClassLibrary.Runtime;
-using JocysCom.ClassLibrary.Web.Services;
-using JocysCom.ClassLibrary.Controls;
 
 namespace x360ce.App.Controls
 {
@@ -27,10 +24,20 @@ namespace x360ce.App.Controls
 			ScanProgressLabel.Text = "";
 			InitData();
 			DiskIdTextBox.Text = BoardInfo.GetDiskId();
-			HashedDiskIdTextBox.Text = BoardInfo.GetHashedDiskId(BoardInfo.GetDiskId()).ToString();
+			HashedDiskIdTextBox.Text = BoardInfo.GetHashedDiskId().ToString();
 		}
 
-		internal bool IsDesignMode { get { return JocysCom.ClassLibrary.Controls.ControlsHelper.IsDesignMode(this); } }
+		bool IsDesignMode
+		{
+			get
+			{
+				if (DesignMode) return true;
+				if (LicenseManager.UsageMode == LicenseUsageMode.Designtime) return true;
+				var pa = this.ParentForm;
+				if (pa != null && pa.GetType().FullName.Contains("VisualStudio")) return true;
+				return false;
+			}
+		}
 
 		void InitData()
 		{
@@ -67,7 +74,7 @@ namespace x360ce.App.Controls
 		void ScanGames(object state)
 		{
 			string[] paths = null;
-			Invoke((Action)delegate ()
+			Invoke((MethodInvoker)delegate()
 			{
 				ScanProgressLabel.Visible = true;
 				ScanGamesButton.Enabled = false;
@@ -82,8 +89,7 @@ namespace x360ce.App.Controls
 				var path = (string)paths[i];
 				// Don't allow to scan windows folder.
 				var winFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-				if (path.StartsWith(winFolder, StringComparison.OrdinalIgnoreCase))
-					continue;
+				if (path.StartsWith(winFolder)) continue;
 				var di = new System.IO.DirectoryInfo(path);
 				// Skip folders if don't exists.
 				if (!di.Exists) continue;
@@ -107,10 +113,9 @@ namespace x360ce.App.Controls
 						// If file doesn't exist in the game list then continue.
 						if (game == null)
 						{
-							Invoke((Action)delegate ()
+							Invoke((MethodInvoker)delegate()
 							{
-								var scanner = new XInputMaskScanner();
-								game = scanner.FromDisk(exe.FullName);
+								game = x360ce.Engine.Data.Game.FromDisk(exe.FullName);
 								game.LoadDefault(program);
 								SettingManager.Games.Items.Add(game);
 								added++;
@@ -126,14 +131,14 @@ namespace x360ce.App.Controls
 							updated++;
 						}
 					}
-					Invoke((Action)delegate ()
-					{
-						ScanProgressLabel.Text = string.Format("Scanning Path ({0}/{1}): {2}\r\nSkipped = {3}, Added = {4}, Updated = {5}", i + 1, paths.Length, path, skipped, added, updated);
-					});
+					Invoke((MethodInvoker)delegate()
+						{
+							ScanProgressLabel.Text = string.Format("Scanning Path ({0}/{1}): {2}\r\nSkipped = {3}, Added = {4}, Updated = {5}", i + 1, paths.Length, path, skipped, added, updated);
+						});
 				}
 				SettingManager.Save();
 			}
-			Invoke((Action)delegate ()
+			Invoke((MethodInvoker)delegate()
 			{
 				ScanGamesButton.Enabled = true;
 				ScanProgressLabel.Visible = false;
@@ -167,7 +172,7 @@ namespace x360ce.App.Controls
 
 		void UpdateControlsFromGames()
 		{
-
+			
 		}
 
 		#endregion
@@ -196,7 +201,7 @@ namespace x360ce.App.Controls
 			if (selected)
 			{
 				var row = GamesDataGridView.SelectedRows.Cast<DataGridViewRow>().FirstOrDefault();
-				var fileName = ((x360ce.Engine.Data.UserGame)row.DataBoundItem).FileName.ToLower();
+				var fileName = ((x360ce.Engine.Data.Game)row.DataBoundItem).FileName.ToLower();
 				var item = SettingManager.Games.Items.First(x => x.FileName.ToLower() == fileName);
 				GameDetailsControl.CurrentGame = item;
 			}
@@ -217,7 +222,7 @@ namespace x360ce.App.Controls
 			var row = GamesDataGridView.SelectedRows.Cast<DataGridViewRow>().FirstOrDefault();
 			if (row != null)
 			{
-				var item = (x360ce.Engine.Data.UserGame)row.DataBoundItem;
+				var item = (x360ce.Engine.Data.Game)row.DataBoundItem;
 				fullPath = item.FullPath;
 			}
 
@@ -240,14 +245,14 @@ namespace x360ce.App.Controls
 			{
 				// Don't allow to add windows folder.
 				var winFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-				if (AddGameOpenFileDialog.FileName.StartsWith(winFolder, StringComparison.OrdinalIgnoreCase))
+				if (AddGameOpenFileDialog.FileName.StartsWith(winFolder))
 				{
 					MessageBoxForm.Show("Windows folders are not allowed.", "Windows Folder", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				else
 				{
 					ProcessExecutable(AddGameOpenFileDialog.FileName);
-				}
+                }
 			}
 		}
 
@@ -261,19 +266,17 @@ namespace x360ce.App.Controls
 		private void StartGameButton_Click(object sender, EventArgs e)
 		{
 			var game = GameDetailsControl.CurrentGame;
-			ControlsHelper.OpenPath(game.FullPath);
+			EngineHelper.OpenPath(game.FullPath);
 		}
 
 		private void GamesDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex < 0 || e.ColumnIndex < 0)
-				return;
+			if (e.RowIndex < 0) return;
 			var grid = (DataGridView)sender;
-			var column = grid.Columns[e.ColumnIndex];
-			if (column == EnabledColumn)
+			if (e.ColumnIndex == grid.Columns[EnabledColumn.Name].Index)
 			{
 				var row = grid.Rows[e.RowIndex];
-				var item = (x360ce.Engine.Data.UserGame)row.DataBoundItem;
+				var item = (x360ce.Engine.Data.Game)row.DataBoundItem;
 				// Workaround for first cell click.
 				var game = SettingManager.Games.Items.First(x => x.FileName.ToLower() == item.FileName.ToLower());
 				game.IsEnabled = !game.IsEnabled;
@@ -326,6 +329,7 @@ namespace x360ce.App.Controls
 				}
 				SettingManager.Save();
 				ShowHideAndSelectGridRows();
+				CloudStoragePanel.Add(itemsToDelete, CloudAction.Delete);
 			}
 		}
 
@@ -341,8 +345,7 @@ namespace x360ce.App.Controls
 		{
 			var grid = (DataGridView)sender;
 			var row = grid.Rows[e.RowIndex];
-			var column = grid.Columns[e.ColumnIndex];
-			var item = ((x360ce.Engine.Data.UserGame)row.DataBoundItem);
+			var item = ((x360ce.Engine.Data.Game)row.DataBoundItem);
 			var isCurrent = GameDetailsControl.CurrentGame != null && item.GameId == GameDetailsControl.CurrentGame.GameId;
 			e.CellStyle.ForeColor = item.IsEnabled
 					? grid.DefaultCellStyle.ForeColor
@@ -353,12 +356,12 @@ namespace x360ce.App.Controls
 			//e.CellStyle.ForeColor = string.IsNullOrEmpty(item.FullPath)
 			//	? System.Drawing.Color.Gray
 			//	: grid.DefaultCellStyle.ForeColor;
-			//if (column == ProgramIdColumn)
+			//if (e.ColumnIndex == grid.Columns[ProgramIdColumn.Name].Index)
 			//{
 			//	UpdateCellStyle(grid, e, SettingSelection == null ? null : (Guid?)SettingSelection.PadSettingChecksum);
 			//}
 			//else
-			if (column == MyIconColumn)
+			if (e.ColumnIndex == grid.Columns[MyIconColumn.Name].Index)
 			{
 				e.Value = isCurrent ? SaveGamesButton.Image : Properties.Resources.empty_16x16;
 			}
@@ -372,7 +375,7 @@ namespace x360ce.App.Controls
 		void ShowHideAndSelectGridRows(string selectFile = null)
 		{
 			var grid = GamesDataGridView;
-			var selection = string.IsNullOrEmpty(selectFile)
+            var selection = string.IsNullOrEmpty(selectFile)
 				? JocysCom.ClassLibrary.Controls.ControlsHelper.GetSelection<string>(grid, "FileName")
 				: new List<string>() { selectFile };
 			grid.CurrentCell = null;
@@ -387,20 +390,20 @@ namespace x360ce.App.Controls
 			var showDisabled = ShowGamesDropDownButton.Text.Contains("Disabled");
 			for (int i = 0; i < rows.Length; i++)
 			{
-				var item = (x360ce.Engine.Data.UserGame)rows[i].DataBoundItem;
+				var item = (x360ce.Engine.Data.Game)rows[i].DataBoundItem;
 				var show = true;
 				if (showEnabled) show = (item.IsEnabled == true);
 				if (showDisabled) show = (item.IsEnabled == false);
-				if (rows[i].Visible != show)
+				if (rows[i].Visible  != show)
 				{
 					rows[i].Visible = show;
-				}
+                }
 			}
 			// Resume CurrencyManager and Layout.
 			cm.ResumeBinding();
 			grid.ResumeLayout();
 			// Restore selection.
-			JocysCom.ClassLibrary.Controls.ControlsHelper.RestoreSelection(grid, "FileName", selection);
+			JocysCom.ClassLibrary.Controls.ControlsHelper.RestoreSelection<string>(grid, "FileName", selection);
 		}
 
 		private void GamesDataGridView_KeyDown(object sender, KeyEventArgs e)
@@ -477,7 +480,8 @@ namespace x360ce.App.Controls
 				{
 					var compressedBytes = System.IO.File.ReadAllBytes(dialog.FileName);
 					var bytes = EngineHelper.Decompress(compressedBytes);
-					programs = Serializer.DeserializeFromXmlBytes<List<x360ce.Engine.Data.Program>>(bytes);
+					var xml = System.Text.Encoding.UTF8.GetString(bytes);
+					programs = Serializer.DeserializeFromXmlString<List<x360ce.Engine.Data.Program>>(xml, System.Text.Encoding.UTF8);
 				}
 				else if (dialog.FileName.EndsWith(".ini") || dialog.FileName.EndsWith(".gdb"))
 				{
@@ -512,14 +516,14 @@ namespace x360ce.App.Controls
 				}
 				if (dialog.FileName.EndsWith(".gz"))
 				{
-					var s = Serializer.SerializeToXmlString(programs, System.Text.Encoding.UTF8, true);
+					var s = Serializer.SerializeToXmlString(programs, System.Text.Encoding.UTF8);
 					var bytes = System.Text.Encoding.UTF8.GetBytes(s);
 					var compressedBytes = EngineHelper.Compress(bytes);
 					System.IO.File.WriteAllBytes(dialog.FileName, compressedBytes);
 				}
 				else
 				{
-					Serializer.SerializeToXmlFile(programs, dialog.FileName, System.Text.Encoding.UTF8, true);
+					Serializer.SerializeToXmlFile(programs, dialog.FileName, System.Text.Encoding.UTF8);
 				}
 			}
 		}
@@ -589,7 +593,7 @@ namespace x360ce.App.Controls
 			var header = string.Format("{0: yyyy-MM-dd HH:mm:ss}: '{1}' program(s) loaded.", DateTime.Now, programs.Count());
 			MainForm.Current.UpdateHelpHeader(header, MessageBoxIcon.Information);
 			ProgramsDataGridView.DataSource = SettingManager.Programs.Items;
-			JocysCom.ClassLibrary.Controls.ControlsHelper.RestoreSelection(grid, "FileName", selection);
+			JocysCom.ClassLibrary.Controls.ControlsHelper.RestoreSelection<string>(grid, "FileName", selection);
 			SettingManager.Save(true);
 		}
 
@@ -603,16 +607,16 @@ namespace x360ce.App.Controls
 			if (IncludeEnabledCheckBox.CheckState == CheckState.Unchecked) enabled = EnabledState.Disabled;
 			int minInstances = (int)MinimumInstanceCountNumericUpDown.Value;
 			ws.GetProgramsCompleted += ProgramsWebServiceClient_GetProgramsCompleted;
-			System.Threading.ThreadPool.QueueUserWorkItem(delegate (object state)
+			System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
 			{
 				ws.GetProgramsAsync(enabled, minInstances);
 			});
 		}
 
-		void ProgramsWebServiceClient_GetProgramsCompleted(object sender, SoapHttpClientEventArgs e)
+		void ProgramsWebServiceClient_GetProgramsCompleted(object sender, ResultEventArgs e)
 		{
 			// Make sure method is executed on the same thread as this control.
-			ControlsHelper.BeginInvoke(() =>
+			BeginInvoke((MethodInvoker)delegate()
 			{
 				MainForm.Current.LoadingCircle = false;
 				if (e.Error != null)

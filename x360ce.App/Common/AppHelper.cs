@@ -7,9 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using x360ce.Engine;
+using x360ce.Engine.Win32;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using JocysCom.ClassLibrary.Win32;
 
 namespace x360ce.App
 {
@@ -66,26 +66,24 @@ namespace x360ce.App
 
 		public static DeviceObjectItem[] GetDeviceObjects(Joystick device)
 		{
-			var items = new List<DeviceObjectItem>();
-			if (device == null)
-				return items.ToArray();
 			var og = typeof(SharpDX.DirectInput.ObjectGuid);
 			var guidFileds = og.GetFields().Where(x => x.FieldType == typeof(Guid));
-			List<Guid> typeGuids = guidFileds.Select(x => (Guid)x.GetValue(og)).ToList();
-			List<string> typeName = guidFileds.Select(x => x.Name).ToList();
-			var objects = device.GetObjects(DeviceObjectTypeFlags.All).OrderBy(x => x.ObjectId.Flags).ThenBy(x => x.ObjectId.InstanceNumber).ToArray();
+			List<Guid> guids = guidFileds.Select(x => (Guid)x.GetValue(og)).ToList();
+			List<string> names = guidFileds.Select(x => x.Name).ToList();
+			var objects = device.GetObjects(DeviceObjectTypeFlags.All).OrderBy(x => x.Offset).ToArray();
+			var items = new List<DeviceObjectItem>();
 			foreach (var o in objects)
 			{
-                var item = new DeviceObjectItem()
-                {
-                    Name = o.Name,
-                    Offset = o.Offset,
-                    Aspect = o.Aspect,
-                    Flags = o.ObjectId.Flags,
-                    ObjectId = (int)o.ObjectId,
-                    Instance = o.ObjectId.InstanceNumber,
-					Type = o.ObjectType,
-
+				var item = new DeviceObjectItem()
+				{
+					Name = o.Name,
+					Offset = o.Offset,
+					Instance = o.ObjectId.InstanceNumber,
+					Usage = o.Usage,
+					Aspect = o.Aspect,
+					Flags = o.ObjectId.Flags,
+					GuidValue = o.ObjectType,
+					GuidName = guids.Contains(o.ObjectType) ? names[guids.IndexOf(o.ObjectType)] : o.ObjectType.ToString(),
 				};
 				items.Add(item);
 			}

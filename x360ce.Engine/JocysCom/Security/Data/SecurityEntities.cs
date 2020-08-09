@@ -11,26 +11,26 @@ namespace JocysCom.WebSites.Engine.Security.Data
 		{
 			get
 			{
-				if (_Current == null)
-					_Current = new SecurityEntities();
-				return _Current;
+				var db = DataContextFactory<SecurityEntities>.Instance<SecurityEntities>();
+				// AppendOnly - Objects that already exist in the object context are not loaded from the data source (Default).
+				// OverwriteChanges - Objects are always loaded from the data source.
+				// PreserveChanges - Unmodified properties of objects in the object context are overwritten with server values.
+				// NoTracking - Objects are maintained in a EntityState.Detached state and are not tracked in the ObjectStateManager.
+				return db;
 			}
 		}
-		public static SecurityEntities _Current;
 
-		private static Guid _ApplicationId;
-		public static Guid ApplicationId
+		private Guid _ApplicationId;
+		public Guid ApplicationId
 		{
 			get
 			{
 				if (_ApplicationId.Equals(Guid.Empty))
 				{
-					var db = new SecurityEntities();
-					_ApplicationId = db.Applications
-						.Where(x => x.ApplicationName == System.Web.Security.Roles.ApplicationName)
-						.Select(x => x.ApplicationId).FirstOrDefault();
-					db.Dispose();
-					db = null;
+					_ApplicationId = (from t
+									  in Current.Applications
+									  where t.ApplicationName == System.Web.Security.Roles.ApplicationName
+									  select t.ApplicationId).SingleOrDefault<Guid>();
 				}
 				return _ApplicationId;
 			}

@@ -1,27 +1,15 @@
 ﻿using System;
-using System.Linq;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using x360ce.App.Properties;
 
 namespace x360ce.App
 {
 	static class Program
 	{
-
-		public static bool IsDebug
-		{
-			get
-			{
-#if DEBUG
-				return true;
-#else
-				return false;
-#endif
-			}
-		}
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -29,31 +17,46 @@ namespace x360ce.App
 		[STAThread]
 		static void Main(string[] args)
 		{
-			// First: Set working folder to the path of executable.
-			var fi = new FileInfo(Application.ExecutablePath);
-			Directory.SetCurrentDirectory(fi.Directory.FullName);
-			// Prevent brave users from running this application from Windows folder.
-			var winFolder = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-			if (fi.FullName.StartsWith(winFolder, StringComparison.OrdinalIgnoreCase))
-			{
-				MessageBox.Show("Running from Windows folder is not allowed!\r\nPlease run this program from another folder.", "Windows Folder", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				return;
-			}
-			// IMPORTANT: Make sure this class don't have any static references to x360ce.Engine library or
-			// program tries to load x360ce.Engine.dll before AssemblyResolve event is available and fails.
-			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-			if (IsDebug)
-			{
-				StartApp(args);
-				return;
-			}
 			try
 			{
-				StartApp(args);
+				//var fi = new FileInfo(Application.ExecutablePath);
+				//Directory.SetCurrentDirectory(fi.Directory.FullName);
+				// IMPORTANT: Make sure this method don't have any static references to x360ce.Engine library or
+				// program tries to load x360ce.Engine.dll before AssemblyResolve event is available and fails.
+				AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+				if (!RuntimePolicyHelper.LegacyV2RuntimeEnabledSuccessfully)
+				{
+					// Failed to enable useLegacyV2RuntimeActivationPolicy at runtime.
+				}
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				// Requires System.Configuration.Installl reference.
+				var ic = new System.Configuration.Install.InstallContext(null, args);
+				if (ic.Parameters.ContainsKey("Settings"))
+				{
+					OpenSettingsFolder(Application.UserAppDataPath);
+					OpenSettingsFolder(Application.CommonAppDataPath);
+					OpenSettingsFolder(Application.LocalUserAppDataPath);
+					return;
+				}
+				if (!CheckSettings()) return;
+				//Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+				MainForm.Current = new MainForm();
+				if (ic.Parameters.ContainsKey("Exit"))
+				{
+					MainForm.Current.BroadcastMessage(MainForm.wParam_Close);
+					return;
+				}
+				if (!IsOneCopyRunningAlready())
+				{
+					Application.Run(MainForm.Current);
+				}
 			}
 			catch (Exception ex)
 			{
-				var message = ExceptionToText(ex);
+				var message = "";
+				AddExceptionMessage(ex, ref message);
+				if (ex.InnerException != null) AddExceptionMessage(ex.InnerException, ref message);
 				var box = new Controls.MessageBoxForm();
 				if (message.Contains("Could not load file or assembly 'Microsoft.DirectX"))
 				{
@@ -63,63 +66,18 @@ namespace x360ce.App
 					box.MainLinkLabel.Visible = true;
 				}
 				var result = box.ShowForm(message, "Exception!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				if (result == DialogResult.Cancel)
-					Application.Exit();
-			}
-		}
-
-		static void StartApp(string[] args)
-		{
-			if (!RuntimePolicyHelper.LegacyV2RuntimeEnabledSuccessfully)
-			{
-				// Failed to enable useLegacyV2RuntimeActivationPolicy at runtime.
-			}
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			// Requires System.Configuration.Installl reference.
-			var ic = new System.Configuration.Install.InstallContext(null, args);
-			if (ic.Parameters.ContainsKey("Settings"))
-			{
-				OpenSettingsFolder(Application.UserAppDataPath);
-				OpenSettingsFolder(Application.CommonAppDataPath);
-				OpenSettingsFolder(Application.LocalUserAppDataPath);
-				return;
-			}
-			if (!CheckSettings())
-				return;
-			//Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-			MainForm.Current = new MainForm();
-			if (ic.Parameters.ContainsKey("Exit"))
-			{
-				MainForm.Current.BroadcastMessage(MainForm.wParam_Close);
-				return;
-			}
-			if (!IsOneCopyRunningAlready())
-			{
-				Application.Run(MainForm.Current);
+				if (result == DialogResult.Cancel) Application.Exit();
 			}
 		}
 
 		public static bool IsOneCopyRunningAlready()
 		{
 			var ini = new x360ce.Engine.Ini(SettingManager.IniFileName);
-			var oneCopy = !ini.File.Exists || ini.GetValue("Options", Engine.SettingName.AllowOnlyOneCopy) == "1";
+			var oneCopy = !ini.File.Exists || ini.GetValue("Options", SettingName.AllowOnlyOneCopy) == "1";
 			return (oneCopy && MainForm.Current.BroadcastMessage(MainForm.wParam_Restore));
 		}
 
 		public static bool IsClosing;
-
-		#region ExceptionToText
-
-		// Exception to string needed here so that links to other references won't be an issue.
-
-		static string ExceptionToText(Exception ex)
-		{
-			var message = "";
-			AddExceptionMessage(ex, ref message);
-			if (ex.InnerException != null) AddExceptionMessage(ex.InnerException, ref message);
-			return message;
-		}
 
 		/// <summary>Add information about missing libraries and DLLs</summary>
 		static void AddExceptionMessage(Exception ex, ref string message)
@@ -129,7 +87,7 @@ namespace x360ce.App
 			var m = "";
 			if (ex1 != null)
 			{
-				m += string.Format("FileName: {0}\r\n", ex1.Filename);
+				m += string.Format("Filename: {0}\r\n", ex1.Filename);
 				m += string.Format("Line: {0}\r\n", ex1.Line);
 			}
 			else if (ex2 != null)
@@ -151,8 +109,6 @@ namespace x360ce.App
 				message += m;
 			}
 		}
-
-		#endregion
 
 		public static object DeviceLock = new object();
 
@@ -184,7 +140,7 @@ namespace x360ce.App
 		{
 			try
 			{
-				Properties.Settings.Default.Reload();
+				Settings.Default.Reload();
 			}
 			catch (ConfigurationErrorsException ex)
 			{
@@ -201,7 +157,7 @@ namespace x360ce.App
 				if (result == DialogResult.Yes)
 				{
 					File.Delete(filename);
-					Properties.Settings.Default.Reload();
+					Settings.Default.Reload();
 				}
 				else
 				{
@@ -218,57 +174,52 @@ namespace x360ce.App
 		static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs e)
 		{
 			string dllName = e.Name.Contains(",") ? e.Name.Substring(0, e.Name.IndexOf(',')) : e.Name.Replace(".dll", "");
-			Stream sr = null;
+			string path = null;
 			switch (dllName)
 			{
+				case "vJoyInterface":
+				case "vJoyInterfaceWrap":
+					path = GetResourceName("vJoy", dllName+".dll");
+					break;
 				case "x360ce.Engine":
+					path = "Resources.x360ce.Engine.dll";
+					break;
 				case "x360ce.Engine.XmlSerializers":
+					path = "Resources.x360ce.Engine.XmlSerializers.dll";
+					break;
 				case "SharpDX":
+					path = "Resources.SharpDX.SharpDX.dll";
+					break;
 				case "SharpDX.DirectInput":
-				case "SharpDX.RawInput":
-					sr = GetResourceStream(dllName + ".dll");
+					path = "Resources.SharpDX.SharpDX.DirectInput.dll";
 					break;
 				default:
 					break;
 			}
+			if (path == null) return null;
+			var assembly = Assembly.GetExecutingAssembly();
+			var sr = assembly.GetManifestResourceStream(typeof(MainForm).Namespace + "." + path);
 			if (sr == null)
+			{
 				return null;
+			}
 			byte[] bytes = new byte[sr.Length];
 			sr.Read(bytes, 0, bytes.Length);
 			var asm = Assembly.Load(bytes);
 			return asm;
 		}
 
-		/// <summary>
-		/// Get 32-bit or 64-bit resource depending on x360ce.exe platform.
-		/// </summary>
-		public static Stream GetResourceStream(string name)
+		public static string GetResourceName(string folder, string name)
 		{
-			var path = GetResourcePath(name);
-			if (path == null)
-				return null;
 			var assembly = Assembly.GetEntryAssembly();
-			var sr = assembly.GetManifestResourceStream(path);
-			return sr;
+			var architecture = assembly.GetName().ProcessorArchitecture;
+			// There must be an easier way to check embedded non managed DLL version.
+			var paString = "";
+			if (architecture == ProcessorArchitecture.Amd64) paString = "_x64";
+			if (architecture == ProcessorArchitecture.X86) paString = "_x86";
+			return string.Format("Resources.{0}{1}.{2}", folder, paString, name);
 		}
 
-		/// <summary>
-		/// Get 32-bit or 64-bit resource depending on x360ce.exe platform.
-		/// </summary>
-		public static string GetResourcePath(string name)
-		{
-			var assembly = Assembly.GetEntryAssembly();
-			var names = assembly.GetManifestResourceNames()
-				.Where(x => x.EndsWith(name));
-			var architecture = assembly.GetName().ProcessorArchitecture;
-			var a = architecture == ProcessorArchitecture.Amd64 ? ".x64." : ".x86.";
-			// Try to get by architecture first.
-			var path = names.FirstOrDefault(x => x.Contains(a));
-			if (!string.IsNullOrEmpty(path))
-				return path;
-			// Return first found.
-			return names.FirstOrDefault();
-		}
 
 	}
 }

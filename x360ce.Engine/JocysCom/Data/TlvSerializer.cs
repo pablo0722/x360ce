@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -58,24 +59,25 @@ namespace JocysCom.ClassLibrary.Data
 			result = null;
 			int typeI;
 			byte[] value;
-			// Read header.
+			//Trace.Write ("Read Header\r\n");
 			var error = ReadTlv(stream, out typeI, out value);
 			if (error != TlvSerializerError.None)
 				return error;
-			// Get type from type number.
+			//Trace.Write ("Get type from type number\r\n");
 			var typeE = (Te)(object)typeI;
 			if (!Types.ContainsValue(typeE))
 				return TlvSerializerError.EnumIdNotFound;
 			var typeT = Types.First(x => x.Value.Equals(typeE)).Key;
 			var o = Activator.CreateInstance(typeT);
-			// Read properties from stream.
+			//Trace.Write (String.Format ("Read properties from stream\r\n"));
+			UpdateMembersCache(typeT);
 			var infos = MemberInfos[typeT];
 			var tags = MemberTags[typeT];
 			int tag;
-			UpdateMembersCache(typeT);
 			var membersStream = new MemoryStream(value);
 			byte[] mBytes;
 			object mValue;
+			//Trace.Write ("Looping\r\n");
 			while (membersStream.Position < value.Length)
 			{
 				error = ReadTlv(membersStream, out tag, out mBytes);
@@ -108,6 +110,7 @@ namespace JocysCom.ClassLibrary.Data
 				}
 			}
 			result = o;
+			//Trace.Write ("Deserialized OK\r\n");
 			return TlvSerializerError.None;
 		}
 
@@ -250,6 +253,7 @@ namespace JocysCom.ClassLibrary.Data
 			{
 				// Read byte.
 				b = stream.ReadByte();
+				//Trace.Write (String.Format ("byte: {0:X2}\r\n", b));
 				// if end of stream and no more bytes to read then...
 				if (b == -1)
 					return TlvSerializerError.Decoder7BitStreamIsTooShortError;
@@ -332,11 +336,11 @@ namespace JocysCom.ClassLibrary.Data
 		/// <returns>Array of properties.</returns>
 		void UpdateMembersCache(Type type)
 		{
-			if (MemberInfos.ContainsKey(type))
+			if (MemberInfos.ContainsKey (type))
 				return;
 			var orders = new Dictionary<int, MemberInfo>();
 			var members = type.GetMembers(BindingFlags.Public | BindingFlags.Instance)
-				.Where(x => x.MemberType == MemberTypes.Field || x.MemberType == MemberTypes.Property).ToArray();
+			.Where(x => x.MemberType == MemberTypes.Field || x.MemberType == MemberTypes.Property).ToArray();
 			for (int i = 0; i < members.Length; i++)
 			{
 				var pi = members[i];
@@ -347,13 +351,13 @@ namespace JocysCom.ClassLibrary.Data
 					var attribute = (DataMemberAttribute)attributes[0];
 					if (attribute.Order > -1)
 					{
-						if (orders.ContainsKey(attribute.Order))
+						if (orders.ContainsKey (attribute.Order))
 						{
 							var message = string.Format("Order property on DataMemberAttribute[Order={0}]{1}.{2} must be unique for TLV serialization to work!",
-								attribute.Order, type.Name, pi.MemberType);
-							throw new Exception();
+							attribute.Order, type.Name, pi.MemberType);
+							throw new Exception ();
 						}
-						orders.Add(attribute.Order, pi);
+						orders.Add (attribute.Order, pi);
 					}
 				}
 			}
@@ -361,19 +365,19 @@ namespace JocysCom.ClassLibrary.Data
 			if (orders.Count == 0)
 			{
 				// Add all.
-				MemberInfos.Add(type, members.ToList());
+				MemberInfos.Add (type, members.ToList ());
 				var tags = new int[members.Length];
 				for (int i = 0; i < members.Length; i++)
-					tags[i] = i;
-				MemberTags.Add(type, tags.ToList());
+					tags [i] = i;
+				MemberTags.Add (type, tags.ToList ());
 			}
 			else
 			{
 				var dataMembers = orders.OrderBy(x => x.Key);
 				var oInfos = dataMembers.Select(x => x.Value).ToArray();
 				var oTags = dataMembers.Select(x => x.Key).ToArray();
-				MemberInfos.Add(type, oInfos.ToList());
-				MemberTags.Add(type, oTags.ToList());
+				MemberInfos.Add (type, oInfos.ToList ());
+				MemberTags.Add (type, oTags.ToList ());
 			}
 		}
 
@@ -493,9 +497,9 @@ namespace JocysCom.ClassLibrary.Data
 					//}
 					else
 					{
-						var ms2 = new MemoryStream();
+						//var ms2 = new MemoryStream();
 						object o2;
-						var status2 = Deserialize(ms2, out o2);
+						var status2 = Deserialize(stream, out o2);
 						if (status2 != TlvSerializerError.None)
 						{
 							result = null;

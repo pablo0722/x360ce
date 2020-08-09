@@ -3,54 +3,50 @@ namespace JocysCom.ClassLibrary.IO
 {
 	public class DeviceInfo
 	{
-		public DeviceInfo()
+
+		public DeviceInfo(string deviceId, string manufacturer, string description, Guid classGuid, string classDescription, Win32.DeviceNodeStatus status, uint vid, uint pid, uint rev)
 		{
-			// Set all string values to empty for entities.
-			Manufacturer = "";
-			Description = "";
-			FriendlyName = "";
-			DeviceId = "";
-			HardwareIds = "";
-			DevicePath = "";
-			ParentDeviceId = "";
-			ParentHardwareId = "";
-			ClassDescription = "";
+			_DeviceId = deviceId ?? "";
+			_Description = description ?? "";
+			_Manufacturer = manufacturer ?? "";
+            _ClassGuid = classGuid;
+			_ClassDescription = classDescription ?? "";
+			_Status = status;
+			_VendorId = vid;
+			_ProductId = pid;
+			_Revision = rev;
 		}
 
-		public string Manufacturer { get; set; }
+		private string _Manufacturer;
+		public string Manufacturer { get { return _Manufacturer; } }
 
-		public uint VendorId { get; set; }
+		private uint _VendorId;
+		public uint VendorId { get { return _VendorId; } }
 
-		public uint ProductId { get; set; }
+		private uint _ProductId;
+		public uint ProductId { get { return _ProductId; } }
 
-		public uint Revision { get; set; }
+		private uint _Revision;
+		public uint Revision { get { return _Revision; } }
 
-		public string Description { get; set; }
+		private string _Description;
+		public string Description { get { return _Description; } }
 
-		public string FriendlyName { get; set; }
+		private string _DeviceId;
+		public string DeviceId { get { return _DeviceId; } }
 
-		public string DeviceId { get; set; }
+		private Guid _ClassGuid;
+		public Guid ClassGuid { get { return _ClassGuid; } }
 
-		public string HardwareIds { get; set; }
+		private string _ClassDescription;
+		public string ClassDescription { get { return _ClassDescription; } }
 
-		public uint DeviceHandle { get; set; }
+		private Win32.DeviceNodeStatus _Status;
+		public Win32.DeviceNodeStatus Status { get { return _Status; } }
 
-		/// <summary>Device HID Interface Path.</summary>
-		public string DevicePath { get; set; }
-
-		public string ParentDeviceId { get; set; }
-
-		public string ParentHardwareId { get; set; }
-
-		public Guid ClassGuid { get; set; }
-
-		public string ClassDescription { get; set; }
-
-		public Win32.DeviceNodeStatus Status { get; set; }
-
-		public bool IsHidden { get { return ((Status & Win32.DeviceNodeStatus.DN_NO_SHOW_IN_DM) != 0); } }
-		public bool IsRemovable { get { return (Status == 0 && Description.Length > 0) || ((Status & Win32.DeviceNodeStatus.DN_REMOVABLE) != 0); } }
-		public bool IsPresent { get { return (Status != 0); } }
+		public bool IsHidden { get { return ((_Status & Win32.DeviceNodeStatus.DN_NO_SHOW_IN_DM) != 0); } }
+		public bool IsRemovable { get { return (_Status == 0 && Description.Length > 0) || ((_Status & Win32.DeviceNodeStatus.DN_REMOVABLE) != 0); } }
+		public bool IsPresent { get { return (_Status  != 0); } }
 
 	}
 }
